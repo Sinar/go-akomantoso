@@ -1,58 +1,89 @@
-
-<akomaNtoso>
-  <debate>
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     Akoma Ntoso Version 1.0. Part 2: Specifications
+     OASIS Standard
+     29 August 2018
+     Copyright (c) OASIS Open 2018. All Rights Reserved.
+     Source: http://docs.oasis-open.org/legaldocml/akn-core/v1.0/os/part2-specs/examples/
+     Latest version of the specification:  http://docs.oasis-open.org.legaldocml/akn-core/v1.0/akn-core-v1.0-part2-specs.html
+     TC IPR Statement: https://www.oasis-open.org/committees/legaldocml/ipr.php
+-->
+<akomaNtoso xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://docs.oasis-open.org/legaldocml/ns/akn/3.0 ../schema.xsd " xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0" >
+    <debate name="bob">
     <meta>
-      <references>
+        <identification source="#palmirani">
+            <FRBRWork>
+                <FRBRthis value="/akn/ke/debaterecord/2011-06-10/!main"/>
+                <FRBRuri value="/akn/ke/debaterecord/2011-06-10"/>
+                <FRBRdate date="2011-06-10" name="generation"/>
+                <FRBRauthor href="#parliament" as="#author"/>
+                <FRBRcountry value="ak"/>
+            </FRBRWork>
+            <FRBRExpression>
+                <FRBRthis value="/akn/ke/minutes/2011-06-10/eng@/!main"/>
+                <FRBRuri value="/akn/ke/minutes/2011-06-10/eng@"/>
+                <FRBRdate date="2011-06-25" name="markup"/>
+                <FRBRauthor href="#palmirani" as="#editor"/>
+                <FRBRlanguage language="eng"/>
+            </FRBRExpression>
+            <FRBRManifestation>
+                <FRBRthis value="/akn/ke/minutes/2011-06-10/eng@/!main.xml"/>
+                <FRBRuri value="/akn/ke/minutes/2011-06-10/eng@.akn"/>
+                <FRBRdate date="2011-06-25" name="publication"/>
+                <FRBRauthor href="#palmirani" as="#editor"/>
+            </FRBRManifestation>
+        </identification>
+      <references source="">
       
-        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/iris" id="iris" showAs="IRIS"/>
+        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/iris" showAs="IRIS"/>
       
-        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/mariners" id="mariners" showAs="Mariners"/>
+        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/mariners"  showAs="Mariners"/>
       
-        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/miranda" id="miranda" showAs="MIRANDA"/>
+        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/miranda"  showAs="MIRANDA"/>
       
-        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/antonio-3" id="antonio-3" showAs="ANTONIO"/>
+        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/antonio-3"  showAs="ANTONIO"/>
       
-        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/alonso" id="alonso" showAs="ALONSO"/>
+        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/alonso"  showAs="ALONSO"/>
       
-        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/francisco-2" id="francisco-2" showAs="FRANCISCO"/>
+        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/francisco-2"  showAs="FRANCISCO"/>
       
-        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/gonzalo" id="gonzalo" showAs="GONZALO"/>
+        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/gonzalo"  showAs="GONZALO"/>
       
-        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/juno" id="juno" showAs="JUNO"/>
+        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/juno"  showAs="JUNO"/>
       
-        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/ceres" id="ceres" showAs="CERES"/>
+        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/ceres"  showAs="CERES"/>
       
-        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/ferdinand-2" id="ferdinand-2" showAs="FERDINAND"/>
+        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/ferdinand-2"  showAs="FERDINAND"/>
       
-        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/master-2" id="master-2" showAs="Master"/>
+        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/master-2"  showAs="Master"/>
       
-        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/ariel" id="ariel" showAs="ARIEL"/>
+        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/ariel"  showAs="ARIEL"/>
       
-        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/sebastian" id="sebastian" showAs="SEBASTIAN"/>
+        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/sebastian"  showAs="SEBASTIAN"/>
       
-        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/boatswain" id="boatswain" showAs="Boatswain"/>
+        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/boatswain"  showAs="Boatswain"/>
       
-        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/adrian" id="adrian" showAs="ADRIAN"/>
+        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/adrian"  showAs="ADRIAN"/>
       
-        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/stephano-2" id="stephano-2" showAs="STEPHANO"/>
+        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/stephano-2"  showAs="STEPHANO"/>
       
-        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/trinculo" id="trinculo" showAs="TRINCULO"/>
+        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/trinculo" showAs="TRINCULO"/>
       
-        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/prospero" id="prospero" showAs="PROSPERO"/>
+        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/prospero"  showAs="PROSPERO"/>
       
-        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/caliban" id="caliban" showAs="CALIBAN"/>
+        <TLCPerson href="/ontology/person/shakespeare.sayit.mysociety.org/caliban"  showAs="CALIBAN"/>
       
       </references>
     </meta>
     <debateBody>
-      <debateSection>
+      <debateSection name="">
         
         <heading>The Tempest</heading>
         
 
     
       
-        <debateSection>
+        <debateSection name="">
           
           <heading>ACT I</heading>
           
@@ -62,7 +93,7 @@
       
     
       
-        <debateSection>
+        <debateSection name="">
           
           <heading>SCENE I.  On a ship at sea: a tempestuous noise of thunder and lightning heard.</heading>
           

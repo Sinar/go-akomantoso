@@ -1,5 +1,30 @@
 # go-akomantoso
-AkomaNtoso go-libs for pardocs + dundocs data extraction
+AkomaNtoso go-libs for pardocs + dundocs data extraction.
+For now, will mix up the usage; the input will be the extracted multiline content per question/answer.
+
+NOTE: It is only using a subset of AKN; as per described in 
+
+Should pass validation of AKN 3.0 schema; as per in schema.xsd; using example 
+--> https://github.com/lestrrat-go/libxml2 (needs C; skip!)
+--> https://github.com/terminalstatic/go-xsd-validate (needs C; skip!)
+--> https://github.com/krolaw/xsd (needs C; skip!)
+
+Would need something like --> https://xmlschema.readthedocs.io/en/latest/intro.html ; for native validation
+
+Java Validators 
+- https://github.com/amouat/xsd-validator
+- https://github.com/docjason/XmlValidate
+
+Sample given by SayIt does NOT comply with the latest AKN standard!
+
+```bash
+# Works --> https://github.com/amouat/xsd-validator
+$ ./xsdv.sh ../go-akomantoso/schema.xsd ../go-akomantoso/testdata/the-tempest.an.xml
+```
+If just to extract into struct; this looks OK --> https://github.com/wagner-aos/go-xsd
+
+Use https://github.com/shabbyrobe/cmdy to run this as a standalone on the spilit output from
+go-pardocs + go-dundocs ..
 
 ## How to convert data to the standard we use – Akoma Ntoso
 

@@ -23,5 +23,6 @@ type Debate struct {
 // QuestionAnswer will have a fixed structure; who asked, which Ministry, who answered; answer ..
 type QuestionAnswer struct {
 	Heading        string
+	SubHeading     string
 	DebateSections []DebateSection
 }
