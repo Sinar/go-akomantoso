@@ -1,0 +1,5 @@
+package akomantoso
+
+func ExportAkomantoso() {
+
+}
