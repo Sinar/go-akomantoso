@@ -1,0 +1,46 @@
+<!-- example of oral answers to questions -->
+<debateSection name="questionAnswer" eId="dbsect_6">
+    <heading>ORAL ANSWERS TO QUESTIONS</heading>
+    <debateSection name="minedu" eId="dbsect_6__dbsect_1">
+        <heading>MINISTRY OF EDUCATION AND SPORTS</heading>
+        <debateSection name="questionAnswer" eId="dbsect_6__dbsect_1__dbsect_1">
+            <heading>Professional Training in the Republic of BUNGENI</heading>
+            <question eId="dbsect_6__dbsect_1__dbsect_1__question_1" by="#kappa" to="#ministerEducation">
+                <from>Mr. Kappa</from>
+                <p>asked the Minister for Education and
+                    Sports the organic relations between the BUNGENI National Association
+                    of Teachers (BNAT) and the International Association of Graduate Teachers
+                    (IAGRAT) in pursuance of the professional and trade union rights of
+                    teachers in the country and trade union rights of teachers in the
+                    country, because the two are not the same. And in his Answer, he
+                    referred to professional rights of both members. Does it mean that
+                    the IAGRAT has no trade union rights as his Answer states? Because,
+                    the two are not the same. Professional rights are different from
+                    trade</p>
+            </question>
+            <answer by="#eta" as="#ministerEducation" eId="dbsect_6__dbsect_1__dbsect_1__answer_1">
+                <from>Mr. Eta</from>
+                <p>Mr. Speaker, BNAT was the only umbrella professional body for
+                    teachers in the country until when some graduate teachers started
+                    agitation for recognition and finally broke away and formed the
+                    National Association of Graduate Teachers (NAGRAT). </p>
+                <p> Currently, there are two (2) associations serving the interest of
+                    teachers in the BES<noteRef href="#not01" marker="1"/>.
+                    Whereas members of IAGRAT consist of a section
+                    of graduate teachers, BNATcovers nongraduates as well as graduate teachers.</p>
+                <p> The professional rights of both members of BNAT and IAGRAT are
+                    assured as outlined in the Conditions and Scheme of Service for
+                    teachers. In the event, where a member of the Service has a problem,
+                    he approaches the association to which he belongs and that
+                    association handles the problem with BES in the light of the
+                    Conditions of Service.</p>
+                <p> In the area of professional development, BNAT organizes in-service
+                    training for its members.</p>
+                <p> Mr. Speaker, BNAT joins the ‘FORUM’ comprising the Judicial Service
+                    Staff Association of BUNGENI (JUSSAB), the Registered Nurses
+                    Association (BRNA) and the Civil Servants Association (CSA) for the
+                    negotiation of salaries for all teachers.</p>
+            </answer>
+        </debateSection>
+    </debateSection>
+</debateSection>

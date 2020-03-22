@@ -22,8 +22,22 @@ package akomantoso
 //narrative (e.g. “Mr X takes the Chair”)
 //summary (e.g. “Question agreed to”)
 //Lastly, the other element is the container for parts of a debate that are not speeches nor scene comments (e.g. lists of papers). It requires an id attribute, and contains block elements.
+type Speech struct {
+	ID string
+}
 
-type Speech struct{}
+// TODO: Map as Popolo?
+type Entity string
+type Role string
+
+type SpeechType string
+
+type SpeechLikeElement struct {
+	SpeechType SpeechType // Valid are speech, question, answer
+	By         Entity     // Required
+	As         Role
+	To         Entity
+}
 
 // Example:
 //<narrative>…</narrative>

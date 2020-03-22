@@ -10,9 +10,11 @@ import "fmt"
 //preface / coverPage
 //The preface or coverPage element can contain block element children. Within that, you may use various inline elements to signify things such as the title, type, number, purpose, or jurisdiction of the document – SayIt currently only spots the docDate or docTitle elements.
 
+type Meta struct{}
 type Preface struct{}
 
 type AkomaNtoso struct {
+	Meta    Meta
 	Preface Preface
 	Debate  Debate
 }

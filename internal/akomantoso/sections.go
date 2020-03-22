@@ -5,8 +5,13 @@ package akomantoso
 
 // DebateSection can include DebateSections!! or Speech for leaf nodes?
 type DebateSection struct {
-	DebateSections []DebateSection
+	ID             string
+	Name           string
+	Num            string
+	Heading        string
+	SubHeading     string
 	Speech         Speech
+	DebateSections []DebateSection
 }
 
 // EXAMPLE:

@@ -17,7 +17,7 @@ package akomantoso
 
 // Debate cam be made out of many categories; here Generics may be of use ..
 type Debate struct {
-	QuestionAnswer QuestionAnswer
+	QuestionAnswers QuestionAnswer
 }
 
 // QuestionAnswer will have a fixed structure; who asked, which Ministry, who answered; answer ..
