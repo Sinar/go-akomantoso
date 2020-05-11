@@ -7,9 +7,9 @@ package akomantoso
 type DebateSection struct {
 	ID             string
 	Name           string
-	Num            string
-	Heading        string
-	SubHeading     string
+	Num            Num
+	Heading        Heading
+	SubHeading     SubHeading
 	Speech         Speech
 	DebateSections []DebateSection
 }

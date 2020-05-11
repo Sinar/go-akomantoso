@@ -22,22 +22,27 @@ package akomantoso
 //narrative (e.g. “Mr X takes the Chair”)
 //summary (e.g. “Question agreed to”)
 //Lastly, the other element is the container for parts of a debate that are not speeches nor scene comments (e.g. lists of papers). It requires an id attribute, and contains block elements.
-type Speech struct {
-	ID string
-}
 
 // TODO: Map as Popolo?
 type Entity string
 type Role string
 
 type SpeechType string
-
-type SpeechLikeElement struct {
-	SpeechType SpeechType // Valid are speech, question, answer
-	By         Entity     // Required
-	As         Role
-	To         Entity
+type SpeechElement struct {
+	SpeechType   SpeechType // Valid are speech, question, answer
+	By           Entity     // Required
+	As           Role
+	To           Entity
+	From         string // Optional: Taken from the transcript; rendered as <from></from>
+	ContentBlock ContentBlock
 }
+
+type DescriptiveType string
+type DescriptiveElement struct {
+	DescriptiveType DescriptiveType
+	ContentBlock    ContentBlock
+}
+type OtherElement struct{}
 
 // Example:
 //<narrative>…</narrative>
@@ -55,30 +60,10 @@ type SpeechLikeElement struct {
 //<p>……</p>
 //</speech>
 
-// =================================
-// Block Elements
-//Block elements handled by SayIt are the HTML elements:
-//
-//p
-//ul
-//ol
-//table
-//All these besides p require an id attribute. ul and ol contain lis as in HTML (which can optionally have a value attribue), and lis can contain p, ul, ol, or inline text.
-//Other Akoma Ntoso block elements are ignored (though not their contents).
-
-type ContentBlock struct{}
-
-// Example:
-//<speech by="#…" as="#…">
-//<from>Mr Block</from>
-//<p>Here is a list:</p>
-//<ul id="">
-//<li>First item</li>
-//<li>Second item</li>
-//</ul>
-//<p>And here is a table:</p>
-//<table id="">
-//<tr> <td>A</td> <td>B</td> </tr>
-//<tr> <td>A</td> <td>D</td> </tr>
-//</table>
-//</speech>
+// SpeechLikeElement union of SpeechElement + DescriptiveElement + OtherElement; pick one only ..
+type Speech struct {
+	ID                 string
+	SpeechElement      SpeechElement
+	DescriptiveElement DescriptiveElement
+	OtherElement       OtherElement
+}
