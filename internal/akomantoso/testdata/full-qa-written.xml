@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     Akoma Ntoso Version 1.0. Part 2: Specifications
+     OASIS Standard
+     29 August 2018
+     Copyright (c) OASIS Open 2018. All Rights Reserved.
+     Source: http://docs.oasis-open.org/legaldocml/akn-core/v1.0/os/part2-specs/examples/
+     Latest version of the specification:  http://docs.oasis-open.org.legaldocml/akn-core/v1.0/akn-core-v1.0-part2-specs.html
+     TC IPR Statement: https://www.oasis-open.org/committees/legaldocml/ipr.php
+-->
+<akomaNtoso xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://docs.oasis-open.org/legaldocml/ns/akn/3.0 ../schema.xsd "
+            xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0">
+    <debate name="hansard">
+        <meta>
+            <identification source="#dun">
+                <FRBRWork>
+                    <FRBRthis value="/akn/ke/debaterecord/2011-06-10/!main"/>
+                    <FRBRuri value="/akn/ke/debaterecord/2011-06-10"/>
+                    <FRBRdate date="2011-06-10" name="generation"/>
+                    <FRBRauthor href="#dun" as="#author"/>
+                    <FRBRcountry value="my"/>
+                </FRBRWork>
+                <FRBRExpression>
+                    <FRBRthis value="/akn/ke/minutes/2011-06-10/eng@/!main"/>
+                    <FRBRuri value="/akn/ke/minutes/2011-06-10/eng@"/>
+                    <FRBRdate date="2011-06-25" name="markup"/>
+                    <FRBRauthor href="#dun" as="#editor"/>
+                    <FRBRlanguage language="eng"/>
+                </FRBRExpression>
+                <FRBRManifestation>
+                    <FRBRthis value="/akn/ke/minutes/2011-06-10/eng@/!main.xml"/>
+                    <FRBRuri value="/akn/ke/minutes/2011-06-10/eng@.akn"/>
+                    <FRBRdate date="2011-06-25" name="publication"/>
+                    <FRBRauthor href="#dun" as="#editor"/>
+                </FRBRManifestation>
+            </identification>
+            <references source="">
+                <TLCPerson eId="sungai-pelek" href="/ontology/person/test2-pardocs.sayit.mysociety.org/sungai-pelek" showAs="Y.B. TUAN RONNIE LIU TIAN KHIEW (N56 SUNGAI PELEK)" />
+                <TLCPerson eId="menteri-besar-person" href="/ontology/person/test2-pardocs.sayit.mysociety.org/menteri-besar" showAs="Y.A.B. Dato' Menteri Besar" />
+                <TLCPerson eId="speaker-person" href="/ontology/person/test2-pardocs.sayit.mysociety.org/speaker" showAs="Y.A.B. TUAN SPEAKER" />
+                <TLCRole href="speaker" showAs="Y.A.B. TUAN SPEAKER" />
+                <TLCRole eId="menteri-besar" href="/ontology/role/test2-pardocs.sayit.mysociety.org/menteri-besar" showAs="Y.A.B. Dato' Menteri Besar" />
+            </references>
+        </meta>
+<!--        <coverPage>-->
+<!--            <p></p>-->
+<!--        </coverPage>-->
+<!--        <preface>-->
+<!--            <p></p>-->
+<!--        </preface>-->
+        <debateBody>
+            <questions>
+                <question by="">
+                    <from></from>
+                    <p></p>
+                </question>
+                <answer by="">
+                    <from></from>
+                    <p></p>
+                </answer>
+            </questions>
+        </debateBody>
+    </debate>
+</akomaNtoso>
