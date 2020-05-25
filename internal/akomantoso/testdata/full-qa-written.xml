@@ -1,98 +1,85 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-     Akoma Ntoso Version 1.0. Part 2: Specifications
-     OASIS Standard
-     29 August 2018
-     Copyright (c) OASIS Open 2018. All Rights Reserved.
-     Source: http://docs.oasis-open.org/legaldocml/akn-core/v1.0/os/part2-specs/examples/
-     Latest version of the specification:  http://docs.oasis-open.org.legaldocml/akn-core/v1.0/akn-core-v1.0-part2-specs.html
-     TC IPR Statement: https://www.oasis-open.org/committees/legaldocml/ipr.php
--->
-<akomaNtoso xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://docs.oasis-open.org/legaldocml/ns/akn/3.0 ../schema.xsd "
-            xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0">
-    <debate name="hansard">
+<akomaNtoso>
+    <debate>
         <meta>
-            <identification source="#dun">
-                <FRBRWork>
-                    <FRBRthis value="/akn/ke/debaterecord/2011-06-10/!main"/>
-                    <FRBRuri value="/akn/ke/debaterecord/2011-06-10"/>
-                    <FRBRdate date="2011-06-10" name="generation"/>
-                    <FRBRauthor href="#dun" as="#author"/>
-                    <FRBRcountry value="my"/>
-                </FRBRWork>
-                <FRBRExpression>
-                    <FRBRthis value="/akn/ke/minutes/2011-06-10/eng@/!main"/>
-                    <FRBRuri value="/akn/ke/minutes/2011-06-10/eng@"/>
-                    <FRBRdate date="2011-06-25" name="markup"/>
-                    <FRBRauthor href="#dun" as="#editor"/>
-                    <FRBRlanguage language="eng"/>
-                </FRBRExpression>
-                <FRBRManifestation>
-                    <FRBRthis value="/akn/ke/minutes/2011-06-10/eng@/!main.xml"/>
-                    <FRBRuri value="/akn/ke/minutes/2011-06-10/eng@.akn"/>
-                    <FRBRdate date="2011-06-25" name="publication"/>
-                    <FRBRauthor href="#dun" as="#editor"/>
-                </FRBRManifestation>
-            </identification>
-            <references source="">
-                <TLCPerson eId="sungai-pelek" href="/ontology/person/test2-pardocs.sayit.mysociety.org/sungai-pelek" showAs="Y.B. TUAN RONNIE LIU TIAN KHIEW (N56 SUNGAI PELEK)" />
-                <TLCPerson eId="menteri-besar-person" href="/ontology/person/test2-pardocs.sayit.mysociety.org/menteri-besar" showAs="Y.A.B. Dato' Menteri Besar" />
-                <TLCPerson eId="speaker-person" href="/ontology/person/test2-pardocs.sayit.mysociety.org/speaker" showAs="Y.A.B. TUAN SPEAKER" />
-                <TLCRole href="speaker" showAs="Y.A.B. TUAN SPEAKER" />
-                <TLCRole eId="menteri-besar" href="/ontology/role/test2-pardocs.sayit.mysociety.org/menteri-besar" showAs="Y.A.B. Dato' Menteri Besar" />
-                <TLCRole eId="hulu-kelang" href="/ontology/role/test2-pardocs.sayit.mysociety.org/hulu-kelang" showAs="Y.B. TUAN HAJI SAARI BIN SUNGIB (N18 HULU KELANG)" />
+            <references>
+                <TLCPerson href="/ontology/person/test2-pardocs.sayit.mysociety.org/sungai-pelek" id="sungai-pelek" showAs="Y.B. TUAN RONNIE LIU TIAN KHIEW (N56 SUNGAI PELEK)"/>
+                <TLCPerson href="/ontology/person/test2-pardocs.sayit.mysociety.org/yab-dato-menteri-besar" id="yab-dato-menteri-besar" showAs="Y.A.B. Dato' Menteri Besar"/>
+                <TLCPerson href="/ontology/person/test2-pardocs.sayit.mysociety.org/hulu-kelang" id="hulu-kelang" showAs="Y.B. TUAN HAJI SAARI BIN SUNGIB (N18 HULU KELANG)" />
             </references>
         </meta>
-<!--        <coverPage>-->
-<!--            <p></p>-->
-<!--        </coverPage>-->
-<!--        <preface>-->
-<!--            <p></p>-->
-<!--        </preface>-->
         <debateBody>
-            <questions>
-                <!-- Start Questions -->
-                <!-- Question 124-->
-                <question by="#sungai-pelak">
+            <debateSection>
+                <heading>Written Question Answer</heading>
+                <question by="#sungai-pelek" id="q-123">
                     <heading>TAJUK : SEKOLAH RENDAH AGAMA INTEGRASI (SRAI)</heading>
-                    <from>Y.B. TUAN RONNIE LIU TIAN KHIEW (N56 SUNGAI PELEK)</from>
+                    <p>123. Bertanya kepada Y.A.B. Dato' Menteri Besar:- </p>
                     <p>
-                        123. Bertanya kepada Y.A.B. Dato' Menteri Besar:-  <br/>
-                        a) Apakah perancangan Kerajaan Negeri dalam meningkatkan prestasi SRAI di Selangor? <br/>
-                        b) Apakah Kerajaan Negeri ada merancang bagi membuat SRAI yang baru bagi menggantikan SRAI Salak Tinggi yang serba dhaif kerana lokasi yang sudah tidak sesuai? <br/>
+                        a) Apakah perancangan Kerajaan Negeri dalam meningkatkan prestasi SRAI di Selangor?
+                    </p>
+                    <p>
+                        b) Apakah Kerajaan Negeri ada merancang bagi membuat SRAI yang baru bagi menggantikan SRAI Salak Tinggi yang serba dhaif kerana lokasi yang sudah tidak sesuai?
                     </p>
                 </question>
-                <answer by="#menteri-besar">
-                    <!-- <from>Y.A.B. Dato' Menteri Besar</from>-->
+                <answer by="#yab-dato-menteri-besar" id="a-123">
                     <p>
-                        a) Antara perancangan yang telah dijalankan oleh Kerajaan Negeri dalam meningkatkan prestasi SRAI adalah seperti berikut:<br/>
-                        i. Mengadakan Ujian Kelayakan Sekolah (UKS) bagi pengambilan murid darjah satu dan bagi pertukaran murid tahun 2,3,4 dan 5, akan dinilai melalui pencapaian pentaksiran bilik darjah. <br/>
-                        ii. Menyediakan prasarana yang cukup bagi semua SRAI. <br/>
-                        iii. Melaksanakan sepenuhnya kurikulum kebangsaan dan kurikulum pendidikan Islam JAIS di semua SRAI. Kerajaan Negeri percaya melalui gabung jalin dua kurikulum ini akan menghasilkan kemenjadian murid yang seimbang dan holistik. <br/>
-                        iv. Menggunakan kaedah dan pengajaran berasaskan pendidikan abad ke-21 untuk dilaksanakan oleh guru-guru di dalam kelas. <br/>
-                        v. Melaksanakan pembelajaran digital sebagai sebahagian daripada keperluan pendidikan masa kini. <br/>
-                        b) Buat masa ini, pihak Jabatan Agama Islam Selangor belum mempunyai perancangan bagi membina SRAI baru di bawah RMK-11. Sekiranya terdapat permohonan akan dipertimbangkan di bawah RMK-12. <br/>
+                        a) Antara perancangan yang telah dijalankan oleh Kerajaan Negeri dalam meningkatkan prestasi SRAI adalah seperti berikut:
+                    </p>
+                    <p>
+                        i. Mengadakan Ujian Kelayakan Sekolah (UKS) bagi pengambilan murid darjah satu dan bagi pertukaran murid tahun 2,3,4 dan 5, akan dinilai melalui pencapaian pentaksiran bilik darjah.
+                    </p>
+                    <p>
+                        ii. Menyediakan prasarana yang cukup bagi semua SRAI.
+                    </p>
+                    <p>
+                        iii. Melaksanakan sepenuhnya kurikulum kebangsaan dan kurikulum pendidikan Islam JAIS di semua SRAI. Kerajaan Negeri percaya melalui gabung jalin dua kurikulum ini akan menghasilkan kemenjadian murid yang seimbang dan holistik.
+                    </p>
+                    <p>
+                        iv. Menggunakan kaedah dan pengajaran berasaskan pendidikan abad ke-21 untuk dilaksanakan oleh guru-guru di dalam kelas.
+                    </p>
+                    <p>
+                        v. Melaksanakan pembelajaran digital sebagai sebahagian daripada keperluan pendidikan masa kini.
+                    </p>
+                    <p>
+                        b) Buat masa ini, pihak Jabatan Agama Islam Selangor belum mempunyai perancangan bagi membina SRAI baru di bawah RMK-11. Sekiranya terdapat permohonan akan dipertimbangkan di bawah RMK-12.
                     </p>
                 </answer>
                 <!--Question 125-->
-                <question by="#hulu-kelang">
+                <question by="#hulu-kelang" id="q-125">
                     <heading>TAJUK : KESAN KEMPEN TANPA BEG PLASTIK</heading>
-                    <from>Y.B. TUAN HAJI SAARI BIN SUNGIB (N18 HULU KELANG)</from>
+                    <p>125. Bertanya kepada Y.A.B. Dato' Menteri Besar:- </p>
                     <p>
-                        125. Bertanya kepada Y.A.B. Dato' Menteri Besar:- <br/>
-                        a) Statistik pengurangan penggunaan beg plastik dan kutipan caj 20 sen hasil pelaksanaan kempen tanpa beg plastik. <br/>
+                        a) Statistik pengurangan penggunaan beg plastik dan kutipan caj 20 sen hasil pelaksanaan kempen tanpa beg plastik.
                     </p>
                 </question>
-                <answer by="#menteri-besar">
-                    <!-- <from>Y.A.B. Dato' Menteri Besar</from>-->
+                <answer by="#yab-dato-menteri-besar" id="a-125">
                     <p>
-                        a) Kerajaan Negeri Selangor pada masa ini sedang dalam proses merangka mekanisma bagi mendapatkan data yang menyeluruh dan lengkap mengenai statistik penggunaan beg plastik dan kutipan caj 20 sen hasil pelaksanaan kutipan caj kempen tanpa beg plastik di seluruh Negeri Selangor. Adalah dimaklumkan bahawa hasil kutipan caj 20 sen yang dikenakan kepada pengguna bagi setiap penggunaan beg plastik pada ketika ini adalah diuruskan oleh pihak premis perniagaan dengan pantauan Pihak Berkuasa Tempatan dan hasil kutipan tersebut digunakan semula oleh pihak peniaga untuk aktiviti- aktiviti dan program berkaitan alam sekitar di bawah kelolaan pihak pemilik premis sendiri.<br/>
-                        Kerajaan Negeri Selangor pada ketika ini juga sedang meneliti pelaksanaan hasil kutipan caj 20 sen untuk diserahkan kepada Kerajaan Negeri Selangor untuk pengurusan dan pemantauan penggunaan beg plastik dan hasil kutipan yang lebih berkesan dan diyakini. Melalui dasar baharu yang sedang dirangka ini, bilangan penggunaan beg plastik akan diperoleh dengan lebih menyeluruh dan tepat serta penggunaan hasil kutipan juga akan memberi manfaat kepada pemeliharaan dan pemuliharaan alam sekitar di Negeri Selangor. <br/>
+                        a) Kerajaan Negeri Selangor pada masa ini sedang dalam proses merangka mekanisma bagi mendapatkan data yang menyeluruh dan lengkap mengenai statistik penggunaan beg plastik dan kutipan caj 20 sen hasil pelaksanaan kutipan caj kempen tanpa beg plastik di seluruh Negeri Selangor. Adalah dimaklumkan bahawa hasil kutipan caj 20 sen yang dikenakan kepada pengguna bagi setiap penggunaan beg plastik pada ketika ini adalah diuruskan oleh pihak premis perniagaan dengan pantauan Pihak Berkuasa Tempatan dan hasil kutipan tersebut digunakan semula oleh pihak peniaga untuk aktiviti- aktiviti dan program berkaitan alam sekitar di bawah kelolaan pihak pemilik premis sendiri.
+                    </p>
+                    <p>
+                        Kerajaan Negeri Selangor pada ketika ini juga sedang meneliti pelaksanaan hasil kutipan caj 20 sen untuk diserahkan kepada Kerajaan Negeri Selangor untuk pengurusan dan pemantauan penggunaan beg plastik dan hasil kutipan yang lebih berkesan dan diyakini. Melalui dasar baharu yang sedang dirangka ini, bilangan penggunaan beg plastik akan diperoleh dengan lebih menyeluruh dan tepat serta penggunaan hasil kutipan juga akan memberi manfaat kepada pemeliharaan dan pemuliharaan alam sekitar di Negeri Selangor.
                     </p>
                 </answer>
-            <!-- End Questions -->
-            </questions>
+                <!-- Q 126 -->
+                <question by="#hulu-kelang" id="q-126">
+                    <heading>TAJUK : STATISTIK PEMBIAYAAN SKIM SMART SEWA</heading>
+                    <p>126. Bertanya kepada Y.A.B. Dato' Menteri Besar:- </p>
+                    <p>
+                        a) Statistik pembiayaan Skim Smart Sewa setakat ini berdasarkan bilangan permohonan yang diluluskan, lokasi kediaman, dan jumlah pembiayaan yang telah dikeluarkan.
+                    </p>
+                </question>
+                <answer by="#yab-dato-menteri-besar" id="a-126">
+                    <p>
+                        Manakala sebanyak 161 unit lagi di bawah Skim Smart Sewa telah disiapkan pembinaan dan telah dibuat penyerahan kunci oleh pemaju kepada LPHS dan kini sedang dibuka permohonan kepada orang awam untuk tujuan penyewaan seperti berikut :
+                    </p>
+                    <p>
+                        Terdapat sebanyak 477 unit masih dalam pembinaan lagi dan dijangka dapat disiapkan untuk disewakan mulai akhir tahun 2019 sehingga tahun 2020 seperti berikut :
+                    </p>
+                    <p>
+                        Sehingga kini, jumlah pembiayaan / peruntukan yang telah dibelanjakan bagi projek yang siap dalam pembinaan dan dalam kemajuan kerja melibatkan 979 unit adalah sejumlah RM67,737,450.00.
+                    </p>
+                </answer>
+
+            </debateSection>
         </debateBody>
     </debate>
 </akomaNtoso>
