@@ -2,16 +2,16 @@
     <debate>
         <meta>
             <references>
-                <TLCPerson href="/ontology/person/test2-pardocs.sayit.mysociety.org/sungai-pelek" id="sungai-pelek" showAs="Y.B. TUAN RONNIE LIU TIAN KHIEW (N56 SUNGAI PELEK)"/>
-                <TLCPerson href="/ontology/person/test2-pardocs.sayit.mysociety.org/yab-dato-menteri-besar" id="yab-dato-menteri-besar" showAs="Y.A.B. Dato' Menteri Besar"/>
-                <TLCPerson href="/ontology/person/test2-pardocs.sayit.mysociety.org/hulu-kelang" id="hulu-kelang" showAs="Y.B. TUAN HAJI SAARI BIN SUNGIB (N18 HULU KELANG)" />
-                <TLCPerson href="/ontology/person/pardocs/sungai-ramal" id="sungai-ramal" showAs="Y.B. TUAN MAZWAN BIN JOHAR (N26 SUNGAI RAMAL)" />
+                <TLCPerson href="/ontology/person/test2-pardocs.sayit.mysociety.org/yb-tuan-ronnie-liu-tian-khiew-n56-sungai-pelek" id="yb-tuan-ronnie-liu-tian-khiew-n56-sungai-pelek" showAs="Y.B. TUAN RONNIE LIU TIAN KHIEW (N56 SUNGAI PELEK)"/>
+                <TLCPerson href="/ontology/person/test2-pardocs.sayit.mysociety.org/yab-dato-menteri-besar-2" id="yab-dato-menteri-besar-2" showAs="Y.A.B. Dato' Menteri Besar"/>
+                <TLCPerson href="/ontology/person/test2-pardocs.sayit.mysociety.org/yb-tuan-haji-saari-bin-sungib-n18-hulu-kelang" id="yb-tuan-haji-saari-bin-sungib-n18-hulu-kelang" showAs="Y.B. TUAN HAJI SAARI BIN SUNGIB (N18 HULU KELANG)"/>
+                <TLCPerson href="/ontology/person/test2-pardocs.sayit.mysociety.org/yb-tuan-mazwan-bin-johar-n26-sungai-ramal" id="yb-tuan-mazwan-bin-johar-n26-sungai-ramal" showAs="Y.B. TUAN MAZWAN BIN JOHAR (N26 SUNGAI RAMAL)"/>
             </references>
         </meta>
         <debateBody>
             <debateSection>
                 <heading>Written Question Answer</heading>
-                <question by="#sungai-pelek" id="q-123">
+                <question by="#yb-tuan-ronnie-liu-tian-khiew-n56-sungai-pelek">
                     <heading>TAJUK : SEKOLAH RENDAH AGAMA INTEGRASI (SRAI)</heading>
                     <p>123. Bertanya kepada Y.A.B. Dato' Menteri Besar:- </p>
                     <p>
@@ -21,7 +21,7 @@
                         b) Apakah Kerajaan Negeri ada merancang bagi membuat SRAI yang baru bagi menggantikan SRAI Salak Tinggi yang serba dhaif kerana lokasi yang sudah tidak sesuai?
                     </p>
                 </question>
-                <answer by="#yab-dato-menteri-besar" id="a-123">
+                <answer by="#yab-dato-menteri-besar-2">
                     <p>
                         a) Antara perancangan yang telah dijalankan oleh Kerajaan Negeri dalam meningkatkan prestasi SRAI adalah seperti berikut:
                     </p>
@@ -44,15 +44,14 @@
                         b) Buat masa ini, pihak Jabatan Agama Islam Selangor belum mempunyai perancangan bagi membina SRAI baru di bawah RMK-11. Sekiranya terdapat permohonan akan dipertimbangkan di bawah RMK-12.
                     </p>
                 </answer>
-                <!--Question 125-->
-                <question by="#hulu-kelang" id="q-125">
+                <question by="#yb-tuan-haji-saari-bin-sungib-n18-hulu-kelang">
                     <heading>TAJUK : KESAN KEMPEN TANPA BEG PLASTIK</heading>
                     <p>125. Bertanya kepada Y.A.B. Dato' Menteri Besar:- </p>
                     <p>
                         a) Statistik pengurangan penggunaan beg plastik dan kutipan caj 20 sen hasil pelaksanaan kempen tanpa beg plastik.
                     </p>
                 </question>
-                <answer by="#yab-dato-menteri-besar" id="a-125">
+                <answer by="#yab-dato-menteri-besar-2">
                     <p>
                         a) Kerajaan Negeri Selangor pada masa ini sedang dalam proses merangka mekanisma bagi mendapatkan data yang menyeluruh dan lengkap mengenai statistik penggunaan beg plastik dan kutipan caj 20 sen hasil pelaksanaan kutipan caj kempen tanpa beg plastik di seluruh Negeri Selangor. Adalah dimaklumkan bahawa hasil kutipan caj 20 sen yang dikenakan kepada pengguna bagi setiap penggunaan beg plastik pada ketika ini adalah diuruskan oleh pihak premis perniagaan dengan pantauan Pihak Berkuasa Tempatan dan hasil kutipan tersebut digunakan semula oleh pihak peniaga untuk aktiviti- aktiviti dan program berkaitan alam sekitar di bawah kelolaan pihak pemilik premis sendiri.
                     </p>
@@ -60,15 +59,14 @@
                         Kerajaan Negeri Selangor pada ketika ini juga sedang meneliti pelaksanaan hasil kutipan caj 20 sen untuk diserahkan kepada Kerajaan Negeri Selangor untuk pengurusan dan pemantauan penggunaan beg plastik dan hasil kutipan yang lebih berkesan dan diyakini. Melalui dasar baharu yang sedang dirangka ini, bilangan penggunaan beg plastik akan diperoleh dengan lebih menyeluruh dan tepat serta penggunaan hasil kutipan juga akan memberi manfaat kepada pemeliharaan dan pemuliharaan alam sekitar di Negeri Selangor.
                     </p>
                 </answer>
-                <!-- Q 126 -->
-                <question by="#hulu-kelang" id="q-126">
+                <question by="#yb-tuan-haji-saari-bin-sungib-n18-hulu-kelang">
                     <heading>TAJUK : STATISTIK PEMBIAYAAN SKIM SMART SEWA</heading>
                     <p>126. Bertanya kepada Y.A.B. Dato' Menteri Besar:- </p>
                     <p>
                         a) Statistik pembiayaan Skim Smart Sewa setakat ini berdasarkan bilangan permohonan yang diluluskan, lokasi kediaman, dan jumlah pembiayaan yang telah dikeluarkan.
                     </p>
                 </question>
-                <answer by="#yab-dato-menteri-besar" id="a-126">
+                <answer by="#yab-dato-menteri-besar-2">
                     <p>
                         Manakala sebanyak 161 unit lagi di bawah Skim Smart Sewa telah disiapkan pembinaan dan telah dibuat penyerahan kunci oleh pemaju kepada LPHS dan kini sedang dibuka permohonan kepada orang awam untuk tujuan penyewaan seperti berikut :
                     </p>
@@ -79,59 +77,66 @@
                         Sehingga kini, jumlah pembiayaan / peruntukan yang telah dibelanjakan bagi projek yang siap dalam pembinaan dan dalam kemajuan kerja melibatkan 979 unit adalah sejumlah RM67,737,450.00.
                     </p>
                 </answer>
-                <!-- Q 134 -->
-                <question by="#sungai-ramal" id="q-135">
+                <question by="#yb-tuan-mazwan-bin-johar-n26-sungai-ramal">
                     <heading>TAJUK : KOMPLEKS PKNS BANDAR BARU BANGI</heading>
                     <p>135. Bertanya kepada Y.A.B. Dato' Menteri Besar:- </p>
                     <p>
                         a) Bandar Baru Bangi telah berkembang pesat dan banyak binaan bangunan baru telah didirikan, manakala bangunan Kompleks PKNS Bandar Baru Bangi dalam keadaan usang, suram, tidak diselenggara dengan baik, dan tidak lagi berdaya saing dengan premis perniagaan di sekitarnya. Apakah perancangan Kerajaan Negeri untuk membaiki keadaan ini demi menjaga imej PKNS dan membantu para peniaga Bumiputera yang berniaga di situ?
                     </p>
                 </question>
-                <answer by="#yab-dato-menteri-besar" id="a-135">
+                <answer by="#yab-dato-menteri-besar-2">
                     <p>
                         a) PKNS Real Estate Sdn Bhd (PREC) ialah anak syarikat milik PKNS 100%. Pihak PREC telah mengambil alih bangunan Kompleks PKNS Bangi mulai Januari 2014. Semenjak mengambilalih Kompleks PKNS Bangi, berikut adalah antara inisiatif-inisiatif yang telah/sedang dilaksanakan oleh pihak PREC:
                     </p>
+                    <p> 1. PENYENGGARAAN BANGUNAN </p>
                     <p>
-                        1. PENYENGGARAAN BANGUNAN
+                        1.1. Penambahbaikan dengan kos berjumlah RM2.62 juta dibuat dari masa ke semasa bermula dari tahun 2016 hingga kini seperti mengecat fasad, penaiktarafan tandas, lif, eskalator, medan selera, surau, tempat letak kenderaan, penambahbaikan 'awning' dan penanda arah bagi menjamin keselesaan para pengunjung dan menjadikan Kompleks PKNS Bangi kekal relevan hingga kini seperti berikut :
                     </p>
+                    <p> 2. PENINGKATAN PERNIAGAAN </p>
                     <p>
-                        1.1. Penambahbaikan dengan kos berjumlah RM2.62 juta dibuat dari masa ke semasa bermula dari tahun 2016 hingga kini seperti mengecat fasad, penaiktarafan tandas, lif, eskalator, medan selera, surau, tempat letak kenderaan, penambahbaikan 'awning' dan penanda arah bagi menjamin keselesaan para pengunjung dan menjadikan Kompleks PKNS Bangi kekal relevan hingga kini seperti berikut :                                     </p>
-                    <p>
-                        2. PENINGKATAN PERNIAGAAN
+                        2.1. Membawa masuk peniaga berjenama untuk beroperasi di bangunan seperti Satay Kajang, Boat Noodle dan beberapa peniaga kecil yang lain.
+                        <br/>
+                        2.2. Berjaya melaksanakan penyewaan penuh 100% pada bangunan terutama di Kawasan Pusat membeli belah.
+                        <br/>
+                        2.1. Ramai peniaga luar yang memohon untuk membuka perniagaan di Kompleks PKNS Bangi terutama peniaga pakaian tetapi ditolak atas sebab tiada premis kosong yang boleh ditawarkan.
+                        <br/>
+                        2.4. Pembaharuan perjanjian sewaan mencecah sehingga 98%. Ini menunjukkan bahawa PREC sentiasa prihatin terhadap peniaga yang terus mahu berniaga di Kompleks PKNS Bangi dengan syarat mereka patuh pada terma dan syarat penyewaan yang telah ditetapkan.
+                        <br/>
+                        2.5. Jualan makanan Foodtruck yang diadakan di hadapan Kompleks PKNS Bangi setiap Selasa hingga Ahad menambahkan lagi pilihan tempat makan bagi penduduk di Bangi khasnya untuk menjamu selera bersama keluarga dan rakan selain menikmati hiburan dari buskers.
+                        <br/>
+                        2.6. Peniaga dari kalangan Bumiputera masih majoriti dengan jumlah 91% peratus selain program-program jualan yang diadakan mengutamakan dari kalangan bumiputera.
+                        <br/>
+                        2.7. Program-program seperti FESTIRA, MEFA dan akan datang program Kanak-kanak iaitu Beyblade diadakan bagi menarik lebih ramai pengunjung ke Kompleks PKNS Bangi. Bilangan pengunjung di sekitar Kompleks PKNS Bangi juga mencecah sehingga 10,000 orang sebulan terutamanya di musim-musim perayaan.
+                        <br/>
                     </p>
+                    <p> 3. PENGIKTIRAFAN </p>
                     <p>
-                        2.1. Membawa masuk peniaga berjenama untuk beroperasi di bangunan seperti Satay Kajang, Boat Noodle dan beberapa peniaga kecil yang lain.  <br/>
-                        2.2. Berjaya melaksanakan penyewaan penuh 100% pada bangunan terutama di Kawasan Pusat membeli belah.  <br/>
-                        2.1. Ramai peniaga luar yang memohon untuk membuka perniagaan di Kompleks PKNS Bangi terutama peniaga pakaian tetapi ditolak atas sebab tiada premis kosong yang boleh ditawarkan.  <br/>
-                        2.4. Pembaharuan perjanjian sewaan mencecah sehingga 98%. Ini menunjukkan bahawa PREC sentiasa prihatin terhadap peniaga yang terus mahu berniaga di Kompleks PKNS Bangi dengan syarat mereka patuh pada terma dan syarat penyewaan yang telah ditetapkan.   <br/>
-                        2.5. Jualan makanan Foodtruck yang diadakan di hadapan Kompleks PKNS Bangi setiap Selasa hingga Ahad menambahkan lagi pilihan tempat makan bagi penduduk di Bangi khasnya untuk menjamu selera bersama keluarga dan rakan selain menikmati hiburan dari buskers.  <br/>
-                        2.6. Peniaga dari kalangan Bumiputera masih majoriti dengan jumlah 91% peratus selain program-program jualan yang diadakan mengutamakan dari kalangan bumiputera.  <br/>
-                        2.7. Program-program seperti FESTIRA, MEFA dan akan datang program Kanak-kanak iaitu Beyblade diadakan bagi menarik lebih ramai pengunjung ke Kompleks PKNS Bangi. Bilangan pengunjung di sekitar Kompleks PKNS Bangi juga mencecah sehingga 10,000 orang sebulan terutamanya di musim-musim perayaan.  <br/>
+                        3.1. Pihak Majlis Perbandaran Kajang (MPKJ) telah menganugerahkan taraf lima (5) bintang ke atas tandas di bangunan Kompleks PKNS Bangi pada tahun 2018 hingga 2019.
+                        <br/>
+                        3.2. Memperolehi sijil bangunan selamat oleh pihak MPKJ setelah melaksanakan pemeriksaan menyeluruh pada bangunan terutama aspek struktur bangunan.
+                        <br/>
+                        3.3. Telah berjaya mendapat Sijil Bangunan Bomba setelah melalui pemeriksaan menyeluruh yang ketat pada tahun 2018 dan diperbaharui semula pada tahun 2019.
+                        <br/>
                     </p>
-                    <p>
-                        3. PENGIKTIRAFAN
-                    </p>
-                    <p>
-                        3.1. Pihak Majlis Perbandaran Kajang (MPKJ) telah menganugerahkan taraf lima (5) bintang ke atas tandas di bangunan Kompleks PKNS Bangi pada tahun 2018 hingga 2019.  <br/>
-                        3.2. Memperolehi sijil bangunan selamat oleh pihak MPKJ setelah melaksanakan pemeriksaan menyeluruh pada bangunan terutama aspek struktur bangunan.   <br/>
-                        3.3. Telah berjaya mendapat Sijil Bangunan Bomba setelah melalui pemeriksaan menyeluruh yang ketat pada tahun 2018 dan diperbaharui semula pada tahun 2019.  <br/>
-                    </p>
-                    <p>
-                        4. PERANCANGAN PEMBANGUNAN AKAN DATANG
-                    </p>
+                    <p> 4. PERANCANGAN PEMBANGUNAN AKAN DATANG </p>
                     <p>
                         Untuk memastikan bangunan sentiasa berdaya maju dan kompetatif pada masa akan datang beberapa perancangan akan dilaksanakan berdasarkan keadaan semasa:
                     </p>
                     <p>
-                        4.1. Menggantikan peralatan operasi bangunan yang rosak kepada yang baru terutama peralatan yang telah mencapai umur 20 tahun. Peralatan berkenaan meliputi peralatan penghawa dingin, lampu disekitar bangunan, peralatan paip air, kanvas disekeliling bangunan dan sebagainya. <br/>
-                        4.2. Memperbaiki kobocoran bangunan secara berperingkat memandangkan usia bangunan telah mencapai usia 20 tahun. <br/>
-                        4.3. Bercadang menaiktaraf laluan masuk bangunan (entrance statemet) untuk meningkatkan mood pengunjung. <br/>
-                        4.4. Meningkatkan aktiviti promosi berdasarkan permintaan dan keperluan pengunjung termasuk maklumat di dalam media sosial. <br/>
-                        4.5. Mengecat semula sebahagian bangunan yang kurang menyerlah dan memperbaiki kerosakan yang berlaku. <br/>
-                        4.6. Melaksanakan peraturan kepada peniaga untuk menaiktaraf premis perniagaan masing-masing supaya lebih menarik kepada pengunjung.  <br/>
+                        4.1. Menggantikan peralatan operasi bangunan yang rosak kepada yang baru terutama peralatan yang telah mencapai umur 20 tahun. Peralatan berkenaan meliputi peralatan penghawa dingin, lampu disekitar bangunan, peralatan paip air, kanvas disekeliling bangunan dan sebagainya.
+                        <br/>
+                        4.2. Memperbaiki kobocoran bangunan secara berperingkat memandangkan usia bangunan telah mencapai usia 20 tahun.
+                        <br/>
+                        4.3. Bercadang menaiktaraf laluan masuk bangunan (entrance statemet) untuk meningkatkan mood pengunjung.
+                        <br/>
+                        4.4. Meningkatkan aktiviti promosi berdasarkan permintaan dan keperluan pengunjung termasuk maklumat di dalam media sosial.
+                        <br/>
+                        4.5. Mengecat semula sebahagian bangunan yang kurang menyerlah dan memperbaiki kerosakan yang berlaku.
+                        <br/>
+                        4.6. Melaksanakan peraturan kepada peniaga untuk menaiktaraf premis perniagaan masing-masing supaya lebih menarik kepada pengunjung.
+                        <br/>
                     </p>
                 </answer>
-
             </debateSection>
         </debateBody>
     </debate>
