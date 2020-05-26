@@ -16,6 +16,15 @@ func renderOralQA() {
 	//</questions>
 }
 
+func renderWrittenQA() {
+	// Prepare session metadata .. members
+	// prepare Heading; <type> + <folder name>
+	// Loop through all questions
+	// Format question, newline with </br> or <p>
+	// Format answer
+	// Stitch them all together .. write to file ..
+}
+
 //<question by="#azminali">
 //	</question>
 //	<answer by="#stevensim" as="">
