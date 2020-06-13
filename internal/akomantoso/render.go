@@ -25,6 +25,7 @@ func renderWrittenQA(sessionName string, participants []Representative, content 
 	// Format question, newline with </br> or <p>
 	// Format answer
 	// Stitch them all together .. write to file ..
+	return nil
 }
 
 //<question by="#azminali">
