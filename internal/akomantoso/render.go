@@ -1,5 +1,7 @@
 package akomantoso
 
+import "io"
+
 // Rendering we'll use gomplate  ..
 
 // renderOralQA renders the QA struct into Akomantoso template
@@ -16,10 +18,10 @@ func renderOralQA() {
 	//</questions>
 }
 
-func renderWrittenQA() {
-	// Prepare session metadata .. members
+func renderWrittenQA(sessionName string, participants []Representative, content []QAContent, to io.WriterTo) error {
+	// Prepare session metadata .. members being injected in
 	// prepare Heading; <type> + <folder name>
-	// Loop through all questions
+	// Loop through all contents
 	// Format question, newline with </br> or <p>
 	// Format answer
 	// Stitch them all together .. write to file ..

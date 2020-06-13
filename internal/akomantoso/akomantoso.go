@@ -22,9 +22,8 @@ type Meta struct {
 type Preface struct{}
 
 type AkomaNtoso struct {
-	Meta    Meta
-	Preface Preface
-	Debate  Debate
+	SessionName string
+	Content     []QAContent
 }
 
 //The akomaNtoso and debate element wrap the entire document. The debate element has a name attribute to express the correct name for the document's type, for example, "hansard", "transcript", "play", or simply "debate".
