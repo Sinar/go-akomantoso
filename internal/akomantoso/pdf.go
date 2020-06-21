@@ -44,6 +44,7 @@ func NewPDFDocument(pdfPath string, options *ExtractPDFOptions) (*PDFDocument, e
 	MaxLineProcessed = 10
 	// DEBUG
 	//totalPage = 3
+	// Sensible defaults; if weird options input, will fallback to defaults instead
 	if options != nil {
 		if options.StartPage > 1 {
 			startPage = options.StartPage
@@ -63,7 +64,9 @@ func NewPDFDocument(pdfPath string, options *ExtractPDFOptions) (*PDFDocument, e
 		SourcePath: pdfPath,
 	}
 
-	for pageIndex := startPage; pageIndex <= totalPage; pageIndex++ {
+	// TODO: Unit test for this case; happening  twice!
+	endingPage := startPage + totalPage
+	for pageIndex := startPage; pageIndex <= endingPage; pageIndex++ {
 		p := r.Page(pageIndex)
 		if p.V.IsNull() {
 			continue
