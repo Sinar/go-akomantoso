@@ -20,8 +20,12 @@ func NewStateAssemblyQA(splitPlanPath string) StateAssemblyQA {
 	return StateAssemblyQA{
 		StateAssemblySession: StateAssemblySession{},
 		Type:                 "",
-		SplitPlan:            "",
-		QAHansard:            akomantoso.QAHansard{},
+		SplitPlan: SplitPlan{
+			dataDir:         "",
+			PlanDir:         "",
+			HansardDocument: HansardDocument{},
+		},
+		QAHansard: akomantoso.QAHansard{},
 	}
 }
 
@@ -58,7 +62,7 @@ type SplitPlan struct {
 	HansardDocument HansardDocument
 }
 
-func NewEmptySplitHansardDocumentPlan(absoluteDataDir, absolutePlanFile, sessionName string) *SplitHansardDocumentPlan {
+func NewEmptySplitHansardDocumentPlan(absoluteDataDir, absolutePlanFile, sessionName string) *SplitPlan {
 	// Assume: sourcePDFFilename stripped off; validation here??
 	// Assume: dataDir and PlanDir must become absolute before passing it back? Validate?
 	if !(filepath.IsAbs(absoluteDataDir) && filepath.IsAbs(absolutePlanFile)) {

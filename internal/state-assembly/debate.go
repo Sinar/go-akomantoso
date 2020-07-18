@@ -1,6 +1,8 @@
 package state_assembly
 
 import (
+	"fmt"
+
 	akomantoso "github.com/Sinar/go-akomantoso/internal/akomantoso"
 	"github.com/davecgh/go-spew/spew"
 )
@@ -26,7 +28,7 @@ func getSessionDate() string {
 func NewStateAssemblyDebate(pdfPath string) StateAssemblyDebate {
 	extractOptions := akomantoso.ExtractPDFOptions{
 		StartPage:  1,
-		NumPages:   3,
+		NumPages:   7,
 		MaxSampled: 1000,
 	}
 	pdfDocument, perr := akomantoso.NewPDFDocument(pdfPath, &extractOptions)
@@ -44,9 +46,16 @@ func NewStateAssemblyDebate(pdfPath string) StateAssemblyDebate {
 	for _, singlePageRows := range pdfDocument.Pages {
 		allLines = append(allLines, singlePageRows.PDFTxtSameLines...)
 	}
+	//  DEBUG
+	//fmt.Println("========= Cover Pages ====================")
+	//for _, line := range allLines {
+	//	fmt.Println("\"", line, "\",")
+	//}
+	//fmt.Println("========= END ====================")
 
-	// Extract CoverPage Info
-
+	// Extract CoverPage Info by doing the below concurrently
+	//  Detect section markers:
+	extractSectionMarkers(allLines)
 	// Extract Representatives Detected
 
 	// Namespace: Name-Term-Meeting
@@ -108,7 +117,9 @@ func ProcessHansard(pdfPath string) akomantoso.QAHansard {
 	}
 	qaHansard.QAContent[0].Content = allLines
 	//  DEBUG
+	fmt.Println("========= QAHansard Output ====================")
 	spew.Dump(qaHansard)
+	fmt.Println("========= END ====================")
 
 	return qaHansard
 }
