@@ -35,12 +35,12 @@ func Test_extractSectionMarkers(t *testing.T) {
 				"  (TUAN SPEAKER MEMPENGERUSIKAN MESYUARAT)  ",
 			}},
 			SectionMarkers{
-				DatePageMarker:         "bob",
-				PresentMarker:          0,
+				DatePageMarker:         "8 NOVEMBER 2019 (JUMAAT)",
+				PresentMarker:          4,
 				AbsentMarker:           0,
-				ParticipatedMarker:     0,
+				ParticipatedMarker:     10,
 				OfficersPresentMarker:  0,
-				SessionStartMarkerLine: 0,
+				SessionStartMarkerLine: 16,
 			},
 		},
 	}

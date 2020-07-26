@@ -78,13 +78,13 @@ func NewPDFDocument(pdfPath string, options *ExtractPDFOptions) (*PDFDocument, e
 			PDFTxtSameStyles: []string{},
 		}
 		// copy over plain text; short form
-		pt, pterr := p.GetPlainText(nil)
+		_, pterr := p.GetPlainText(nil)
 		if pterr != nil {
 			if pterr.Error() == "malformed PDF: reading at offset 0: stream not present" {
 				fmt.Println("**WILL IGNORE!!!! *****")
 				continue
 			}
-			return nil, fmt.Errorf(" GetPlainText ERROR: %w", pt)
+			return nil, fmt.Errorf(" GetPlainText ERROR: %w", pterr)
 		}
 		//newPageProcessed.PDFPlainText = pt
 		// processStyleChanges ..
