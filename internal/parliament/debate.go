@@ -78,8 +78,8 @@ func (da DebateAnalyzer) Process() (error, []akomantoso.Representative) {
 	// From the Analyzer; we get the start of session; start from there
 	// Extract out Section Metadata for attachment
 	extractOptions := akomantoso.ExtractPDFOptions{
-		StartPage:  2,
-		NumPages:   15,
+		StartPage: 2,
+		//NumPages:   15,
 		MaxSampled: 10000,
 	}
 	pdfDocument, perr := akomantoso.NewPDFDocument(da.pdfPath, &extractOptions)

@@ -16,13 +16,6 @@ func looksLikeRep(line string) (bool, string) {
 	// As per: https://stackoverflow.com/a/42251527
 	normalizedLine := strings.Join(strings.Fields(strings.ToLower(line)), " ")
 	// Detect Member of Parliament (MPs)
-	// Naive heuristics (NOT needed)
-	// Tuan/Puan [? :?
-	// Dato [? :?
-	// Datuk [? :?
-	// Tun [? :?
-	// Tan Sri [? :?
-	// Menteri [? :?
 	// == BEGIN  PROCESSING ===
 	// Exception; if start only with [; it NOT
 	// Rule #0: If starts  with [; fail immediately!
@@ -58,20 +51,64 @@ func looksLikeRep(line string) (bool, string) {
 	return false, ""
 }
 
-func extractDebaters(allLines []string) []akomantoso.Representative {
-	var allReps []akomantoso.Representative
-	allMapReps := make(map[string]akomantoso.Representative, 100)
+func cleanExtractedDebaters(normalizedReps []string) []akomantoso.Representative {
+	// Dedupe MPs
+	// Attach roles, with name etc ..
+	// Search short cut
+
+	return []akomantoso.Representative{}
+}
+
+func isRepTitle(line string) bool {
+	// Naive heuristics
+	// Tuan
+	// Puan
+	// Dato
+	// Datuk
+	// Tun
+	// Tan Sri
+	// Menteri
+
+	return false
+}
+
+func hasSeenRepBefore(line string) (bool, string) {
+	var cleanedRepName string
+	// Remove special chars; nonAlphanum before trying to map
+
+	// If has the keywords; use it!
+	if !isRepTitle(line) {
+		// Not MP skip it!
+	}
+	// Check against map; if NOT seen before, return  normalized
+
+	return false, cleanedRepName
+}
+func extractDebaters(allLines []string) []string {
+	var allReps []string
+	allMapReps := make(map[string]string, 100)
 	//  DEBUG
 	fmt.Println("========= Cover Pages ====================")
 	fmt.Println("NO LINES: ", len(allLines))
 	//Debug allLines
 	for _, line := range allLines {
-		fmt.Println("\"", line, "\",")
+		// DEBUG
+		//fmt.Println("\"", line, "\",")
 		// If look like Reps; flag it ..
 		// Need to merge and make it unique? OrderedMap? No order guarantee ..
 		isRep, normalizedRep := looksLikeRep(strings.Trim(line, " "))
 		if isRep {
-			fmt.Println("FOUND: ", normalizedRep)
+			//  DEBUG
+			//fmt.Println("\"", line, "\",")
+			//fmt.Println("\"", normalizedRep, "\",")
+			// If mapped; can skip
+			seenBefore, cleanedRepName := hasSeenRepBefore(normalizedRep)
+			if seenBefore {
+				continue
+			}
+			// New one, attach it for use; unsorted?
+			allReps = append(allReps, cleanedRepName)
+
 		}
 	}
 	fmt.Println("========= END ====================")
@@ -79,5 +116,6 @@ func extractDebaters(allLines []string) []akomantoso.Representative {
 	for _, uniqueRep := range allMapReps {
 		allReps = append(allReps, uniqueRep)
 	}
+	//spew.Dump(allReps)
 	return allReps
 }

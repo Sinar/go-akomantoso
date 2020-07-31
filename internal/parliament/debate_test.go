@@ -63,15 +63,27 @@ func TestDebateAnalyzer_Process(t *testing.T) {
 		want   error
 		want1  []akomantoso.Representative
 	}{
-		{"happy  #1", fields{"../../raw/Parliament/Hansard/DR-28072020.pdf"}, nil,
+		//{"happy  #1", fields{"../../raw/Parliament/Hansard/DR-28072020.pdf"}, nil,
+		//	[]akomantoso.Representative{
+		//		akomantoso.Representative{
+		//			DisplayName: "bob",
+		//		},
+		//	},
+		//},
+		//{"happy  #2", fields{"../../raw/Parliament/Hansard/DR-18052020.pdf"}, nil,
+		//	[]akomantoso.Representative{
+		//		akomantoso.Representative{
+		//			DisplayName: "bob",
+		//		},
+		//	},
+		//},
+		{"happy  #3", fields{"../../raw/Parliament/Hansard/DR-13072020 New 1.pdf"}, nil,
 			[]akomantoso.Representative{
 				akomantoso.Representative{
 					DisplayName: "bob",
 				},
 			},
 		},
-		//{"happy  #2", fields{"../../raw/Parliament/Hansard/DR-18052020.pdf"}, true},
-		//{"happy  #3", fields{"../../raw/Parliament/Hansard/DR-13072020 New 1.pdf"}, true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
