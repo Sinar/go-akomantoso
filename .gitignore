@@ -22,3 +22,6 @@ go-akn
 
 # Ignore Goland
 idea
+
+# Ignore PDFs
+*.pdf

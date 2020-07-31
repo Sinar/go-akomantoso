@@ -39,15 +39,16 @@ func NewStateAssemblyDebate(pdfPath string) StateAssemblyDebate {
 	// Sanity  checks ..
 	if len(pdfDocument.Pages) < 1 {
 		spew.Dump(pdfDocument.Pages)
-		panic("SHould NOT be here!!")
+		panic("Should NOT be here!!")
 	}
 	// Questions are usaully 2 pages or so  ..
-	allLines := make([]string, 2*len(pdfDocument.Pages[0].PDFTxtSameLines))
+	allLines := make([]string, 5*len(pdfDocument.Pages[0].PDFTxtSameLines))
 	for _, singlePageRows := range pdfDocument.Pages {
 		allLines = append(allLines, singlePageRows.PDFTxtSameLines...)
 	}
 	//  DEBUG
 	//fmt.Println("========= Cover Pages ====================")
+	fmt.Println("NO LINES: ", len(allLines))
 	//for _, line := range allLines {
 	//	fmt.Println("\"", line, "\",")
 	//}
@@ -55,7 +56,9 @@ func NewStateAssemblyDebate(pdfPath string) StateAssemblyDebate {
 
 	// Extract CoverPage Info by doing the below concurrently
 	//  Detect section markers:
-	extractSectionMarkers(allLines)
+	sectionMarkers := extractSectionMarkers(allLines)
+	// DEBUG
+	spew.Dump(sectionMarkers)
 	// Extract Representatives Detected
 
 	// Namespace: Name-Term-Meeting
