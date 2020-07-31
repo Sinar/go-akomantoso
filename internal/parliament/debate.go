@@ -10,12 +10,11 @@ import (
 // Location, Date? 8 NOVEMBER 2019 (JUMAAT)
 // ParliamentDebate for the  day!
 type ParliamentDebate struct {
-	ParliamentSession ParliamentSession
-	Location          string
-	Date              string
-	Attended          []akomantoso.Representative
-	Missed            []akomantoso.Representative
-	QAHansard         akomantoso.QAHansard
+	ID        string
+	Date      string
+	Attended  []akomantoso.Representative
+	Missed    []akomantoso.Representative
+	QAHansard akomantoso.QAHansard
 }
 
 func extractSessionInfo(coverPageContent []string) string {
@@ -67,12 +66,10 @@ func NewParliamentDebate(pdfPath string) ParliamentDebate {
 
 	// Will have session.yml out representing the  detected info
 	return ParliamentDebate{
-		ParliamentSession: ParliamentSession{},
-		Location:          "",
-		Date:              "",
-		Attended:          nil,
-		Missed:            nil,
-		QAHansard:         akomantoso.QAHansard{},
+		Date:      "",
+		Attended:  nil,
+		Missed:    nil,
+		QAHansard: akomantoso.QAHansard{},
 	}
 }
 

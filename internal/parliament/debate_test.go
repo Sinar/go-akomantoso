@@ -19,13 +19,6 @@ func TestNewParliamentDebate(t *testing.T) {
 		{"happy  #1",
 			args{"../../raw/Parliament/Hansard/DR-28072020.pdf"},
 			ParliamentDebate{
-				ParliamentSession: ParliamentSession{
-					ID:      "dunsel14-2019-p1-m1",
-					Name:    "DEWAN NEGERI SELANGOR YANG KEEMPAT BELAS TAHUN 2019",
-					Term:    "PENGGAL 1",
-					Meeting: "MESYUARAT 1",
-				},
-				Location:  "",
 				Date:      "",
 				Attended:  nil,
 				Missed:    nil,
@@ -34,13 +27,6 @@ func TestNewParliamentDebate(t *testing.T) {
 		//{"happy  #2",
 		//	args{"../../raw/Parliament/Hansard/DR-18052020.pdf"},
 		//	ParliamentDebate{
-		//		ParliamentSession: ParliamentSession{
-		//			ID:      "dunsel14-2019-p1-m1",
-		//			Name:    "DEWAN NEGERI SELANGOR YANG KEEMPAT BELAS TAHUN 2019",
-		//			Term:    "PENGGAL 1",
-		//			Meeting: "MESYUARAT 1",
-		//		},
-		//		Location:  "",
 		//		Date:      "",
 		//		Attended:  nil,
 		//		Missed:    nil,
@@ -49,13 +35,6 @@ func TestNewParliamentDebate(t *testing.T) {
 		//{"happy  #3",
 		//	args{"../../raw/Parliament/Hansard/DR-13072020 New 1.pdf"},
 		//	ParliamentDebate{
-		//		ParliamentSession: ParliamentSession{
-		//			ID:      "dunsel14-2019-p1-m1",
-		//			Name:    "DEWAN NEGERI SELANGOR YANG KEEMPAT BELAS TAHUN 2019",
-		//			Term:    "PENGGAL 1",
-		//			Meeting: "MESYUARAT 1",
-		//		},
-		//		Location:  "",
 		//		Date:      "",
 		//		Attended:  nil,
 		//		Missed:    nil,
@@ -90,12 +69,10 @@ func TestParliamentDebate_ExtractQAHansard(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			sad := ParliamentDebate{
-				ParliamentSession: tt.fields.ParliamentSession,
-				Location:          tt.fields.Location,
-				Date:              tt.fields.Date,
-				Attended:          tt.fields.Attended,
-				Missed:            tt.fields.Missed,
-				QAHansard:         tt.fields.QAHansard,
+				Date:      tt.fields.Date,
+				Attended:  tt.fields.Attended,
+				Missed:    tt.fields.Missed,
+				QAHansard: tt.fields.QAHansard,
 			}
 			if err := sad.ExtractQAHansard(); (err != nil) != tt.wantErr {
 				t.Errorf("ExtractQAHansard() error = %v, wantErr %v", err, tt.wantErr)

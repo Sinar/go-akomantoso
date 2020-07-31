@@ -3,6 +3,8 @@ package parliament
 import (
 	"reflect"
 	"testing"
+
+	"github.com/Sinar/go-akomantoso/internal/akomantoso"
 )
 
 func Test_extractSectionMarkers(t *testing.T) {
@@ -35,11 +37,14 @@ func Test_extractSectionMarkers(t *testing.T) {
 				" 1.  Dato Sri Hajah Rohani binti Abdul Karim [Batang Lupar] minta Menteri Perumahan  ",
 			}},
 			SectionMarkers{
-				DatePageMarker:         "8 NOVEMBER 2019 (JUMAAT)",
-				PresentMarker:          4,
-				AbsentMarker:           0,
-				ParticipatedMarker:     10,
-				OfficersPresentMarker:  0,
+				DatePageMarker: "8 NOVEMBER 2019 (JUMAAT)",
+				ParliamentDebate: ParliamentDebate{
+					ID:        "",
+					Date:      "",
+					Attended:  nil,
+					Missed:    nil,
+					QAHansard: akomantoso.QAHansard{},
+				},
 				SessionStartMarkerLine: 16,
 			},
 		},
@@ -69,11 +74,14 @@ func Test_extractSectionMarkers(t *testing.T) {
 				" AL-SULTAN ABDULLAH RI’AYATUDDIN�  ",
 			}},
 			SectionMarkers{
-				DatePageMarker:         "8 NOVEMBER 2019 (JUMAAT)",
-				PresentMarker:          4,
-				AbsentMarker:           0,
-				ParticipatedMarker:     10,
-				OfficersPresentMarker:  0,
+				DatePageMarker: "8 NOVEMBER 2019 (JUMAAT)",
+				ParliamentDebate: ParliamentDebate{
+					ID:        "",
+					Date:      "",
+					Attended:  nil,
+					Missed:    nil,
+					QAHansard: akomantoso.QAHansard{},
+				},
 				SessionStartMarkerLine: 16,
 			},
 		},
@@ -100,11 +108,14 @@ func Test_extractSectionMarkers(t *testing.T) {
 				" 4A(3), saya suka hendak memaklumkan iaitu mengikut maklum balas yang saya terima",
 			}},
 			SectionMarkers{
-				DatePageMarker:         "8 NOVEMBER 2019 (JUMAAT)",
-				PresentMarker:          4,
-				AbsentMarker:           0,
-				ParticipatedMarker:     10,
-				OfficersPresentMarker:  0,
+				DatePageMarker: "8 NOVEMBER 2019 (JUMAAT)",
+				ParliamentDebate: ParliamentDebate{
+					ID:        "",
+					Date:      "",
+					Attended:  nil,
+					Missed:    nil,
+					QAHansard: akomantoso.QAHansard{},
+				},
 				SessionStartMarkerLine: 16,
 			},
 		},
@@ -113,26 +124,6 @@ func Test_extractSectionMarkers(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := extractSectionMarkers(tt.args.allLines); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("extractSectionMarkers() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func Test_hasAbsentMarker(t *testing.T) {
-	type args struct {
-		line string
-	}
-	tests := []struct {
-		name string
-		args args
-		want bool
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := hasAbsentMarker(tt.args.line); got != tt.want {
-				t.Errorf("hasAbsentMarker() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -154,66 +145,6 @@ func Test_hasDatePageMarker(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := hasDatePageMarker(tt.args.line); got != tt.want {
 				t.Errorf("hasDatePageMarker() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func Test_hasOfficersPresentMarker(t *testing.T) {
-	type args struct {
-		line string
-	}
-	tests := []struct {
-		name string
-		args args
-		want bool
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := hasOfficersPresentMarker(tt.args.line); got != tt.want {
-				t.Errorf("hasOfficersPresentMarker() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func Test_hasParticipatedMarker(t *testing.T) {
-	type args struct {
-		line string
-	}
-	tests := []struct {
-		name string
-		args args
-		want bool
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := hasParticipatedMarker(tt.args.line); got != tt.want {
-				t.Errorf("hasParticipatedMarker() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func Test_hasPresentMarker(t *testing.T) {
-	type args struct {
-		line string
-	}
-	tests := []struct {
-		name string
-		args args
-		want bool
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := hasPresentMarker(tt.args.line); got != tt.want {
-				t.Errorf("hasPresentMarker() = %v, want %v", got, tt.want)
 			}
 		})
 	}

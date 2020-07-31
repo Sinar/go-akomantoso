@@ -38,3 +38,4 @@ func (sas ParliamentSession) loadParliamentSession() error {
 
 // Loop through the individual split PDFs
 // Process PDF by Type
+// TODO: Determine via use of page 1 of Parliament Hansard

@@ -3,6 +3,8 @@ package parliament
 import (
 	"regexp"
 	"strings"
+
+	"github.com/Sinar/go-akomantoso/internal/akomantoso"
 )
 
 // Detect the Section Markers in the Cover Pages
@@ -10,10 +12,7 @@ import (
 //  Output: [<Line FOUND> for each category; it may be missing]
 type SectionMarkers struct {
 	DatePageMarker         string
-	PresentMarker          int // * HADIR
-	AbsentMarker           int // * TIDAK HADIR
-	ParticipatedMarker     int // * TURUT HADIR
-	OfficersPresentMarker  int // * PEGAWAI BERTUGAS
+	ParliamentDebate       ParliamentDebate
 	SessionStartMarkerLine int // * Session Start (END)
 }
 
@@ -26,45 +25,9 @@ func hasDatePageMarker(line string) bool {
 	return matched
 }
 
-func hasPresentMarker(line string) bool {
-	// YANG HADIR
-	matched, err := regexp.MatchString(`yang hadir`, strings.ToLower(line))
-	if err != nil {
-		panic(err)
-	}
-	return matched
-}
-
-func hasAbsentMarker(line string) bool {
-	// TIDAK HADIR
-	matched, err := regexp.MatchString(`tidak hadir`, strings.ToLower(line))
-	if err != nil {
-		panic(err)
-	}
-	return matched
-}
-
-func hasParticipatedMarker(line string) bool {
-	// TURUT HADIR
-	matched, err := regexp.MatchString(`turut hadir`, strings.ToLower(line))
-	if err != nil {
-		panic(err)
-	}
-	return matched
-}
-
-func hasOfficersPresentMarker(line string) bool {
-	// PEGAWAI BERTUGAS
-	matched, err := regexp.MatchString(`pegawai bertugas`, strings.ToLower(line))
-	if err != nil {
-		panic(err)
-	}
-	return matched
-}
-
 func hasSessionStartMarkerLine(line string) bool {
-	// SPEAKER MEMPENGERUSIKAN
-	matched, err := regexp.MatchString(`speaker mempengerusikan`, strings.ToLower(line))
+	// Tuan Yang di-Pertua mempengerusikan Mesyuarat
+	matched, err := regexp.MatchString(`tuan yang di-pertua mempengerusikan mesyuarat`, strings.ToLower(line))
 	if err != nil {
 		panic(err)
 	}
@@ -73,38 +36,31 @@ func hasSessionStartMarkerLine(line string) bool {
 
 func extractSectionMarkers(allLines []string) SectionMarkers {
 	var datePageMarker string
-	var presentMakerPage, absentMarkerPage, participatedMarkerPage, officersPresentMarkerPage, sessionStartMarkerLinePage int
+	var sessionStartMarkerLinePage int
 	for i, line := range allLines {
 		// DEBUG
 		//fmt.Println("LINE: ", i)
 		normalizedLine := strings.TrimSpace(line)
 		if hasDatePageMarker(normalizedLine) {
 			datePageMarker = normalizedLine
-		}
-		if hasPresentMarker(normalizedLine) {
-			presentMakerPage = i
-		}
-		if hasAbsentMarker(normalizedLine) {
-			absentMarkerPage = i
-		}
-		if hasParticipatedMarker(normalizedLine) {
-			participatedMarkerPage = i
-		}
-		if hasOfficersPresentMarker(normalizedLine) {
-			officersPresentMarkerPage = i
+			continue
 		}
 		if hasSessionStartMarkerLine(normalizedLine) {
 			sessionStartMarkerLinePage = i
+			break
 		}
 	}
 	// DEBUG
 	//spew.Dump(allLines)
 	return SectionMarkers{
-		DatePageMarker:         datePageMarker,
-		PresentMarker:          presentMakerPage,
-		AbsentMarker:           absentMarkerPage,
-		ParticipatedMarker:     participatedMarkerPage,
-		OfficersPresentMarker:  officersPresentMarkerPage,
+		DatePageMarker: datePageMarker,
+		ParliamentDebate: ParliamentDebate{
+			ID:        "",
+			Date:      "",
+			Attended:  nil,
+			Missed:    nil,
+			QAHansard: akomantoso.QAHansard{},
+		},
 		SessionStartMarkerLine: sessionStartMarkerLinePage,
 	}
 }
