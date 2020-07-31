@@ -18,6 +18,39 @@ type StateAssemblyDebate struct {
 	QAHansard            akomantoso.QAHansard
 }
 
+type DebateAnalyzer struct {
+	pdfPath string
+}
+
+func (da DebateAnalyzer) Process() (error, []akomantoso.Representative) {
+	// From the Analyzer; we get the start of session; start from there
+	// Extract out Section Metadata for attachment
+	extractOptions := akomantoso.ExtractPDFOptions{
+		StartPage:  2,
+		NumPages:   30,
+		MaxSampled: 10000,
+	}
+	pdfDocument, perr := akomantoso.NewPDFDocument(da.pdfPath, &extractOptions)
+	if perr != nil {
+		panic(perr)
+	}
+	//spew.Dump(pdfDocument.Pages)
+	// Sanity  checks ..
+	if len(pdfDocument.Pages) < 1 {
+		// DEBUG
+		//spew.Dump(pdfDocument.Pages)
+		panic("Should NOT be here!!")
+	}
+	// Questions are usaully 2 pages or so  ..
+	allLines := make([]string, 30*len(pdfDocument.Pages[0].PDFTxtSameLines))
+	for _, singlePageRows := range pdfDocument.Pages {
+		allLines = append(allLines, singlePageRows.PDFTxtSameStyles...)
+	}
+	extractDebaters(allLines)
+
+	return nil, []akomantoso.Representative{}
+}
+
 func extractSessionInfo(coverPageContent []string) string {
 	return "SHAH ALAM, 8 NOVEMBER 2019 (JUMAAT) "
 }

@@ -84,6 +84,7 @@ func hasSeenRepBefore(line string) (bool, string) {
 
 	return false, cleanedRepName
 }
+
 func extractDebaters(allLines []string) []string {
 	var allReps []string
 	allMapReps := make(map[string]string, 100)

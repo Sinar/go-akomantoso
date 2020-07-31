@@ -78,8 +78,8 @@ func (da DebateAnalyzer) Process() (error, []akomantoso.Representative) {
 	// From the Analyzer; we get the start of session; start from there
 	// Extract out Section Metadata for attachment
 	extractOptions := akomantoso.ExtractPDFOptions{
-		StartPage: 2,
-		//NumPages:   15,
+		StartPage:  2,
+		NumPages:   30,
 		MaxSampled: 10000,
 	}
 	pdfDocument, perr := akomantoso.NewPDFDocument(da.pdfPath, &extractOptions)
@@ -94,7 +94,7 @@ func (da DebateAnalyzer) Process() (error, []akomantoso.Representative) {
 		panic("Should NOT be here!!")
 	}
 	// Questions are usaully 2 pages or so  ..
-	allLines := make([]string, 15*len(pdfDocument.Pages[0].PDFTxtSameLines))
+	allLines := make([]string, 30*len(pdfDocument.Pages[0].PDFTxtSameLines))
 	for _, singlePageRows := range pdfDocument.Pages {
 		allLines = append(allLines, singlePageRows.PDFTxtSameStyles...)
 	}
