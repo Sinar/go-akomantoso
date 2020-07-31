@@ -28,7 +28,7 @@ func getSessionDate() string {
 func NewParliamentDebate(pdfPath string) ParliamentDebate {
 	extractOptions := akomantoso.ExtractPDFOptions{
 		StartPage:  1,
-		NumPages:   7,
+		NumPages:   3,
 		MaxSampled: 1000,
 	}
 	pdfDocument, perr := akomantoso.NewPDFDocument(pdfPath, &extractOptions)
@@ -49,16 +49,17 @@ func NewParliamentDebate(pdfPath string) ParliamentDebate {
 	//  DEBUG
 	//fmt.Println("========= Cover Pages ====================")
 	fmt.Println("NO LINES: ", len(allLines))
-	//for _, line := range allLines {
-	//	fmt.Println("\"", line, "\",")
-	//}
-	//fmt.Println("========= END ====================")
+	// Debug allLines
+	for _, line := range allLines {
+		fmt.Println("\"", line, "\",")
+	}
+	fmt.Println("========= END ====================")
 
 	// Extract CoverPage Info by doing the below concurrently
 	//  Detect section markers:
-	sectionMarkers := extractSectionMarkers(allLines)
-	// DEBUG
-	spew.Dump(sectionMarkers)
+	//sectionMarkers := extractSectionMarkers(allLines)
+	//// DEBUG
+	//spew.Dump(sectionMarkers)
 	// Extract Representatives Detected
 
 	// Namespace: Name-Term-Meeting
