@@ -52,3 +52,28 @@ func TestNewParliamentDebate(t *testing.T) {
 		})
 	}
 }
+
+func TestDebateAnalyzer_Process(t *testing.T) {
+	type fields struct {
+		pdfPath string
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		wantErr bool
+	}{
+		{"happy  #1", fields{"../../raw/Parliament/Hansard/DR-28072020.pdf"}, true},
+		//{"happy  #2", fields{"../../raw/Parliament/Hansard/DR-18052020.pdf"}, true},
+		//{"happy  #3", fields{"../../raw/Parliament/Hansard/DR-13072020 New 1.pdf"}, true},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			da := DebateAnalyzer{
+				pdfPath: tt.fields.pdfPath,
+			}
+			if err := da.Process(); (err != nil) != tt.wantErr {
+				t.Errorf("Process() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}

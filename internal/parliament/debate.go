@@ -7,6 +7,10 @@ import (
 	"github.com/davecgh/go-spew/spew"
 )
 
+type DebateAnalyzer struct {
+	pdfPath string
+}
+
 // Location, Date? 8 NOVEMBER 2019 (JUMAAT)
 // ParliamentDebate for the  day!
 type ParliamentDebate struct {
@@ -70,7 +74,53 @@ func NewParliamentDebate(pdfPath string) ParliamentDebate {
 	return sectionMarkers.ParliamentDebate
 }
 
+func extractDebaters(allLines []string) []akomantoso.Representative {
+	//  DEBUG
+	fmt.Println("========= Cover Pages ====================")
+	fmt.Println("NO LINES: ", len(allLines))
+	//Debug allLines
+	for _, line := range allLines {
+		fmt.Println("\"", line, "\",")
+	}
+	fmt.Println("========= END ====================")
+
+	return []akomantoso.Representative{}
+}
+
+func (da DebateAnalyzer) Process() error {
+	// From the Analyzer; we get the start of session; start from there
+	// Extract out Section Metadata for attachment
+	extractOptions := akomantoso.ExtractPDFOptions{
+		StartPage:  1,
+		NumPages:   15,
+		MaxSampled: 10000,
+	}
+	pdfDocument, perr := akomantoso.NewPDFDocument(da.pdfPath, &extractOptions)
+	if perr != nil {
+		panic(perr)
+	}
+	//spew.Dump(pdfDocument.Pages)
+	// Sanity  checks ..
+	if len(pdfDocument.Pages) < 1 {
+		// DEBUG
+		//spew.Dump(pdfDocument.Pages)
+		panic("Should NOT be here!!")
+	}
+	// Questions are usaully 2 pages or so  ..
+	allLines := make([]string, 15*len(pdfDocument.Pages[0].PDFTxtSameLines))
+	for _, singlePageRows := range pdfDocument.Pages {
+		allLines = append(allLines, singlePageRows.PDFTxtSameLines...)
+	}
+	extractDebaters(allLines)
+
+	return nil
+}
+
 func (pd ParliamentDebate) ExtractQAHansard() error {
+	da := DebateAnalyzer{
+		pdfPath: "../../raw/Parliament/Hansard/DR-28072020.pdf",
+	}
+	da.Process()
 	return nil
 }
 
