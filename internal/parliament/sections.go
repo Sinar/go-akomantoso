@@ -120,7 +120,7 @@ func extractSectionMarkers(allLines []string) SectionMarkers {
 		QAHansard: akomantoso.QAHansard{},
 	}
 	// DEBUG
-	//spew.Dump(allLines)
+	//spew.Dump("ID ==> ", parliamentDebate.ID)
 	return SectionMarkers{
 		DatePageMarker:         datePageMarker,
 		ParliamentDebate:       parliamentDebate,

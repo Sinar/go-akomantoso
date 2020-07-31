@@ -7,5 +7,8 @@ build:
 test:
 	@cd  internal/parliament && gotest -v -run ^Test_extractSectionMarkers$
 
+testpar:
+	@cd  internal/parliament && gotest -v -run ^Test_extractSectionMarkers$
+
 testsa:
 	@cd  internal/state-assembly && gotest -v -run ^Test_extractSectionMarkers$

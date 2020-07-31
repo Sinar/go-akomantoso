@@ -25,6 +25,7 @@ func getSessionDate() string {
 }
 
 func NewParliamentDebate(pdfPath string) ParliamentDebate {
+	// Extract out Section Metadata for attachment
 	extractOptions := akomantoso.ExtractPDFOptions{
 		StartPage:  1,
 		NumPages:   3,
@@ -37,7 +38,8 @@ func NewParliamentDebate(pdfPath string) ParliamentDebate {
 	//spew.Dump(pdfDocument.Pages)
 	// Sanity  checks ..
 	if len(pdfDocument.Pages) < 1 {
-		spew.Dump(pdfDocument.Pages)
+		// DEBUG
+		//spew.Dump(pdfDocument.Pages)
 		panic("Should NOT be here!!")
 	}
 	// Questions are usaully 2 pages or so  ..
@@ -47,17 +49,17 @@ func NewParliamentDebate(pdfPath string) ParliamentDebate {
 	}
 	//  DEBUG
 	//fmt.Println("========= Cover Pages ====================")
-	fmt.Println("NO LINES: ", len(allLines))
+	//fmt.Println("NO LINES: ", len(allLines))
 	// Debug allLines
-	for _, line := range allLines {
-		fmt.Println("\"", line, "\",")
-	}
-	fmt.Println("========= END ====================")
+	//for _, line := range allLines {
+	//	fmt.Println("\"", line, "\",")
+	//}
+	//fmt.Println("========= END ====================")
 
 	// Extract CoverPage Info by doing the below concurrently
 	//  Detect section markers:
-	//sectionMarkers := extractSectionMarkers(allLines)
-	//// DEBUG
+	sectionMarkers := extractSectionMarkers(allLines)
+	// DEBUG
 	//spew.Dump(sectionMarkers)
 	// Extract Representatives Detected
 
@@ -65,16 +67,15 @@ func NewParliamentDebate(pdfPath string) ParliamentDebate {
 	// Persist into data?
 
 	// Will have session.yml out representing the  detected info
-	return ParliamentDebate{
-		Date:      "",
-		Attended:  nil,
-		Missed:    nil,
-		QAHansard: akomantoso.QAHansard{},
-	}
+	return sectionMarkers.ParliamentDebate
+}
+
+func (pd ParliamentDebate) ExtractQAHansard() error {
+	return nil
 }
 
 // ProcessHansard will  output QAHansard ..
-func ProcessHansard(pdfPath string) akomantoso.QAHansard {
+func processHansard(pdfPath string) akomantoso.QAHansard {
 	// Test single content
 	qaSingleContent := akomantoso.QAContent{
 		ID:       "Q.1",
@@ -123,8 +124,4 @@ func ProcessHansard(pdfPath string) akomantoso.QAHansard {
 	fmt.Println("========= END ====================")
 
 	return qaHansard
-}
-
-func (sad ParliamentDebate) ExtractQAHansard() error {
-	return nil
 }
