@@ -74,24 +74,11 @@ func NewParliamentDebate(pdfPath string) ParliamentDebate {
 	return sectionMarkers.ParliamentDebate
 }
 
-func extractDebaters(allLines []string) []akomantoso.Representative {
-	//  DEBUG
-	fmt.Println("========= Cover Pages ====================")
-	fmt.Println("NO LINES: ", len(allLines))
-	//Debug allLines
-	for _, line := range allLines {
-		fmt.Println("\"", line, "\",")
-	}
-	fmt.Println("========= END ====================")
-
-	return []akomantoso.Representative{}
-}
-
-func (da DebateAnalyzer) Process() error {
+func (da DebateAnalyzer) Process() (error, []akomantoso.Representative) {
 	// From the Analyzer; we get the start of session; start from there
 	// Extract out Section Metadata for attachment
 	extractOptions := akomantoso.ExtractPDFOptions{
-		StartPage:  1,
+		StartPage:  2,
 		NumPages:   15,
 		MaxSampled: 10000,
 	}
@@ -109,11 +96,11 @@ func (da DebateAnalyzer) Process() error {
 	// Questions are usaully 2 pages or so  ..
 	allLines := make([]string, 15*len(pdfDocument.Pages[0].PDFTxtSameLines))
 	for _, singlePageRows := range pdfDocument.Pages {
-		allLines = append(allLines, singlePageRows.PDFTxtSameLines...)
+		allLines = append(allLines, singlePageRows.PDFTxtSameStyles...)
 	}
 	extractDebaters(allLines)
 
-	return nil
+	return nil, []akomantoso.Representative{}
 }
 
 func (pd ParliamentDebate) ExtractQAHansard() error {

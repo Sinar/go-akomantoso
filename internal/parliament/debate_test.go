@@ -58,11 +58,18 @@ func TestDebateAnalyzer_Process(t *testing.T) {
 		pdfPath string
 	}
 	tests := []struct {
-		name    string
-		fields  fields
-		wantErr bool
+		name   string
+		fields fields
+		want   error
+		want1  []akomantoso.Representative
 	}{
-		{"happy  #1", fields{"../../raw/Parliament/Hansard/DR-28072020.pdf"}, true},
+		{"happy  #1", fields{"../../raw/Parliament/Hansard/DR-28072020.pdf"}, nil,
+			[]akomantoso.Representative{
+				akomantoso.Representative{
+					DisplayName: "bob",
+				},
+			},
+		},
 		//{"happy  #2", fields{"../../raw/Parliament/Hansard/DR-18052020.pdf"}, true},
 		//{"happy  #3", fields{"../../raw/Parliament/Hansard/DR-13072020 New 1.pdf"}, true},
 	}
@@ -71,8 +78,12 @@ func TestDebateAnalyzer_Process(t *testing.T) {
 			da := DebateAnalyzer{
 				pdfPath: tt.fields.pdfPath,
 			}
-			if err := da.Process(); (err != nil) != tt.wantErr {
-				t.Errorf("Process() error = %v, wantErr %v", err, tt.wantErr)
+			got, got1 := da.Process()
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Process() got = %v, want %v", got, tt.want)
+			}
+			if !reflect.DeepEqual(got1, tt.want1) {
+				t.Errorf("Process() got1 = %v, want %v", got1, tt.want1)
 			}
 		})
 	}
