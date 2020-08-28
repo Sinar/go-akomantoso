@@ -64,3 +64,39 @@ func TestNewStateAssemblyDebate(t *testing.T) {
 		})
 	}
 }
+
+func TestDebateAnalyzer_Process(t *testing.T) {
+	type fields struct {
+		pdfPath string
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		want   error
+		want1  []akomantoso.Representative
+	}{
+		{"case #1", fields{"../../raw/StateAssembly/Hansard/HANSARD-15-JULAI-2020.pdf"}, nil,
+			[]akomantoso.Representative{},
+		},
+		//{"case #2", fields{"../../raw/StateAssembly/Hansard/HANSARD-16-MAC-2020.pdf"}, nil,
+		//	[]akomantoso.Representative{},
+		//},
+		//{"case #3", fields{"../../raw/StateAssembly/Hansard/HANSARD-17-MAC-2020.pdf"}, nil,
+		//	[]akomantoso.Representative{},
+		//},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			da := DebateAnalyzer{
+				pdfPath: tt.fields.pdfPath,
+			}
+			got, got1 := da.Process()
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Process() got = %v, want %v", got, tt.want)
+			}
+			if !reflect.DeepEqual(got1, tt.want1) {
+				t.Errorf("Process() got1 = %v, want %v", got1, tt.want1)
+			}
+		})
+	}
+}

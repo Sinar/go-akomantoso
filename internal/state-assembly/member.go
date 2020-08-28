@@ -10,6 +10,8 @@ import (
 
 func looksLikeRep(line string) (bool, string) {
 	// Assumes: Has been trimmed both left + right ..
+	// DEBUG
+	//fmt.Println("RAW: ", line)
 	// Take choice to remove the char '.'; rep name .
 	// For cases of Dr.; is still OK Dr
 	line = strings.ReplaceAll(line, ".", "")
@@ -32,6 +34,8 @@ func looksLikeRep(line string) (bool, string) {
 		panic(err)
 	}
 	if matched {
+		// DEBUG
+		fmt.Println("MATCHED: ", line)
 		// Clean up unwanted ':' character
 		line = strings.ReplaceAll(line, ":", "")
 		// Look for the last number from the left
