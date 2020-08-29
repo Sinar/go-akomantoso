@@ -75,7 +75,16 @@ func TestDebateAnalyzer_Process(t *testing.T) {
 		want   error
 		want1  []akomantoso.Representative
 	}{
-		{"case #1", fields{"../../raw/StateAssembly/Hansard/HANSARD-15-JULAI-2020.pdf"}, nil,
+		{"case #1a", fields{"../../raw/StateAssembly/Hansard/HANSARD-16-JULAI-2020.pdf"}, nil,
+			[]akomantoso.Representative{},
+		},
+		{"case #1b", fields{"../../raw/StateAssembly/Hansard/HANSARD-15-JULAI-2020.pdf"}, nil,
+			[]akomantoso.Representative{},
+		},
+		{"case #1c", fields{"../../raw/StateAssembly/Hansard/HANSARD-14-JULAI-2020.pdf"}, nil,
+			[]akomantoso.Representative{},
+		},
+		{"case #1d", fields{"../../raw/StateAssembly/Hansard/HANSARD-13-JULAI-2020-1.pdf"}, nil,
 			[]akomantoso.Representative{},
 		},
 		//{"case #2", fields{"../../raw/StateAssembly/Hansard/HANSARD-16-MAC-2020.pdf"}, nil,

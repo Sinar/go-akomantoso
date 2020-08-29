@@ -18,6 +18,15 @@ type StateAssemblyDebate struct {
 	QAHansard            akomantoso.QAHansard
 }
 
+type DebateProcessorState struct {
+	SectionMarkers     SectionMarkers
+	CurrentPage        int
+	CurrentContent     string
+	LastMatchedRep     akomantoso.RepresentativeID
+	RepresentativesMap map[string]akomantoso.RepresentativeID
+	RolesMap           map[string]akomantoso.RepresentativeID
+}
+
 type DebateAnalyzer struct {
 	pdfPath string
 }
@@ -26,7 +35,7 @@ func (da DebateAnalyzer) Process() (error, []akomantoso.Representative) {
 	// From the Analyzer; we get the start of session; start from there
 	// Extract out Section Metadata for attachment
 	extractOptions := akomantoso.ExtractPDFOptions{
-		StartPage: 7,
+		//StartPage: 7,
 		//NumPages:   10,
 		MaxSampled: 10000,
 	}
@@ -49,6 +58,20 @@ func (da DebateAnalyzer) Process() (error, []akomantoso.Representative) {
 	extractDebaters(allLines)
 
 	return nil, []akomantoso.Representative{}
+}
+
+func DebateProcessSinglePage(allLines []string, dps *DebateProcessorState) error {
+	// Extract out each block and find next block of texts
+	// Skip page headers and page number
+	return nil
+}
+
+func DebateProcessPages(pdfDocument *akomantoso.PDFDocument, dps DebateProcessorState) {
+	for _, singlePageRow := range pdfDocument.Pages {
+		DebateProcessSinglePage(singlePageRow.PDFTxtSameLines, &dps)
+		// Should signsl end of debate here?
+	}
+	// Edge case, hit completion; append the last content to the last Representative
 }
 
 func extractSessionInfo(coverPageContent []string) string {

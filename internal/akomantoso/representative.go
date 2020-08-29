@@ -1,5 +1,7 @@
 package akomantoso
 
+type RepresentativeID string
+
 type Representative struct {
 	ID          string
 	PopItID     string

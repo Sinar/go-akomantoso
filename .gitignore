@@ -21,7 +21,7 @@ go-akn
 .envrc*
 
 # Ignore Goland
-idea
+.idea
 
 # Ignore PDFs
 *.pdf
