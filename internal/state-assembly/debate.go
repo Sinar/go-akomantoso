@@ -18,6 +18,16 @@ type StateAssemblyDebate struct {
 	QAHansard            akomantoso.QAHansard
 }
 
+type DebateContent struct {
+	RepresentativeID akomantoso.RepresentativeID
+	RawContent       []string
+	FinalContent     string
+}
+
+type StateAssemblyDebateContent struct {
+	DebateContents []DebateContent
+}
+
 type DebateProcessorState struct {
 	SectionMarkers     SectionMarkers
 	CurrentPage        int
@@ -66,12 +76,14 @@ func DebateProcessSinglePage(allLines []string, dps *DebateProcessorState) error
 	return nil
 }
 
-func DebateProcessPages(pdfDocument *akomantoso.PDFDocument, dps DebateProcessorState) {
+func DebateProcessPages(pdfDocument *akomantoso.PDFDocument, dps DebateProcessorState) StateAssemblyDebateContent {
+	saStateAssemblyDebateContent := StateAssemblyDebateContent{}
 	for _, singlePageRow := range pdfDocument.Pages {
 		DebateProcessSinglePage(singlePageRow.PDFTxtSameLines, &dps)
 		// Should signsl end of debate here?
 	}
 	// Edge case, hit completion; append the last content to the last Representative
+	return saStateAssemblyDebateContent
 }
 
 func extractSessionInfo(coverPageContent []string) string {

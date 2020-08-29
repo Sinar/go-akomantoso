@@ -109,3 +109,112 @@ func TestDebateAnalyzer_Process(t *testing.T) {
 		})
 	}
 }
+
+//func TestDebateProcessPages(t *testing.T) {
+//	type args struct {
+//		pdfDocument *akomantoso.PDFDocument
+//		dps         DebateProcessorState
+//	}
+//	// Setup different PDFs and DPSs
+//	dps := DebateProcessorState{
+//		SectionMarkers: SectionMarkers{
+//			DatePageMarker:         "",
+//			SessionStartMarkerLine: 7,
+//		},
+//		CurrentPage:        0,
+//		CurrentContent:     "",
+//		LastMatchedRep:     "",
+//		RepresentativesMap: nil,
+//		RolesMap:           nil,
+//	}
+//	tests := []struct {
+//		name string
+//		args args
+//	}{
+//		// TODO: Add test cases.
+//		{"case #1", args{nil, dps}},
+//	}
+//	for _, tt := range tests {
+//		t.Run(tt.name, func(t *testing.T) {
+//			// Makes a copy of the base scenario
+//			currentDPS := tt.args.dps
+//			spew.Dump(currentDPS)
+//
+//			DebateProcessPages(tt.args.pdfDocument, currentDPS)
+//		})
+//	}
+//}
+
+func TestDebateProcessPages(t *testing.T) {
+	type args struct {
+		pdfDocument *akomantoso.PDFDocument
+		dps         DebateProcessorState
+	}
+	// Setup different PDFs and DPSs
+	dps := DebateProcessorState{
+		SectionMarkers: SectionMarkers{
+			DatePageMarker:         "",
+			SessionStartMarkerLine: 7,
+		},
+		CurrentPage:        0,
+		CurrentContent:     "",
+		LastMatchedRep:     "",
+		RepresentativesMap: nil,
+		RolesMap:           nil,
+	}
+	tests := []struct {
+		name string
+		args args
+		want StateAssemblyDebateContent
+	}{
+		// TODO: Add test cases.
+		{"case #1", args{nil, dps}, StateAssemblyDebateContent{}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			// Makes a copy of the base scenario
+			currentDPS := tt.args.dps
+			if got := DebateProcessPages(tt.args.pdfDocument, currentDPS); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("DebateProcessPages() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestDebateProcessSinglePage(t *testing.T) {
+	type args struct {
+		allLines []string
+		dps      DebateProcessorState
+	}
+	// Setup different PDFs and DPSs
+	dps := DebateProcessorState{
+		SectionMarkers: SectionMarkers{
+			DatePageMarker:         "",
+			SessionStartMarkerLine: 7,
+		},
+		CurrentPage:        0,
+		CurrentContent:     "",
+		LastMatchedRep:     "",
+		RepresentativesMap: nil,
+		RolesMap:           nil,
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		// TODO: Add test cases.
+		{"case #", args{
+			allLines: nil,
+			dps:      dps,
+		}, true},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			currentDPS := tt.args.dps
+			if err := DebateProcessSinglePage(tt.args.allLines, &currentDPS); (err != nil) != tt.wantErr {
+				t.Errorf("DebateProcessSinglePage() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
