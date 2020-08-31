@@ -5,6 +5,12 @@ build:
 	@go build -o go-akn .
 
 test:
+	@cd  internal/state-assembly && gotest -v -run ^TestDebateProcessPages
+
+testdpsp:
+	@cd  internal/state-assembly && gotest -v -run ^TestDebateProcessSinglePage
+
+testdap:
 	@cd  internal/state-assembly && gotest -v -run ^TestDebateAnalyzer_Process
 
 tested:

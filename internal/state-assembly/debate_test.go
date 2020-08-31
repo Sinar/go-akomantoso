@@ -218,21 +218,60 @@ func TestDebateProcessPages(t *testing.T) {
 		"YB PUAN ROZANA BINTI ZAINAL ABIDIN":        "yb-puan-rozana-binti-zainal-abidin",
 	}
 	// Setup different PDFs and DPSs
+	// Extract out Section Metadata for attachment
+	extractOptions := akomantoso.ExtractPDFOptions{
+		StartPage:  7,
+		NumPages:   5,
+		MaxSampled: 10000,
+	}
+	pdfDocument, perr := akomantoso.NewPDFDocument("../../raw/StateAssembly/Hansard/HANSARD-16-JULAI-2020.pdf", &extractOptions)
+	if perr != nil {
+		panic(perr)
+	}
+	//spew.Dump(pdfDocument.Pages)
+	// Sanity  checks ..
+	if len(pdfDocument.Pages) < 1 {
+		// DEBUG
+		//spew.Dump(pdfDocument.Pages)
+		panic("Should NOT be here!!")
+	}
+
 	dps := DebateProcessorState{
 		SectionMarkers: SectionMarkers{
-			DatePageMarker:         "",
+			DatePageMarker:         "16 JULAI 2020 (KHAMIS)",
 			SessionStartMarkerLine: 7,
 		},
 		RepresentativesMap: repMap16,
-		RolesMap:           repMap15,
 	}
+
+	// For 15th test case
+	pdfDocument15, perr := akomantoso.NewPDFDocument("../../raw/StateAssembly/Hansard/HANSARD-15-JULAI-2020.pdf", &extractOptions)
+	if perr != nil {
+		panic(perr)
+	}
+	//spew.Dump(pdfDocument.Pages)
+	// Sanity  checks ..
+	if len(pdfDocument15.Pages) < 1 {
+		// DEBUG
+		//spew.Dump(pdfDocument.Pages)
+		panic("Should NOT be here!!")
+	}
+
+	dps15 := DebateProcessorState{
+		SectionMarkers: SectionMarkers{
+			DatePageMarker:         "15 JULAI 2020 (RABU)",
+			SessionStartMarkerLine: 7,
+		},
+		RepresentativesMap: repMap15,
+	}
+
 	tests := []struct {
 		name string
 		args args
 		want StateAssemblyDebateContent
 	}{
-		// TODO: Add test cases.
-		{"case #1", args{nil, dps}, StateAssemblyDebateContent{}},
+		{"case #1", args{pdfDocument, dps}, StateAssemblyDebateContent{}},
+		{"case #2", args{pdfDocument15, dps15}, StateAssemblyDebateContent{}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -247,8 +286,11 @@ func TestDebateProcessPages(t *testing.T) {
 
 func TestDebateProcessSinglePage(t *testing.T) {
 	type args struct {
-		allLines []string
-		dps      DebateProcessorState
+		allLines       []string
+		pdfPath        string
+		dps            DebateProcessorState
+		currentPage    int
+		currentContent []string
 	}
 	// Samples of RepMap for 14, 13 respectively
 	repMap14 := map[string]akomantoso.RepresentativeID{
@@ -355,29 +397,83 @@ func TestDebateProcessSinglePage(t *testing.T) {
 	// Setup different PDFs and DPSs
 	dps := DebateProcessorState{
 		SectionMarkers: SectionMarkers{
-			DatePageMarker:         "",
-			SessionStartMarkerLine: 7,
+			DatePageMarker: "13 JULAI 2020 (ISNIN)",
 		},
 		RepresentativesMap: repMap13,
-		RolesMap:           repMap14,
 	}
+	// For test case 14th
+	dps14 := DebateProcessorState{
+		SectionMarkers: SectionMarkers{
+			DatePageMarker: "14 JULAI 2020 (SELASA)",
+		},
+		RepresentativesMap: repMap14,
+	}
+
 	tests := []struct {
 		name    string
 		args    args
 		wantErr bool
 	}{
 		// TODO: Add test cases.
-		{"case #", args{
-			allLines: nil,
-			dps:      dps,
+		{"case #1", args{
+			pdfPath: "../../raw/StateAssembly/Hansard/HANSARD-13-JULAI-2020-1.pdf",
+			allLines: []string{
+				"13 JULAI 2020 (ISNIN) ",
+				"15 ",
+				"penyelia-penyelia PWB dan juga aktivis-aktivis masyarakat supaya mereka lebih peka ",
+				"terhadap keganasan rumah tangga dan mereka tahu apakah yang patut dilakukan tapi ",
+				"Y.B. DATO’ DR AHMAD YUNUS BIN HAIRI� : Soalan tambahan. ",
+				"TUAN SPEAKER : Sijangkang. ",
+				"Y.B. PUAN DR SITI MARIAH BINTI MAHMUD  : Terima kasih Yang ",
+				"Berhormat Sijangkang.  Kes ini saya tidak dapat figure yang sebelumnya ya, sebelum ", "Y.B. TUAN MOHD SANY BIN HAMZAN : Tuan Speaker. ",
+				"TUAN SPEAKER  : Taman Templer. ",
+			},
+			dps:         dps,
+			currentPage: 15,
+			//currentContent: []string{},
+		}, true},
+		{"case #2", args{
+			pdfPath: "../../raw/StateAssembly/Hansard/HANSARD-14-JULAI-2020.pdf",
+			allLines: []string{
+				"14 JULAI 2020 (SELASA) ",
+				"10 ",
+				"Y.B. TUAN IR IZHAM BIN HASHIM : Terima kasih Yang Berhormat Sijangkang.  ",
+				"selesaikan.  Begitu juga yang disebut oleh Yang Berhormat, Yang Berhormat tadi, kita ",
+				"delay pun, seminima yang mungkin.  Itu yang saya boleh bagi jaminan di sini.  Terima ",
+				"Y.B. TUAN LAU WENG SAN : Yang Berhormat, soalan tambahan. ",
+				"TUAN SPEAKER : Banting. ",
+				"Y.B. TUAN LAU WENG SAN : Terima kasih.  Saya ingin bertanya kepada Exco, ",
+				"Kecil dan Besar itu.  Sebenarnya masalah dia adalah di Sungai kecil dan besar, yang ",
+			},
+			dps:         dps14,
+			currentPage: 10,
+			//currentContent: []string{},
 		}, true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			// Extract out Section Metadata for attachment
+			extractOptions := akomantoso.ExtractPDFOptions{
+				StartPage:  tt.args.currentPage,
+				NumPages:   1,
+				MaxSampled: 10000,
+			}
+			pdfDocument, perr := akomantoso.NewPDFDocument(tt.args.pdfPath, &extractOptions)
+			if perr != nil {
+				panic(perr)
+			}
+			//spew.Dump(pdfDocument.Pages)
+			// Sanity  checks ..
+			if len(pdfDocument.Pages) < 1 {
+				// DEBUG
+				//spew.Dump(pdfDocument.Pages)
+				panic("Should NOT be here!!")
+			}
+			// Copy the structure
 			currentDPS := tt.args.dps
-			// Setup CurrentPage
+			// Setup CurrentPage content and take only one page (or more??)
 			// and any contentp prelude ..
-			if err := DebateProcessSinglePage(tt.args.allLines, &currentDPS); (err != nil) != tt.wantErr {
+			if err := DebateProcessSinglePage(pdfDocument.Pages[0].PDFTxtSameLines, &currentDPS); (err != nil) != tt.wantErr {
 				t.Errorf("DebateProcessSinglePage() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

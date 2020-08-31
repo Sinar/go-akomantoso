@@ -2,6 +2,8 @@ package state_assembly
 
 import (
 	"fmt"
+	"regexp"
+	"strings"
 
 	akomantoso "github.com/Sinar/go-akomantoso/internal/akomantoso"
 	"github.com/davecgh/go-spew/spew"
@@ -20,7 +22,7 @@ type StateAssemblyDebate struct {
 
 type DebateContent struct {
 	RepresentativeID akomantoso.RepresentativeID
-	RawContent       []string
+	RawContent       string
 	FinalContent     string
 }
 
@@ -31,8 +33,8 @@ type StateAssemblyDebateContent struct {
 type DebateProcessorState struct {
 	SectionMarkers     SectionMarkers
 	CurrentPage        int
-	CurrentContent     string
-	LastMatchedRep     akomantoso.RepresentativeID
+	CurrentContents    []DebateContent
+	LastPedingContent  DebateContent
 	RepresentativesMap map[string]akomantoso.RepresentativeID
 	RolesMap           map[string]akomantoso.RepresentativeID
 }
@@ -72,7 +74,60 @@ func (da DebateAnalyzer) Process() (error, []akomantoso.Representative) {
 
 func DebateProcessSinglePage(allLines []string, dps *DebateProcessorState) error {
 	// Extract out each block and find next block of texts
-	// Skip page headers and page number
+	// DEBUG
+	//spew.Dump(allLines)
+	// Skip page headers and page number (first 2 lines)
+	var pendingDebateContent DebateContent
+	// If came from previous round; LastPedingContent not empty
+	pendingDebateContent = dps.LastPedingContent
+	for i, singleRow := range allLines {
+		// Test case generation
+		fmt.Println(fmt.Sprintf("\"%s\",", singleRow))
+		if i > 1 {
+			// Split by colon
+			splitRow := strings.Split(singleRow, ":")
+			// If cannot split by ':', no reps
+			if len(splitRow) > 1 {
+				// Remove special chars, extra spaces
+				// Extra space removal
+				whitespaces := regexp.MustCompile(`\s+`)
+				singleRow = whitespaces.ReplaceAllString(splitRow[0], " ")
+				// Remove special chars
+				singleRow = removeNonASCII(singleRow)
+				// Remove '.'
+				singleRow = strings.ReplaceAll(singleRow, ".", "")
+				singleRow = strings.Trim(singleRow, " ")
+				repID := dps.RepresentativesMap[singleRow]
+				if repID != "" {
+					// DEBUG
+					//fmt.Println("REP: ", singleRow, " ID: ", repID)
+					if pendingDebateContent.RepresentativeID != "" {
+						// Recognize Rep in here .. finalize previous and attach to last Rep
+						// ONLY if there were RepID already; which is NOT there in first round
+						dps.CurrentContents = append(dps.CurrentContents, pendingDebateContent)
+					}
+					// publish the DebateContent and start a new one
+					pendingDebateContent = DebateContent{
+						RepresentativeID: repID,
+					}
+					// Content start with the other half ..
+					pendingDebateContent.RawContent = splitRow[1]
+				} else {
+					// Append the line content
+					pendingDebateContent.RawContent += singleRow
+				}
+			} else {
+				// Append the line content
+				pendingDebateContent.RawContent += singleRow
+			}
+		}
+	}
+	// Last left over .. should become LeftoverContent
+	dps.LastPedingContent = pendingDebateContent
+	// DEBUG
+	//spew.Dump(dps.CurrentContents)
+	//fmt.Println("LEFT OVER: ", dps.LastPedingContent)
+
 	return nil
 }
 

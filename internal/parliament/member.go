@@ -4,12 +4,28 @@ import (
 	"fmt"
 	"regexp"
 	"strings"
+	"unicode"
 
 	"github.com/Sinar/go-akomantoso/internal/akomantoso"
 )
 
+func removeNonASCII(line string) string {
+	// https://programming-idioms.org/idiom/147/remove-all-non-ascii-characters/1848/go
+	return strings.Map(func(r rune) rune {
+		if r > unicode.MaxASCII {
+			return -1
+		}
+		return r
+	}, line)
+}
+
+func generateRepresentativeID(line string) string {
+	return strings.ToLower(strings.ReplaceAll(line, " ", "-"))
+}
+
 func looksLikeRep(line string) (bool, string) {
-	// Assumes: Has been trimmed both left + right ..
+	// Step 0: Remove ALL non-ASCII
+	line = removeNonASCII(line)
 	// Take choice to remove the char '.'; rep name .
 	// For cases of Dr.; is still OK Dr
 	line = strings.ReplaceAll(line, ".", "")
@@ -44,9 +60,18 @@ func looksLikeRep(line string) (bool, string) {
 			line = strings.Trim(line[li+1:], " ")
 			//fmt.Println("-- AFTER ***", line)
 		}
-		// DEBUG
-		//fmt.Println("************** MATCHED: **********", line)
-		return matched, line
+		// Step -1: Trim both left + right ..
+		line = strings.Trim(line, " ")
+		// Remove all extra space which will fail the has mapping
+		// https://programming-idioms.org/idiom/219/replace-multiple-spaces-with-single-space
+		whitespaces := regexp.MustCompile(`\s+`)
+		line = whitespaces.ReplaceAllString(line, " ")
+		// If still got content after all processing; say it is OK
+		if line != "" {
+			// DEBUG
+			//fmt.Println("************** RETURNED: **********", line, "*****")
+			return matched, line
+		}
 	}
 	return false, ""
 }
@@ -61,6 +86,21 @@ func cleanExtractedDebaters(normalizedReps []string) []akomantoso.Representative
 
 func isRepTitle(line string) bool {
 	// Naive heuristics
+	line = strings.ToLower(line)
+	// Short-circuit; bad HACK!
+	matchSC, scerr := regexp.MatchString(`jawapan`, line)
+	if scerr != nil {
+		panic(scerr)
+	}
+	if matchSC {
+		return false
+	}
+	// Representative names definitely will NOT be more than 10 words!
+	if strings.Count(line, " ") > 10 {
+		return false
+	}
+	// MAIN Rule Match
+	// YB,YAB
 	// Tuan
 	// Puan
 	// Dato
@@ -68,8 +108,12 @@ func isRepTitle(line string) bool {
 	// Tun
 	// Tan Sri
 	// Menteri
+	matchYB, err := regexp.MatchString(`yb|yab|tuan|puan|dato|datuk|tun|tan sri|menteri`, line)
+	if err != nil {
+		panic(err)
+	}
 
-	return false
+	return matchYB
 }
 
 func hasSeenRepBefore(line string) (bool, string) {
@@ -87,7 +131,7 @@ func hasSeenRepBefore(line string) (bool, string) {
 
 func extractDebaters(allLines []string) []string {
 	var allReps []string
-	allMapReps := make(map[string]string, 100)
+	allMapReps := make(map[string]bool, 100)
 	//  DEBUG
 	fmt.Println("========= Cover Pages ====================")
 	fmt.Println("NO LINES: ", len(allLines))
@@ -100,23 +144,30 @@ func extractDebaters(allLines []string) []string {
 		isRep, normalizedRep := looksLikeRep(strings.Trim(line, " "))
 		if isRep {
 			//  DEBUG
-			//fmt.Println("\"", line, "\",")
-			//fmt.Println("\"", normalizedRep, "\",")
-			// If mapped; can skip
-			seenBefore, cleanedRepName := hasSeenRepBefore(normalizedRep)
-			if seenBefore {
+			//fmt.Println(fmt.Sprintf("IN: \"%s\"", line))
+			//fmt.Println(fmt.Sprintf("OUT: \"%s\"", normalizedRep))
+			// Skip if it is NOT Rep pattern
+			if !isRepTitle(normalizedRep) {
 				continue
 			}
+
+			if allMapReps[normalizedRep] {
+				continue
+			}
+			// Unique new; set the map to seen
+			allMapReps[normalizedRep] = true
 			// New one, attach it for use; unsorted?
-			allReps = append(allReps, cleanedRepName)
+			allReps = append(allReps, normalizedRep)
 
 		}
 	}
 	fmt.Println("========= END ====================")
-	//  Gather all the unique folsk together ..
-	for _, uniqueRep := range allMapReps {
-		allReps = append(allReps, uniqueRep)
+	// For creating test cases
+	for _, uniqueRep := range allReps {
+		fmt.Println(fmt.Sprintf("\"%s\":\"%s\",", uniqueRep, generateRepresentativeID(uniqueRep)))
 	}
+	// DEBUG
 	//spew.Dump(allReps)
+	// TODO: Persist it into rep file for next phase of processing
 	return allReps
 }

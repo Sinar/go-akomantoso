@@ -7,10 +7,6 @@ import (
 	"github.com/davecgh/go-spew/spew"
 )
 
-type DebateAnalyzer struct {
-	pdfPath string
-}
-
 // Location, Date? 8 NOVEMBER 2019 (JUMAAT)
 // ParliamentDebate for the  day!
 type ParliamentDebate struct {
@@ -19,6 +15,31 @@ type ParliamentDebate struct {
 	Attended  []akomantoso.Representative
 	Missed    []akomantoso.Representative
 	QAHansard akomantoso.QAHansard
+}
+
+type DebateContent struct {
+	RepresentativeID akomantoso.RepresentativeID
+	RawContent       string
+	FinalContent     string
+}
+
+type ParliamentDebateContent struct {
+	DebateContents []DebateContent
+}
+
+type ParliamentRepresentative struct {
+	RepresentativeID akomantoso.RepresentativeID
+}
+
+type DebateAnalyzer struct {
+	pdfPath string
+}
+
+func (da DebateAnalyzer) ExtractRepresentatives() (error, []ParliamentRepresentative) {
+
+	// Map unique to RepID; persist as mapRep.yaml? Can be name; role, area?
+
+	return nil, []ParliamentRepresentative{}
 }
 
 func extractSessionInfo(coverPageContent []string) string {
