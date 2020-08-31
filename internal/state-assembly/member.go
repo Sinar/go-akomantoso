@@ -6,8 +6,6 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/davecgh/go-spew/spew"
-
 	akomantoso "github.com/Sinar/go-akomantoso/internal/akomantoso"
 )
 
@@ -19,6 +17,10 @@ func removeNonASCII(line string) string {
 		}
 		return r
 	}, line)
+}
+
+func generateRepresentativeID(line string) string {
+	return strings.ToLower(strings.ReplaceAll(line, " ", "-"))
 }
 
 func looksLikeRep(line string) (bool, string) {
@@ -151,11 +153,12 @@ func extractDebaters(allLines []string) []string {
 		}
 	}
 	fmt.Println("========= END ====================")
-	//  Gather all the unique folsk together ..
-	//for _, uniqueRep := range allMapReps {
-	//	allReps = append(allReps, uniqueRep)
-	//}
-	spew.Dump(allReps)
+	// For creating test cases
+	for _, uniqueRep := range allReps {
+		fmt.Println(fmt.Sprintf("\"%s\":\"%s\",", uniqueRep, generateRepresentativeID(uniqueRep)))
+	}
+	// DEBUG
+	//spew.Dump(allReps)
 	// TODO: Persist it into rep file for next phase of processing
 	return allReps
 }

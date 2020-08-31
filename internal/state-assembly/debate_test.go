@@ -110,45 +110,112 @@ func TestDebateAnalyzer_Process(t *testing.T) {
 	}
 }
 
-//func TestDebateProcessPages(t *testing.T) {
-//	type args struct {
-//		pdfDocument *akomantoso.PDFDocument
-//		dps         DebateProcessorState
-//	}
-//	// Setup different PDFs and DPSs
-//	dps := DebateProcessorState{
-//		SectionMarkers: SectionMarkers{
-//			DatePageMarker:         "",
-//			SessionStartMarkerLine: 7,
-//		},
-//		CurrentPage:        0,
-//		CurrentContent:     "",
-//		LastMatchedRep:     "",
-//		RepresentativesMap: nil,
-//		RolesMap:           nil,
-//	}
-//	tests := []struct {
-//		name string
-//		args args
-//	}{
-//		// TODO: Add test cases.
-//		{"case #1", args{nil, dps}},
-//	}
-//	for _, tt := range tests {
-//		t.Run(tt.name, func(t *testing.T) {
-//			// Makes a copy of the base scenario
-//			currentDPS := tt.args.dps
-//			spew.Dump(currentDPS)
-//
-//			DebateProcessPages(tt.args.pdfDocument, currentDPS)
-//		})
-//	}
-//}
-
 func TestDebateProcessPages(t *testing.T) {
 	type args struct {
 		pdfDocument *akomantoso.PDFDocument
 		dps         DebateProcessorState
+	}
+	// Samples of RepMap for 16, 15 respectively
+	repMap16 := map[string]akomantoso.RepresentativeID{
+		"TUAN SPEAKER":                                "tuan-speaker",
+		"YB TUAN HEE LOY SIAN":                        "yb-tuan-hee-loy-sian",
+		"YB DATO DR AHMAD YUNUS BIN HAIRI":            "yb-dato-dr-ahmad-yunus-bin-hairi",
+		"YB TUAN HARUMAINI BIN HAJI OMAR":             "yb-tuan-harumaini-bin-haji-omar",
+		"YB DATO MOHD IMRAN BIN TAMRIN":               "yb-dato-mohd-imran-bin-tamrin",
+		"YB PUAN HANIZA BINTI MOHAMED TALHA":          "yb-puan-haniza-binti-mohamed-talha",
+		"YB TUAN IR IZHAM BIN HASHIM":                 "yb-tuan-ir-izham-bin-hashim",
+		"YB PUAN MICHELLE NG MEI SZE":                 "yb-puan-michelle-ng-mei-sze",
+		"YB TUAN HASNUL BIN BAHARUDDIN":               "yb-tuan-hasnul-bin-baharuddin",
+		"YB PUAN ROZANA BINTI ZAINAL ABIDIN":          "yb-puan-rozana-binti-zainal-abidin",
+		"YB TUAN EDRY FAIZAL BIN EDDY YUSOF":          "yb-tuan-edry-faizal-bin-eddy-yusof",
+		"YB TUAN LAI WAI CHONG":                       "yb-tuan-lai-wai-chong",
+		"YB TUAN MAZWAN BIN JOHARI":                   "yb-tuan-mazwan-bin-johari",
+		"YB TUAN MOHD SHAID BIN ROSLI":                "yb-tuan-mohd-shaid-bin-rosli",
+		"YB TUAN BORHAN BIN AMAN SHAH":                "yb-tuan-borhan-bin-aman-shah",
+		"YB PUAN DR DAROYAH BINTI ALWI":               "yb-puan-dr-daroyah-binti-alwi",
+		"TUAN TIMBALAN SPEAKER":                       "tuan-timbalan-speaker",
+		"YB TUAN KHAIRUDDIN BIN OTHMAN":               "yb-tuan-khairuddin-bin-othman",
+		"YB DATUK ABDUL RASHID BIN ASARI":             "yb-datuk-abdul-rashid-bin-asari",
+		"YB PUAN WONG SIEW KI":                        "yb-puan-wong-siew-ki",
+		"YB TUAN MOHD FAKHRULRAZI BIN MOHD MOKHTAR":   "yb-tuan-mohd-fakhrulrazi-bin-mohd-mokhtar",
+		"YB TUAN CHUA WEI KIAT":                       "yb-tuan-chua-wei-kiat",
+		"YB TUAN LAU WENG SAN":                        "yb-tuan-lau-weng-san",
+		"YB TUAN NG SZE HAN":                          "yb-tuan-ng-sze-han",
+		"YB TUAN DR IDRIS BIN AHMAD":                  "yb-tuan-dr-idris-bin-ahmad",
+		"YB TUAN LEONG TUCK CHEE":                     "yb-tuan-leong-tuck-chee",
+		"YB DATO TENG CHANG KHIM":                     "yb-dato-teng-chang-khim",
+		"YB TUAN AZMIZAN BIN ZAMAN HURI":              "yb-tuan-azmizan-bin-zaman-huri",
+		"YB TUAN GANARAJAH A/L R GEORGE":              "yb-tuan-gunarajah-a/l-r-george",
+		"YB TUAN MOHD NAJWAN BIN HALIMI":              "yb-tuan-mohd-najwan-bin-halimi",
+		"YB TUAN ZAKARIA BIN HAJI HANAFI":             "yb-tuan-zakaria-bin-haji-hanafi",
+		"YB TUAN GUNARAJAH A/L GEORGE":                "yb-tuan-gunarajah-a/l-r-george",
+		"YB TUAN RIZAM BIN ISMAIL":                    "yb-tuan-rizam-bin-ismail",
+		"YB TUAN RAJIV A/L RISHYAKARAN":               "yb-tuan-rajiv-a/l-rishyakaran",
+		"YB TUAN SAARI BIN SUNGIB":                    "yb-tuan-saari-bin-sungib",
+		"(TUAN SPEAKER MEMPENGERUSIKAN) TUAN SPEAKER": "(tuan-speaker-mempengerusikan)-tuan-speaker",
+		"YB TUAN HAJI SAARI BIN SUNGIB":               "yb-tuan-haji-saari-bin-sungib",
+		"YB TUAN MOHD SANY BIN HAMZAN":                "yb-tuan-mohd-sany-bin-hamzan",
+		"YB MOHD NAJWAN BIN HALIMI":                   "yb-mohd-najwan-bin-halimi",
+		"YB TUAN MOHD NAJWAN BIN HALIM":               "yb-tuan-mohd-najwan-bin-halim",
+		"YB TUAN HALIMEY BIN ABU BAKAR":               "yb-tuan-halimey-bin-abu-bakar",
+		"YB TUAN AZMIZAM BIN ZAMAN HURI":              "yb-tuan-azmizam-bin-zaman-huri",
+		"YB TUAN PUAN JAMALIAH BINTI JAMALUDDIN":      "yb-puan-jamaliah-binti-jamaluddin",
+		"YB PUAN LIM YI WEI":                          "yb-puan-lim-yi-wei",
+		"YB PUAN JAMALIAH BINTI JAMALUDDIN":           "yb-puan-jamaliah-binti-jamaluddin",
+		"YAB DATO MENTERI BESAR":                      "yab-dato-menteri-besar",
+		"YB PUAN ELIZABETH WONG KEAT PING":            "yb-puan-elizabeth-wong-keat-ping",
+		"YB TUAN SYAMSUL FIRDAUS BIN MOHAMED SUPRI":   "yb-tuan-syamsul-firdaus-bin-mohamed-supri",
+		"YB TUAN DATO MOHD IMRAN BIN TAMRIN":          "yb-tuan-dato-mohd-imran-bin-tamrin",
+		"YAB DATO MENTERI BESAR SELANGOR":             "yab-dato-menteri-besar-selangor",
+		"YB TUAN MOHD FAKRULRAZI BIN MOHD MOKHTAR":    "yb-tuan-mohd-fakrulrazi-bin-mohd-mokhtar",
+	}
+	repMap15 := map[string]akomantoso.RepresentativeID{
+		"TUAN SPEAKER":                              "tuan-speaker",
+		"YB TUAN HAJI SAARI BIN SUNGIB":             "yb-tuan-haji-saari-bin-sungib",
+		"YB PUAN DR SITI MARIAH BT MAHMUD":          "yb-puan-dr-siti-mariah-bt-mahmud",
+		"YB DATO SERI MOHAMED AZMIN BIN ALI":        "yb-dato-seri-mohamed-azmin-bin-ali",
+		"YB TUAN ZAKARIA BIN HANAFI":                "yb-tuan-zakaria-bin-hanafi",
+		"YB TUAN GUNARAJAH A/L R GEORGE":            "yb-tuan-gunarajah-a/l-r-george",
+		"YB PUAN DR SITI MARIAH BINTI MAHMUD":       "yb-puan-dr-siti-mariah-binti-mahmud",
+		"YB DATO DR AHMAD YUNUS BIN HAIRI":          "yb-dato-dr-ahmad-yunus-bin-hairi",
+		"YB TUAN LEONG TUCK CHEE":                   "yb-tuan-leong-tuck-chee",
+		"YB TUAN LAU WENG SAN":                      "yb-tuan-lau-weng-san",
+		"YB TUAN RIZAM BIN ISMAIL":                  "yb-tuan-rizam-bin-ismail",
+		"YB PUAN RODZIAH BINTI ISMAIL":              "yb-puan-rodziah-binti-ismail",
+		"YB TUAN MOHD FAKHRULRAZI BIN MOHD MOKHTAR": "yb-tuan-mohd-fakhrulrazi-bin-mohd-mokhtar",
+		"YB TUAN LAI WAI CHONG":                     "yb-tuan-lai-wai-chong",
+		"YAB DATO MENTERI BESAR":                    "yab-dato-menteri-besar",
+		"YB DATUK ROSNI BT SOHAR":                   "yb-datuk-rosni-bt-sohar",
+		"YB TUAN HASNUL BIN BAHARUDDIN":             "yb-tuan-hasnul-bin-baharuddin",
+		"YB TUAN IR IZHAM BIN HASHIM":               "yb-tuan-ir-izham-bin-hashim",
+		"YB TUAN RAJIV A/L RISHYAKARAN":             "yb-tuan-rajiv-a/l-rishyakaran",
+		"YB HARUMAINI BIN HAJI OMAR":                "yb-harumaini-bin-haji-omar",
+		"YB TUAN MOHD ZAWAWI BIN AHMAD MUGHNI":      "yb-tuan-mohd-zawawi-bin-ahmad-mughni",
+		"YB TUAN SHATIRI BIN MANSOR":                "yb-tuan-shatiri-bin-mansor",
+		"YB DATO TENG CHANG KHIM":                   "yb-dato-teng-chang-khim",
+		"YB DATO; DR AHMAD YUNUS BIN HAIRI":         "yb-dato;-dr-ahmad-yunus-bin-hairi",
+		"YB TUAN SYAMSUL FIRDAUS BIN MOHAMED SUPRI": "yb-tuan-syamsul-firdaus-bin-mohamed-supri",
+		"YB TUAN SAARI BIN SUNGIB":                  "yb-tuan-saari-bin-sungib",
+		"YB TUAN HALIMEY BIN ABU BAKAR":             "yb-tuan-halimey-bin-abu-bakar",
+		"TUAN TIMBALAN SPEAKER":                     "tuan-timbalan-speaker",
+		"YB PUAN MICHELLE NG MEI SZE":               "yb-puan-michelle-ng-mei-sze",
+		"YB DATUK ROSNI BIN SOHAR":                  "yb-datuk-rosni-bin-sohar",
+		"YB PUAN ELIZABETH WONG KEAT PING":          "yb-puan-elizabeth-wong-keat-ping",
+		"YB PUAN LIM YI WEI":                        "yb-puan-lim-yi-wei",
+		"YB TUAN NG SZE HAN":                        "yb-tuan-ng-sze-han",
+		"YB TUAN MOHD SHAID BIN ROSLI":              "yb-tuan-mohd-shaid-bin-rosli",
+		"YB TUAN MUHAMMAD HILMAN BIN IDHAM":         "yb-tuan-muhammad-hilman-bin-idham",
+		"YB TUAN HILMAN BIN IDHAM":                  "yb-tuan-hilman-bin-idham",
+		"YB TUAN MOHD KHAIRUDDIN BIN OTHMAN":        "yb-tuan-mohd-khairuddin-bin-othman",
+		"YB TUAN MOHD NAJWAN BIN HALIMI":            "yb-tuan-mohd-najwan-bin-halimi",
+		"YB TUAN SALLEHUDIN BIN AMIRUDDIN":          "yb-tuan-sallehudin-bin-amiruddin",
+		"YB TUAN HEE LOY SIAN":                      "yb-tuan-hee-loy-sian",
+		"YB DATO MOHD IMRAN BIN TAMRIN":             "yb-dato-mohd-imran-bin-tamrin",
+		"YB PUAN DR DAROYAH BT ALWI":                "yb-puan-dr-daroyah-bt-alwi",
+		"YB TUAN MOHD SANY BIN HAMZAN":              "yb-tuan-mohd-sany-bin-hamzan",
+		"YB DATO DR AHAMD YUNUS BIN HAIRI":          "yb-dato-dr-ahamd-yunus-bin-hairi",
+		"YB TUAN EDRY FAIZAL BIN EDDY YUSOF":        "yb-tuan-edry-faizal-bin-eddy-yusof",
+		"YB PUAN ROZANA BINTI ZAINAL ABIDIN":        "yb-puan-rozana-binti-zainal-abidin",
 	}
 	// Setup different PDFs and DPSs
 	dps := DebateProcessorState{
@@ -156,11 +223,8 @@ func TestDebateProcessPages(t *testing.T) {
 			DatePageMarker:         "",
 			SessionStartMarkerLine: 7,
 		},
-		CurrentPage:        0,
-		CurrentContent:     "",
-		LastMatchedRep:     "",
-		RepresentativesMap: nil,
-		RolesMap:           nil,
+		RepresentativesMap: repMap16,
+		RolesMap:           repMap15,
 	}
 	tests := []struct {
 		name string
@@ -186,17 +250,116 @@ func TestDebateProcessSinglePage(t *testing.T) {
 		allLines []string
 		dps      DebateProcessorState
 	}
+	// Samples of RepMap for 14, 13 respectively
+	repMap14 := map[string]akomantoso.RepresentativeID{
+		"TUAN SPEAKER":                              "tuan-speaker",
+		"YB TUAN IR IZHAM BIN HASHIM":               "yb-tuan-ir-izham-bin-hashim",
+		"YB DATO DR AHMAD YUNUS BIN HAIRI":          "yb-dato-dr-ahmad-yunus-bin-hairi",
+		"YB TUAN LAU WENG SAN":                      "yb-tuan-lau-weng-san",
+		"YB PUAN MICHELLE NG MEI SZE":               "yb-puan-michelle-ng-mei-sze",
+		"YB DATO TENG CHANG KHIM":                   "yb-dato-teng-chang-khim",
+		"YB TUAN MOHD NAJWAN BIN HALMI":             "yb-tuan-mohd-najwan-bin-halmi",
+		"YB TUAN KHAIRUDDIN BIN OTHMAN":             "yb-tuan-khairuddin-bin-othman",
+		"YB TUAN HALIMEY BIN ABU BAKAR":             "yb-tuan-halimey-bin-abu-bakar",
+		"YB TUAN FAKHRULRAZI BIN MOHD MOKHTAR":      "yb-tuan-fakhrulrazi-bin-mohd-mokhtar",
+		"YB PUAN JAMALIAH BINTI JAMALUDDIN":         "yb-puan-jamaliah-binti-jamaluddin",
+		"YB TUAN MOHD FAKHRULRAZI BIN MOHD MOKHTAR": "yb-tuan-mohd-fakhrulrazi-bin-mohd-mokhtar",
+		"YB TUAN HARUMAINI BIN HAJI OMAR":           "yb-tuan-harumaini-bin-haji-omar",
+		"YB TUAN MOHD ZAWAWI BIN AHMAD MUGHNI":      "yb-tuan-mohd-zawawi-bin-ahmad-mughni",
+		"YB PUAN RODZIAH BINTI ISMAIL":              "yb-puan-rodziah-binti-ismail",
+		"YB TUAN HARUMAINI BIN HJ OMAR":             "yb-tuan-harumaini-bin-hj-omar",
+		"YB TUAN HAJI BORHAN BIN AMAN SHAH":         "yb-tuan-haji-borhan-bin-aman-shah",
+		"YB TUAN HEE LOY SIAN":                      "yb-tuan-hee-loy-sian",
+		"YB TUAN EAN YONG HIAN WAH":                 "yb-tuan-ean-yong-hian-wah",
+		"YB TUAN LAI WAI CHONG":                     "yb-tuan-lai-wai-chong",
+		"YB TUAN MOHD SANY BIN HAMZAN":              "yb-tuan-mohd-sany-bin-hamzan",
+		"YAB DATO MENTERI BESAR":                    "yab-dato-menteri-besar",
+		"YB TUAN RIZAM BIN ISMAIL":                  "yb-tuan-rizam-bin-ismail",
+		"YB TUAN CHUA WEI KIAT":                     "yb-tuan-chua-wei-kiat",
+		"YB TUAN EDRY FAIZAL BIN EDDY YUSOF":        "yb-tuan-edry-faizal-bin-eddy-yusof",
+		"YB TUAN DR IDRIS BIN AHMAD":                "yb-tuan-dr-idris-bin-ahmad",
+		"YB TUAN LEONG TUCK CHEE":                   "yb-tuan-leong-tuck-chee",
+		// Is female! Mapped correctly
+		"YB TUAN MICHELLE NG MEI SZE":        "yb-puan-michelle-ng-mei-sze",
+		"YB TUAN NG SZE HAN":                 "yb-tuan-ng-sze-han",
+		"YB PUAN HANIZA BINTI MOHAMED TALHA": "yb-puan-haniza-binti-mohamed-talha",
+		"YB TUAN ADHIF SYAN BIN ABDULLAH":    "yb-tuan-adhif-syan-bin-abdullah",
+		// Correct female mapping; Binti!
+		"YB PUAN HANIZA BIN MOHAMED TALHA":          "yb-puan-haniza-binti-mohamed-talha",
+		"TUAN TIMBALAN SPEAKER":                     "tuan-timbalan-speaker",
+		"YB PUAN LIM YI WEI":                        "yb-puan-lim-yi-wei",
+		"YB TUAN SYAMSUL FIRDAUS BIN MOHAMED SUPRI": "yb-tuan-syamsul-firdaus-bin-mohamed-supri",
+		"YB TUAN SALLEHUDIN BIN AMIRUDDIN":          "yb-tuan-sallehudin-bin-amiruddin",
+		"YB PUAN WONG SIEW KI":                      "yb-puan-wong-siew-ki",
+		"YB DATO TENG CHANG KIM":                    "yb-dato-teng-chang-kim",
+		"YB TUAN RAJIV A/L RISHYAKARAN":             "yb-tuan-rajiv-a/l-rishyakaran",
+		"YB TUAN HAJI SAARI BIN SUNGIB":             "yb-tuan-haji-saari-bin-sungib",
+		"YB PUAN ELIZABETH WONG KEAT PING":          "yb-puan-elizabeth-wong-keat-ping",
+		"YB DATO MOHD IMRAN BIN TAMRIN":             "yb-dato-mohd-imran-bin-tamrin",
+		"YB TUAN MOHD NAJWAN BIN HALIMI":            "yb-tuan-mohd-najwan-bin-halimi",
+		"YB TUAN MOHD SHAID BIN ROSLI":              "yb-tuan-mohd-shaid-bin-rosli",
+		"YB PUAN DR DAROYAH BINTI ALWI":             "yb-puan-dr-daroyah-binti-alwi",
+		"YB PUAN DR DAROYAH BT ALWI":                "yb-puan-dr-daroyah-binti-alwi",
+		"YB TUAN GUNARAJAH A/L R GEORGE":            "yb-tuan-gunarajah-a/l-r-george",
+		"YB DATO MOHD SHAMSUDIN BIN LIAS":           "yb-dato-mohd-shamsudin-bin-lias",
+	}
+	// NOTE: The typos need to be mapped and fixed
+	repMap13 := map[string]akomantoso.RepresentativeID{
+		"TUAN SPEAKER": "tuan-speaker",
+		// Below gets removed
+		//"PENCADANG (YAB DATO MENTERI BESAR)":        "pencadang-(yab-dato-menteri-besar)",
+		//"PENYOKONG (YB DATO TENG CHANG KHIM)":       "penyokong-(yb-dato-teng-chang-khim)",
+		// Eli Wong is female!
+		"YB TUAN ELIZABETH WONG KEAT PING":    "yb-puan-elizabeth-wong-keat-ping",
+		"YB TUAN LAI WAI CHONG":               "yb-tuan-lai-wai-chong",
+		"YB PUAN DR SITI MARIAH BINTI MAHMUD": "yb-puan-dr-siti-mariah-binti-mahmud",
+		"YB DATO DR AHMAD YUNUS BIN HAIRI":    "yb-dato-dr-ahmad-yunus-bin-hairi",
+		"YB TUAN MOHD SANY BIN HAMZAN":        "yb-tuan-mohd-sany-bin-hamzan",
+		"YB PUAN JAMALIAH BINTI JAMALUDDIN":   "yb-puan-jamaliah-binti-jamaluddin",
+		"YB TUAN GANABATIRAU A/L VERAMAN":     "yb-tuan-ganabatirau-a/l-veraman",
+		"YB TUAN HAJI SAARI BIN SUNGIB":       "yb-tuan-haji-saari-bin-sungib",
+		"YB PUAN DR DAROYAH BINTI ALWI":       "yb-puan-dr-daroyah-binti-alwi",
+		"YAB DATO MENTERI BESAR":              "yab-dato-menteri-besar",
+		"YB TUAN RIZAM BIN ISMAIL":            "yb-tuan-rizam-bin-ismail",
+		"YB PUAN RODZIAH BINTI ISMAIL":        "yb-puan-rodziah-binti-ismail",
+		"YB DATO MOHD IMRAN BIN TAMRIN":       "yb-dato-mohd-imran-bin-tamrin",
+		"YB TUAN HEE LOY SIAN":                "yb-tuan-hee-loy-sian",
+		"YB TUAN DR IDRIS BIN AHMAD":          "yb-tuan-dr-idris-bin-ahmad",
+		"YB TUAN ADHIF SYAN BIN ABDULLAH":     "yb-tuan-adhif-syan-bin-abdullah",
+		"YB TUAN NG SZE HAN":                  "yb-tuan-ng-sze-han",
+		"YB TUAN SAARI BIN SUNGIB":            "yb-tuan-saari-bin-sungib",
+		"YB PUAN JUWAIRIYA BINTI ZULKIFLI":    "yb-puan-juwairiya-binti-zulkifli",
+		"YB TUAN IR IZHAM BIN HASHIM":         "yb-tuan-ir-izham-bin-hashim",
+		"YB TUAN HARUMAINI BIN HAJI OMAR":     "yb-tuan-harumaini-bin-haji-omar",
+		"YB PUAN LIM YI WEI":                  "yb-puan-lim-yi-wei",
+		"YB DATUK ABDUL RASHID BIN ASARI":     "yb-datuk-abdul-rashid-bin-asari",
+		"YB TUAN HASNUL BIN BAHARUDDIN":       "yb-tuan-hasnul-bin-baharuddin",
+		"YB TUAN LAU WENG SAN":                "yb-tuan-lau-weng-san",
+		// Typoe fixed and mapped correctly
+		"TUAN SEPAKER":                              "tuan-speaker",
+		"YB DATO MOHD SHAMSUDIN BIN LIAS":           "yb-dato-mohd-shamsudin-bin-lias",
+		"YB DATO TENG CHANG KHIM":                   "yb-dato-teng-chang-khim",
+		"YB DATUK ROSNI BINTI SOHAR":                "yb-datuk-rosni-binti-sohar",
+		"YB TUAN SYAMSUL FIRDAUS BIN MOHAMED SUPRI": "yb-tuan-syamsul-firdaus-bin-mohamed-supri",
+		"YB TUAN SALLEHUDIN BIN AMIRUDDIN":          "yb-tuan-sallehudin-bin-amiruddin",
+		"YB PUAN ELIZABETH WONG KEAT PING":          "yb-puan-elizabeth-wong-keat-ping",
+		"YB TUAN MOHD NAJWAN BIN HALIMI":            "yb-tuan-mohd-najwan-bin-halimi",
+		"TUAN TIMBALAN SPEAKER":                     "tuan-timbalan-speaker",
+		"YB TUAN RAJIV A/L RISHYAKARAN":             "yb-tuan-rajiv-a/l-rishyakaran",
+		"YB SALLEHUDDIN BIN AMIRUDDIN":              "yb-sallehuddin-bin-amiruddin",
+		"YB TUAN MOHD FAKHRULRAZI BIN MOHD MOKHTAR": "yb-tuan-mohd-fakhrulrazi-bin-mohd-mokhtar",
+		"YB TUAN MOHD SHAID BIN ROSLI":              "yb-tuan-mohd-shaid-bin-rosli",
+		"YB TUAN LEONG TUCK CHEE":                   "yb-tuan-leong-tuck-chee",
+		"YB DATO TENG CHANG KIM":                    "yb-dato-teng-chang-kim",
+	}
 	// Setup different PDFs and DPSs
 	dps := DebateProcessorState{
 		SectionMarkers: SectionMarkers{
 			DatePageMarker:         "",
 			SessionStartMarkerLine: 7,
 		},
-		CurrentPage:        0,
-		CurrentContent:     "",
-		LastMatchedRep:     "",
-		RepresentativesMap: nil,
-		RolesMap:           nil,
+		RepresentativesMap: repMap13,
+		RolesMap:           repMap14,
 	}
 	tests := []struct {
 		name    string
@@ -212,6 +375,8 @@ func TestDebateProcessSinglePage(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			currentDPS := tt.args.dps
+			// Setup CurrentPage
+			// and any contentp prelude ..
 			if err := DebateProcessSinglePage(tt.args.allLines, &currentDPS); (err != nil) != tt.wantErr {
 				t.Errorf("DebateProcessSinglePage() error = %v, wantErr %v", err, tt.wantErr)
 			}
