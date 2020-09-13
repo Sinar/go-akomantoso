@@ -5,6 +5,12 @@ build:
 	@go build -o go-akn .
 
 test:
+	@cd  internal/parliament && gotest -v -run ^TestDebateProcessSinglePage
+
+testpardap:
+	@cd  internal/parliament && gotest -v -run ^TestDebateAnalyzer_Process
+
+testdpp:
 	@cd  internal/state-assembly && gotest -v -run ^TestDebateProcessPages
 
 testdpsp:
@@ -13,11 +19,8 @@ testdpsp:
 testdap:
 	@cd  internal/state-assembly && gotest -v -run ^TestDebateAnalyzer_Process
 
-tested:
+testpared:
 	@cd  internal/parliament && gotest -v -run ^Test_extractDebaters
-
-testda:
-	@cd  internal/parliament && gotest -v -run ^TestDebateAnalyzer_Process$
 
 testall:
 	@cd  internal/parliament && gotest -v -run ^Test

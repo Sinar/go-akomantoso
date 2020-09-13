@@ -20,6 +20,14 @@ func removeNonASCII(line string) string {
 }
 
 func generateRepresentativeID(line string) string {
+	// TODO: To be added into test cases?
+	// Replace the [] so have standardized ID
+	line = strings.ReplaceAll(line, "[", "")
+	line = strings.ReplaceAll(line, "]", "")
+	// Replace the () so have standardized ID
+	line = strings.ReplaceAll(line, "(", "")
+	line = strings.ReplaceAll(line, ")", "")
+	// TODO: Consider if common chars like @ or / should be removed ..
 	return strings.ToLower(strings.ReplaceAll(line, " ", "-"))
 }
 
@@ -29,6 +37,10 @@ func looksLikeRep(line string) (bool, string) {
 	// Take choice to remove the char '.'; rep name .
 	// For cases of Dr.; is still OK Dr
 	line = strings.ReplaceAll(line, ".", "")
+	// Replace stray chars like ' in Dato'  TODO: Test case
+	line = strings.ReplaceAll(line, "'", "")
+	// Replace irrelevant chars in name/position like , TODO: Test case
+	line = strings.ReplaceAll(line, ",", "")
 	// As per: https://stackoverflow.com/a/42251527
 	normalizedLine := strings.Join(strings.Fields(strings.ToLower(line)), " ")
 	// Detect Member of Parliament (MPs)
@@ -59,6 +71,8 @@ func looksLikeRep(line string) (bool, string) {
 			// Look for the index after the number found
 			line = strings.Trim(line[li+1:], " ")
 			//fmt.Println("-- AFTER ***", line)
+			// TODO: Special case where there is time next to person .. pg, tgh, ptg, mlm
+			// split one word and see if got any above special case! Need to be added to test case
 		}
 		// Step -1: Trim both left + right ..
 		line = strings.Trim(line, " ")
@@ -88,7 +102,8 @@ func isRepTitle(line string) bool {
 	// Naive heuristics
 	line = strings.ToLower(line)
 	// Short-circuit; bad HACK!
-	matchSC, scerr := regexp.MatchString(`jawapan`, line)
+	// TODO: Add some test cases?
+	matchSC, scerr := regexp.MatchString(`jawapan|usul|sumpah|tidak hadir`, line)
 	if scerr != nil {
 		panic(scerr)
 	}
