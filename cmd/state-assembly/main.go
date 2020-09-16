@@ -5,20 +5,26 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/jaffee/commandeer/cobrafy"
+
 	nsos "github.com/leowmjw/nonstdlib/os"
 
-	"github.com/jaffee/commandeer"
 	nsflag "github.com/leowmjw/nonstdlib/flag"
 )
 
 type Config struct {
-	rawFolder  string
-	dataFolder string
-	fileName   string
+	institution string // StateAssembly, Parliament
+	rawFolder   string
+	dataFolder  string
+	fileName    string
 }
 
 func main() {
 	fmt.Println("State Assembly CLI ..")
+	Participant()
+}
+
+func Participant() {
 	// Get Command line flags ..
 	// based on type ..
 	defaultConfig := Config{
@@ -32,11 +38,13 @@ func main() {
 	//	os.Exit(1)
 	//}
 
-	err := commandeer.Run(NewParticipantCmd(defaultConfig))
+	//err := commandeer.Run(NewParticipantCmd(defaultConfig))
+	err := cobrafy.Execute(NewParticipantCmd(defaultConfig))
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
+
 }
 
 // Run is an example without commandeer library

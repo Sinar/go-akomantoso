@@ -43,6 +43,14 @@ type DebateAnalyzer struct {
 	pdfPath string
 }
 
+func NewDebateAnalyzer(pdfPath string) DebateAnalyzer {
+	// TODO: Validate path/file exists?
+
+	return DebateAnalyzer{
+		pdfPath: pdfPath,
+	}
+}
+
 func (da DebateAnalyzer) Process() (error, []akomantoso.Representative) {
 	// From the Analyzer; we get the start of session; start from there
 	// Extract out Section Metadata for attachment
