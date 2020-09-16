@@ -7,6 +7,7 @@ import (
 
 	nsos "github.com/leowmjw/nonstdlib/os"
 
+	"github.com/jaffee/commandeer"
 	nsflag "github.com/leowmjw/nonstdlib/flag"
 )
 
@@ -25,8 +26,23 @@ func main() {
 		dataFolder: "data/StateAssembly/Hansard/",
 		fileName:   "HANSARD-15-JULAI-2020.pdf",
 	}
+	// DEBUG
+	//spew.Dump(conf)
+	//if Run(defaultConfig) != nil {
+	//	os.Exit(1)
+	//}
+
+	err := commandeer.Run(NewParticipantCmd(defaultConfig))
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+}
+
+// Run is an example without commandeer library
+func Run(conf Config) error {
 	// Example of how to read the directoriees .. give them as choice later on?
-	dr := nsos.NewDirReader(defaultConfig.rawFolder)
+	dr := nsos.NewDirReader(conf.rawFolder)
 	files, err := dr.Read()
 	if err != nil {
 		panic(err)
@@ -67,13 +83,5 @@ func main() {
 		fmt.Println(selected)
 	}
 	fmt.Println("Choice is: ", typeParticipants.String())
-	// DEBUG
-	//spew.Dump(conf)
-	if Run(defaultConfig) != nil {
-		os.Exit(1)
-	}
-}
-
-func Run(conf Config) error {
 	return nil
 }

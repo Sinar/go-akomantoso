@@ -30,3 +30,6 @@ testpar:
 
 testsa:
 	@cd  internal/state-assembly && gotest -v -run ^Test_extractSectionMarkers$
+
+cli:
+	@cd cmd/state-assembly && go build -o go-akn . && ./go-akn
