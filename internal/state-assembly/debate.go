@@ -90,7 +90,8 @@ func DebateProcessSinglePage(allLines []string, dps *DebateProcessorState) error
 	pendingDebateContent = dps.LastPedingContent
 	for i, singleRow := range allLines {
 		// Test case generation
-		fmt.Println(fmt.Sprintf("\"%s\",", singleRow))
+		// DEBUG
+		//fmt.Println(fmt.Sprintf("\"%s\",", singleRow))
 		if i > 1 {
 			// Split by colon
 			splitRow := strings.Split(singleRow, ":")
@@ -128,6 +129,7 @@ func DebateProcessSinglePage(allLines []string, dps *DebateProcessorState) error
 				// Append the line content
 				pendingDebateContent.RawContent += singleRow
 			}
+			pendingDebateContent.RawContent += "\n"
 		}
 	}
 	// Last left over .. should become LeftoverContent
@@ -145,6 +147,7 @@ func DebateProcessPages(pdfDocument *akomantoso.PDFDocument, dps DebateProcessor
 		DebateProcessSinglePage(singlePageRow.PDFTxtSameLines, &dps)
 		// Should signsl end of debate here?
 	}
+	spew.Dump(dps.CurrentContents)
 	// Edge case, hit completion; append the last content to the last Representative
 	return saStateAssemblyDebateContent
 }
