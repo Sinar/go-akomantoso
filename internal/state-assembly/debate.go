@@ -141,15 +141,15 @@ func DebateProcessSinglePage(allLines []string, dps *DebateProcessorState) error
 	return nil
 }
 
-func DebateProcessPages(pdfDocument *akomantoso.PDFDocument, dps DebateProcessorState) StateAssemblyDebateContent {
-	saStateAssemblyDebateContent := StateAssemblyDebateContent{}
+func DebateProcessPages(pdfDocument *akomantoso.PDFDocument, dps DebateProcessorState) []DebateContent {
 	for _, singlePageRow := range pdfDocument.Pages {
 		DebateProcessSinglePage(singlePageRow.PDFTxtSameLines, &dps)
 		// Should signsl end of debate here?
 	}
-	spew.Dump(dps.CurrentContents)
+	// DEBUG
+	//spew.Dump(dps.CurrentContents)
 	// Edge case, hit completion; append the last content to the last Representative
-	return saStateAssemblyDebateContent
+	return dps.CurrentContents
 }
 
 func extractSessionInfo(coverPageContent []string) string {

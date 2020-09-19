@@ -37,14 +37,31 @@ func Participant() {
 	//if Run(defaultConfig) != nil {
 	//	os.Exit(1)
 	//}
-
-	//err := commandeer.Run(NewParticipantCmd(defaultConfig))
-	err := cobrafy.Execute(NewParticipantCmd(defaultConfig))
-	if err != nil {
-		fmt.Println(err)
+	if len(os.Args) < 2 {
+		fmt.Println("expected 'participants' or 'bar' subcommands")
 		os.Exit(1)
 	}
 
+	switch os.Args[1] {
+
+	case "participants":
+		//err := commandeer.Run(NewParticipantCmd(defaultConfig))
+		err := cobrafy.Execute(NewParticipantCmd(defaultConfig))
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+	case "sayit":
+		// Create output in SayIt format ..
+		err := cobrafy.Execute(NewSayItCmd(defaultConfig))
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+	default:
+		fmt.Println("expected 'participants' or 'sayit' subcommands")
+		os.Exit(1)
+	}
 }
 
 // Run is an example without commandeer library
