@@ -25,10 +25,10 @@ func (m *SayItCmd) Run() error {
 		return fmt.Errorf("Select filename plz!!")
 	}
 	fmt.Println("SAYIT! ..")
-	repMap15 := loadRepresentativeMapping("15-julai-2020")
+	repMap15 := loadRepresentativeMapping("16-julai-2020")
 	dps15 := state_assembly.DebateProcessorState{
 		SectionMarkers: state_assembly.SectionMarkers{
-			DatePageMarker:         "SayIT Test: 15 JULAI 2020",
+			DatePageMarker:         "SayIT Test: 16 JULAI 2020",
 			SessionStartMarkerLine: 7,
 		},
 		RepresentativesMap: repMap15,
