@@ -1,28 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     Akoma Ntoso Version 1.0. Part 2: Specifications
+     OASIS Standard
+     29 August 2018
+     Copyright (c) OASIS Open 2018. All Rights Reserved.
+     Source: http://docs.oasis-open.org/legaldocml/akn-core/v1.0/os/part2-specs/examples/
+     Latest version of the specification:  http://docs.oasis-open.org.legaldocml/akn-core/v1.0/akn-core-v1.0-part2-specs.html
+     TC IPR Statement: https://www.oasis-open.org/committees/legaldocml/ipr.php
+-->
 <akomaNtoso xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://docs.oasis-open.org/legaldocml/ns/akn/3.0 ../schema.xsd " xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0" >
 <debate name="dundocs">
         <meta>
-<!--         <identification source="#palmirani">-->
-<!--          <FRBRWork>-->
-<!--           <FRBRthis value="/akn/ke/debaterecord/2011-06-10/!main"/>-->
-<!--           <FRBRuri value="/akn/ke/debaterecord/2011-06-10"/>-->
-<!--           <FRBRdate date="2011-06-10" name="generation"/>-->
-<!--           <FRBRauthor href="#parliament" as="#author"/>-->
-<!--           <FRBRcountry value="ak"/>-->
-<!--          </FRBRWork>-->
-<!--          <FRBRExpression>-->
-<!--           <FRBRthis value="/akn/ke/minutes/2011-06-10/eng@/!main"/>-->
-<!--           <FRBRuri value="/akn/ke/minutes/2011-06-10/eng@"/>-->
-<!--           <FRBRdate date="2011-06-25" name="markup"/>-->
-<!--           <FRBRauthor href="#palmirani" as="#editor"/>-->
-<!--           <FRBRlanguage language="eng"/>-->
-<!--          </FRBRExpression>-->
-<!--          <FRBRManifestation>-->
-<!--           <FRBRthis value="/akn/ke/minutes/2011-06-10/eng@/!main.xml"/>-->
-<!--           <FRBRuri value="/akn/ke/minutes/2011-06-10/eng@.akn"/>-->
-<!--           <FRBRdate date="2011-06-25" name="publication"/>-->
-<!--           <FRBRauthor href="#palmirani" as="#editor"/>-->
-<!--          </FRBRManifestation>-->
-<!--         </identification>-->
+         <identification source="#palmirani">
+          <FRBRWork>
+           <FRBRthis value="/akn/ke/debaterecord/2011-06-10/!main"/>
+           <FRBRuri value="/akn/ke/debaterecord/2011-06-10"/>
+           <FRBRdate date="2011-06-10" name="generation"/>
+           <FRBRauthor href="#parliament" as="#author"/>
+           <FRBRcountry value="ak"/>
+          </FRBRWork>
+          <FRBRExpression>
+           <FRBRthis value="/akn/ke/minutes/2011-06-10/eng@/!main"/>
+           <FRBRuri value="/akn/ke/minutes/2011-06-10/eng@"/>
+           <FRBRdate date="2011-06-25" name="markup"/>
+           <FRBRauthor href="#palmirani" as="#editor"/>
+           <FRBRlanguage language="eng"/>
+          </FRBRExpression>
+          <FRBRManifestation>
+           <FRBRthis value="/akn/ke/minutes/2011-06-10/eng@/!main.xml"/>
+           <FRBRuri value="/akn/ke/minutes/2011-06-10/eng@.akn"/>
+           <FRBRdate date="2011-06-25" name="publication"/>
+           <FRBRauthor href="#palmirani" as="#editor"/>
+          </FRBRManifestation>
+         </identification>
          <references source="dun">
 <TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-datuk-rosni-bin-sohar" showAs="YB DATUK ROSNI BIN SOHAR" />
 <TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-ng-sze-han" showAs="YB TUAN NG SZE HAN" />
@@ -73,9 +83,8 @@
             </references>
         </meta>
         <debateBody>
-            <debateSection name="">
-                <heading>
-</heading>
+            <debateSection name="test">
+                <heading>SayIt Test: 15 JULAI 2020</heading>
 <speech by="#tuan-speaker">
 <p>
  Salam sejahtera dan selamat datang kepada Yang Amat <br/>Berhormat Dato Menteri Besar, Yang Berhormat Ahli-Ahli Majlis Mesyuarat Kerajaan <br/>Negeri, Yang Berhormat Ahli-Ahli Dewan Negeri dan Pegawai-pegawai Kerajaan <br/>Sekalian.  Bertemu lagi dalam Mesyuarat Kedua Dewan yang mulia ini bagi Penggal <br/>Ketiga Dewan Negeri Selangor yang Keempat Belas. <br/>Sebelum saya meneruskan aturan urusan mesyuarat pada pagi ini sukacita saya ingin <br/>memaklumkan bahawa pada 7 Julai 2020, Dewan Negeri Selangor telah menjalankan <br/>ujian saringan COVID-19 kepada sejumlah 678 orang yang akan menghadiri <br/>Persidangan Dewan.  Mereka terdiri daripada Ahli Dewan Negeri Selangor, Ketua-ketua <br/>Jabatan, wakil Jabatan dan para Petugas yang akan bertugas semasa Persidangan <br/>Dewan. <br/>Untuk makluman Yang Berhormat sekalian, pada persidangan kali ini hanya mereka yang <br/>telah menjalani ujian saringan COVID-19 dan mendapat keputusan negatif dibenarkan <br/>memasuki Dewan ini.  Sukacita dimaklumkan seramai 678 orang yang disaring adalah <br/>negatif COVID-19.  Saya memandang serius perkara ini dan berharap semua Ahli-Ahli <br/>Yang Berhormat sekalian dapat mematuhi SOP yang telah ditetapkan iaitu 3W (Wash, <br/>Wear dan Warn) dan elakkan 3S (tempat yang Sesak  kawasan yang Sempit  Sembang <br/>dekat-dekat).  Di samping itu, saya menyeru semua untuk mematuhi SOP yang telah <br/>ditetapkan oleh Dewan Negeri Selangor bagi menjaga keselamatan semua. <br/>Saya juga menerima permohonan daripada Yang Berhormat Dato Seri Mohamed Azmin <br/>bin Ali, Ahli Dewan negeri Kawasan Bukit Antarabangsa merangkap Ahli parlimen <br/>Gombak dan juga Menteri Kanan MITI yang tidak dapat menghadiri Persidangan kali ini <br/>kerana berada di Dewan Rakyat pada 13 hingga 15 Julai 2020 sempena Mesyuarat <br/>Kedua Penggal Ketiga Parlimen ke 14 Tahun 2020. <br/>Permohonan ini telah dikemukakan kepada saya dan saya telah meluluskan permohonan <br/>beliau. <br/>Tanpa melengahkan masa, saya mempersilakan Setiausaha Dewan untuk meneruskan <br/>Aturan Urusan Mesyuarat pada pagi ini. <br/>SETIAUSAHA DEWAN<br/>Timbalan Speaker Dewan Negeri Selangor. <br/>[ MEMILIH TIMBALAN SPEAKER ] <br/></p>
