@@ -1,58 +1,79 @@
-<akomaNtoso>
-    <debate>
+<akomaNtoso xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://docs.oasis-open.org/legaldocml/ns/akn/3.0 ../schema.xsd " xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0" >
+<debate name="dundocs">
         <meta>
-            <references>
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-datuk-rosni-bin-sohar" id="yb-datuk-rosni-bin-sohar" showAs="YB DATUK ROSNI BIN SOHAR" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-ng-sze-han" id="yb-tuan-ng-sze-han" showAs="YB TUAN NG SZE HAN" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-hilman-bin-idham" id="yb-tuan-hilman-bin-idham" showAs="YB TUAN HILMAN BIN IDHAM" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-mohd-khairuddin-bin-othman" id="yb-tuan-mohd-khairuddin-bin-othman" showAs="YB TUAN MOHD KHAIRUDDIN BIN OTHMAN" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-puan-dr-siti-mariah-binti-mahmud" id="yb-puan-dr-siti-mariah-binti-mahmud" showAs="YB PUAN DR SITI MARIAH BINTI MAHMUD" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-hasnul-bin-baharuddin" id="yb-tuan-hasnul-bin-baharuddin" showAs="YB TUAN HASNUL BIN BAHARUDDIN" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-ir-izham-bin-hashim" id="yb-tuan-ir-izham-bin-hashim" showAs="YB TUAN IR IZHAM BIN HASHIM" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/tuan-timbalan-speaker" id="tuan-timbalan-speaker" showAs="TUAN TIMBALAN SPEAKER" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-harumaini-bin-haji-omar" id="yb-harumaini-bin-haji-omar" showAs="YB HARUMAINI BIN HAJI OMAR" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-datuk-rosni-bt-sohar" id="yb-datuk-rosni-bt-sohar" showAs="YB DATUK ROSNI BT SOHAR" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-saari-bin-sungib" id="yb-tuan-saari-bin-sungib" showAs="YB TUAN SAARI BIN SUNGIB" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-puan-lim-yi-wei" id="yb-puan-lim-yi-wei" showAs="YB PUAN LIM YI WEI" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-mohd-shaid-bin-rosli" id="yb-tuan-mohd-shaid-bin-rosli" showAs="YB TUAN MOHD SHAID BIN ROSLI" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-dato-seri-mohamed-azmin-bin-ali" id="yb-dato-seri-mohamed-azmin-bin-ali" showAs="YB DATO SERI MOHAMED AZMIN BIN ALI" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-zakaria-bin-hanafi" id="yb-tuan-zakaria-bin-hanafi" showAs="YB TUAN ZAKARIA BIN HANAFI" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-puan-rodziah-binti-ismail" id="yb-puan-rodziah-binti-ismail" showAs="YB PUAN RODZIAH BINTI ISMAIL" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-lai-wai-chong" id="yb-tuan-lai-wai-chong" showAs="YB TUAN LAI WAI CHONG" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-mohd-sany-bin-hamzan" id="yb-tuan-mohd-sany-bin-hamzan" showAs="YB TUAN MOHD SANY BIN HAMZAN" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-dato-teng-chang-khim" id="yb-dato-teng-chang-khim" showAs="YB DATO TENG CHANG KHIM" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-syamsul-firdaus-bin-mohamed-supri" id="yb-tuan-syamsul-firdaus-bin-mohamed-supri" showAs="YB TUAN SYAMSUL FIRDAUS BIN MOHAMED SUPRI" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-puan-michelle-ng-mei-sze" id="yb-puan-michelle-ng-mei-sze" showAs="YB PUAN MICHELLE NG MEI SZE" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-gunarajah-a/l-r-george" id="yb-tuan-gunarajah-a/l-r-george" showAs="YB TUAN GUNARAJAH A/L R GEORGE" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-dato-dr-ahmad-yunus-bin-hairi" id="yb-dato-dr-ahmad-yunus-bin-hairi" showAs="YB DATO DR AHMAD YUNUS BIN HAIRI" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-leong-tuck-chee" id="yb-tuan-leong-tuck-chee" showAs="YB TUAN LEONG TUCK CHEE" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-lau-weng-san" id="yb-tuan-lau-weng-san" showAs="YB TUAN LAU WENG SAN" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-dato-dr-ahamd-yunus-bin-hairi" id="yb-dato-dr-ahamd-yunus-bin-hairi" showAs="YB DATO DR AHAMD YUNUS BIN HAIRI" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/tuan-speaker" id="tuan-speaker" showAs="TUAN SPEAKER" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-puan-dr-siti-mariah-bt-mahmud" id="yb-puan-dr-siti-mariah-bt-mahmud" showAs="YB PUAN DR SITI MARIAH BT MAHMUD" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yab-dato-menteri-besar" id="yab-dato-menteri-besar" showAs="YAB DATO MENTERI BESAR" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-mohd-zawawi-bin-ahmad-mughni" id="yb-tuan-mohd-zawawi-bin-ahmad-mughni" showAs="YB TUAN MOHD ZAWAWI BIN AHMAD MUGHNI" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-puan-dr-daroyah-bt-alwi" id="yb-puan-dr-daroyah-bt-alwi" showAs="YB PUAN DR DAROYAH BT ALWI" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-edry-faizal-bin-eddy-yusof" id="yb-tuan-edry-faizal-bin-eddy-yusof" showAs="YB TUAN EDRY FAIZAL BIN EDDY YUSOF" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-rizam-bin-ismail" id="yb-tuan-rizam-bin-ismail" showAs="YB TUAN RIZAM BIN ISMAIL" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-mohd-fakhrulrazi-bin-mohd-mokhtar" id="yb-tuan-mohd-fakhrulrazi-bin-mohd-mokhtar" showAs="YB TUAN MOHD FAKHRULRAZI BIN MOHD MOKHTAR" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-sallehudin-bin-amiruddin" id="yb-tuan-sallehudin-bin-amiruddin" showAs="YB TUAN SALLEHUDIN BIN AMIRUDDIN" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-hee-loy-sian" id="yb-tuan-hee-loy-sian" showAs="YB TUAN HEE LOY SIAN" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-dato-mohd-imran-bin-tamrin" id="yb-dato-mohd-imran-bin-tamrin" showAs="YB DATO MOHD IMRAN BIN TAMRIN" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-shatiri-bin-mansor" id="yb-tuan-shatiri-bin-mansor" showAs="YB TUAN SHATIRI BIN MANSOR" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-halimey-bin-abu-bakar" id="yb-tuan-halimey-bin-abu-bakar" showAs="YB TUAN HALIMEY BIN ABU BAKAR" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-puan-elizabeth-wong-keat-ping" id="yb-puan-elizabeth-wong-keat-ping" showAs="YB PUAN ELIZABETH WONG KEAT PING" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-muhammad-hilman-bin-idham" id="yb-tuan-muhammad-hilman-bin-idham" showAs="YB TUAN MUHAMMAD HILMAN BIN IDHAM" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-puan-rozana-binti-zainal-abidin" id="yb-puan-rozana-binti-zainal-abidin" showAs="YB PUAN ROZANA BINTI ZAINAL ABIDIN" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-haji-saari-bin-sungib" id="yb-tuan-haji-saari-bin-sungib" showAs="YB TUAN HAJI SAARI BIN SUNGIB" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-rajiv-a/l-rishyakaran" id="yb-tuan-rajiv-a/l-rishyakaran" showAs="YB TUAN RAJIV A/L RISHYAKARAN" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-dato;-dr-ahmad-yunus-bin-hairi" id="yb-dato;-dr-ahmad-yunus-bin-hairi" showAs="YB DATO; DR AHMAD YUNUS BIN HAIRI" />
-<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-mohd-najwan-bin-halimi" id="yb-tuan-mohd-najwan-bin-halimi" showAs="YB TUAN MOHD NAJWAN BIN HALIMI" />
-
+         <identification source="#palmirani">
+          <FRBRWork>
+           <FRBRthis value="/akn/ke/debaterecord/2011-06-10/!main"/>
+           <FRBRuri value="/akn/ke/debaterecord/2011-06-10"/>
+           <FRBRdate date="2011-06-10" name="generation"/>
+           <FRBRauthor href="#parliament" as="#author"/>
+           <FRBRcountry value="ak"/>
+          </FRBRWork>
+          <FRBRExpression>
+           <FRBRthis value="/akn/ke/minutes/2011-06-10/eng@/!main"/>
+           <FRBRuri value="/akn/ke/minutes/2011-06-10/eng@"/>
+           <FRBRdate date="2011-06-25" name="markup"/>
+           <FRBRauthor href="#palmirani" as="#editor"/>
+           <FRBRlanguage language="eng"/>
+          </FRBRExpression>
+          <FRBRManifestation>
+           <FRBRthis value="/akn/ke/minutes/2011-06-10/eng@/!main.xml"/>
+           <FRBRuri value="/akn/ke/minutes/2011-06-10/eng@.akn"/>
+           <FRBRdate date="2011-06-25" name="publication"/>
+           <FRBRauthor href="#palmirani" as="#editor"/>
+          </FRBRManifestation>
+         </identification>
+         <references source="dun">
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-datuk-rosni-bin-sohar" showAs="YB DATUK ROSNI BIN SOHAR" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-ng-sze-han" showAs="YB TUAN NG SZE HAN" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-hilman-bin-idham" showAs="YB TUAN HILMAN BIN IDHAM" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-mohd-khairuddin-bin-othman" showAs="YB TUAN MOHD KHAIRUDDIN BIN OTHMAN" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-puan-dr-siti-mariah-binti-mahmud" showAs="YB PUAN DR SITI MARIAH BINTI MAHMUD" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-hasnul-bin-baharuddin" showAs="YB TUAN HASNUL BIN BAHARUDDIN" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-ir-izham-bin-hashim" showAs="YB TUAN IR IZHAM BIN HASHIM" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/tuan-timbalan-speaker" showAs="TUAN TIMBALAN SPEAKER" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-harumaini-bin-haji-omar" showAs="YB HARUMAINI BIN HAJI OMAR" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-datuk-rosni-bt-sohar" showAs="YB DATUK ROSNI BT SOHAR" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-saari-bin-sungib" showAs="YB TUAN SAARI BIN SUNGIB" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-puan-lim-yi-wei" showAs="YB PUAN LIM YI WEI" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-mohd-shaid-bin-rosli" showAs="YB TUAN MOHD SHAID BIN ROSLI" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-dato-seri-mohamed-azmin-bin-ali" showAs="YB DATO SERI MOHAMED AZMIN BIN ALI" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-zakaria-bin-hanafi" showAs="YB TUAN ZAKARIA BIN HANAFI" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-puan-rodziah-binti-ismail" showAs="YB PUAN RODZIAH BINTI ISMAIL" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-lai-wai-chong" showAs="YB TUAN LAI WAI CHONG" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-mohd-sany-bin-hamzan" showAs="YB TUAN MOHD SANY BIN HAMZAN" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-dato-teng-chang-khim" showAs="YB DATO TENG CHANG KHIM" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-syamsul-firdaus-bin-mohamed-supri" showAs="YB TUAN SYAMSUL FIRDAUS BIN MOHAMED SUPRI" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-puan-michelle-ng-mei-sze" showAs="YB PUAN MICHELLE NG MEI SZE" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-gunarajah-al-r-george" showAs="YB TUAN GUNARAJAH A/L R GEORGE" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-dato-dr-ahmad-yunus-bin-hairi" showAs="YB DATO DR AHMAD YUNUS BIN HAIRI" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-leong-tuck-chee" showAs="YB TUAN LEONG TUCK CHEE" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-lau-weng-san" showAs="YB TUAN LAU WENG SAN" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-dato-dr-ahamd-yunus-bin-hairi" showAs="YB DATO DR AHAMD YUNUS BIN HAIRI" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/tuan-speaker" showAs="TUAN SPEAKER" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-puan-dr-siti-mariah-bt-mahmud" showAs="YB PUAN DR SITI MARIAH BT MAHMUD" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yab-dato-menteri-besar" showAs="YAB DATO MENTERI BESAR" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-mohd-zawawi-bin-ahmad-mughni" showAs="YB TUAN MOHD ZAWAWI BIN AHMAD MUGHNI" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-puan-dr-daroyah-bt-alwi" showAs="YB PUAN DR DAROYAH BT ALWI" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-edry-faizal-bin-eddy-yusof" showAs="YB TUAN EDRY FAIZAL BIN EDDY YUSOF" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-rizam-bin-ismail" showAs="YB TUAN RIZAM BIN ISMAIL" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-mohd-fakhrulrazi-bin-mohd-mokhtar" showAs="YB TUAN MOHD FAKHRULRAZI BIN MOHD MOKHTAR" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-sallehudin-bin-amiruddin" showAs="YB TUAN SALLEHUDIN BIN AMIRUDDIN" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-hee-loy-sian" showAs="YB TUAN HEE LOY SIAN" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-dato-mohd-imran-bin-tamrin" showAs="YB DATO MOHD IMRAN BIN TAMRIN" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-shatiri-bin-mansor" showAs="YB TUAN SHATIRI BIN MANSOR" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-halimey-bin-abu-bakar" showAs="YB TUAN HALIMEY BIN ABU BAKAR" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-puan-elizabeth-wong-keat-ping" showAs="YB PUAN ELIZABETH WONG KEAT PING" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-muhammad-hilman-bin-idham" showAs="YB TUAN MUHAMMAD HILMAN BIN IDHAM" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-puan-rozana-binti-zainal-abidin" showAs="YB PUAN ROZANA BINTI ZAINAL ABIDIN" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-haji-saari-bin-sungib" showAs="YB TUAN HAJI SAARI BIN SUNGIB" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-rajiv-al-rishyakaran" showAs="YB TUAN RAJIV A/L RISHYAKARAN" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-dato-dr-ahmad-yunus-bin-hairi" showAs="YB DATO DR AHMAD YUNUS BIN HAIRI" />
+<TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-mohd-najwan-bin-halimi" showAs="YB TUAN MOHD NAJWAN BIN HALIMI" />
             </references>
         </meta>
         <debateBody>
-            <debateSection>
+            <debateSection name="">
                 <heading>
 </heading>
 <speech by="#tuan-speaker">
@@ -787,7 +808,7 @@
 <p>
  Ok Bukit Gasing. <br/></p>
 </speech>
-<speech by="#yb-tuan-rajiv-a/l-rishyakaran">
+<speech by="#yb-tuan-rajiv-al-rishyakaran">
 <p>
   Terima kasih bagi ruang untuk mencelah.  <br/>Tadi Yang Berhormat sangat bangga dengan angka Perikatan Nasional semakin <br/>meningkat dalam dewan negeri, tapi nampaknya sebagai Ketua Pembangkang Ahli-ahli <br/>Perikatan Nasional tak berapa menyokong ucapan Yang Berhormat selalu menyoal fakta <br/>yang diberikan. <br/></p>
 </speech>
@@ -887,7 +908,7 @@
 <p>
    Terima kasih Yang Berhormat Timbalan <br/>Speaker.  Sebab itu tadi saya hendak habiskan perbahasan, suruh sambung petang.  <br/>Jadi petang ini saya hendak sambung, sebab itu saya kata, saya kira ambil peluang dan <br/>ruang untuk saya berbahas membawa suara rakyat.  Tetapi sekiranya Timbalan Speaker <br/>tidak membenarkan saya akur tetapi saya sungguh kecewa kerana saya rasa inilah <br/>tempat sepatutnya saya boleh membawa permasalahan rakyat, memandangkan saya <br/>dipilih sewaktu PRU Ke-14.  Jadi seterusnya ... <br/></p>
 </speech>
-<speech by="#yb-tuan-rajiv-a/l-rishyakaran">
+<speech by="#yb-tuan-rajiv-al-rishyakaran">
 <p>
    Saya hendak respons sikitlah.  <br/>Sebenarnya Yang Berhormat boleh bawa usul dengan tajuk yang sesuai dan tidak ada <br/>had kepada Yang Berhormat untuk membawa usul, kenapa tak bawa usul untuk topik-<br/>topik yang hendak dibincangkan.   <br/></p>
 </speech>
@@ -1439,7 +1460,7 @@
 <p>
     Terima kasih Tuan Speaker. Jadi Pelabuhan <br/>Klang kalaulah buat video dapat tontonan sejuta lebih, sebagai wakil rakyat kerajaan <br/>yang mengatakan Majlis Daerah itu tak buat kerja, itu amat memalukan <br/>sebenarnya..adakah saya perlu buat video yang sama supaya mendapatkan tontonan 1 <br/>atau 2 juta. Kerana itu yang kita bawa tempohari ada juga pendengaran awam dan <br/>sebagainya bagaimana memperbaiki kelemahan PBT jadi Yang Berhormat EXCO tolong <br/>tengokkan..ini saya bagi tahu ni esok saya ada panggil Lando..Lando dia dapat aduan <br/>kerana jalanraya dibuat sama di kawasan saya jeram ketika waktu hujan.  Jadi saya <br/>nampak juga dua tiga yang lepas Yang Berhormat Pelabuhan Klang bermesyuarat <br/>bersama dengan Lando..Siapa Lando ini?.. Adakah Lando ini Pegawai Kerajaan? Kerana <br/>beliau berada dalam mesyuarat bersama dengan Yang Berhormat Pelabuhan Klang, dan <br/>apabila saya maklumkan saya mengajak Lando hadir pada keesokkan harinya pukul <br/>10<br/>dipandang..Lando ni dia datang dengan mencarutnya diviralkan takut buat kerja. Saya <br/>juga syorkan PBT ataupun Yang Berhormat Infra, EXCO Infra bolehla mengambil Lando <br/>ini untuk sebagai Pegawai Kerajaan yang memantau Infra ataupun JKR, kerana saya <br/>nampak lebih berkesan kerana aduan wakil rakyat sendiri tidak diendahkan apabila <br/>Lando nak datang malam-malam buat dah selesai.  Saya pun tak tau cakap apa Yang <br/>Berhormat. Yang kedua, berkenaan dengan Ahli Majlis, saya kaitkan dengan <br/>perbelanjaan yang mana Yang Amat Berhormat bentangkan tadi, Ahli Majlis, ini bukan <br/>tuduhan .jangan suruh saya tarik balik dan saya ada bukti hari ni tak bawa tetapi  kalau <br/>suruh tarik esok saya bawak. Ahli Majlis DAP yang mana menghantar perbelanjaannya <br/>menyumbang seribu ringgit apabila saya tanya pada jawatankuasa penduduk hanya <br/>dapat 100 ringgit.  Jangan tuduhan saya boleh bawa benda tu dan boleh bawa rakaman <br/>dengan majlis perwakilan penduduk, ini kerana masjid yang diluluskan untuk covid ini <br/>adakah sasarannya ataupun sampai kepada masyarakat. Itu persoalan ada kaitan Yang <br/>Berhormat Tuan Speaker ada kaitan ye. Yang Ketiga,  <br/></p>
 </speech>
-<speech by="#yb-tuan-rajiv-a/l-rishyakaran">
+<speech by="#yb-tuan-rajiv-al-rishyakaran">
 <p>
   Yang Berhormat ..itu satu tuduhan yang <br/>agak yang sangat serius. Ada tak laporan polis? Laporan MECC sudah dibuat atas <br/>tuduhan tersebut?   <br/></p>
 </speech>
@@ -1447,7 +1468,7 @@
 <p>
   Yang Berhormat, ini semua saya ada <br/>bawa bukti dan saya akan buat dan saya akan serahkan kepada <br/></p>
 </speech>
-<speech by="#yb-tuan-rajiv-a/l-rishyakaran">
+<speech by="#yb-tuan-rajiv-al-rishyakaran">
 <p>
   Jadi masih belum buat laporan polis?  <br/></p>
 </speech>
@@ -1455,7 +1476,7 @@
 <p>
    Belum buat..sekiranya saya..sekiranya.. <br/></p>
 </speech>
-<speech by="#yb-tuan-rajiv-a/l-rishyakaran">
+<speech by="#yb-tuan-rajiv-al-rishyakaran">
 <p>
    Sebagai wakil rakyat <br/>bertanggungjawab kenapa tak buat laporan polis sengaja nak mainkan politik dengan <br/>tuduhan tak berasas?   <br/></p>
 </speech>
