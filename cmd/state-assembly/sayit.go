@@ -169,6 +169,7 @@ func loadRepresentativeMapping(label string) map[string]akomantoso.Representativ
 			"YB TUAN DATO MOHD IMRAN BIN TAMRIN":          "yb-tuan-dato-mohd-imran-bin-tamrin",
 			"YAB DATO MENTERI BESAR SELANGOR":             "yab-dato-menteri-besar-selangor",
 			"YB TUAN MOHD FAKRULRAZI BIN MOHD MOKHTAR":    "yb-tuan-mohd-fakrulrazi-bin-mohd-mokhtar",
+			"YB PUAN JUWAIRIYA BINTI ZULKIFLI":            "yb-puan-juwairiya-binti-zulkifli",
 		}
 	default:
 		return map[string]akomantoso.RepresentativeID{}

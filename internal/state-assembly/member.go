@@ -20,7 +20,116 @@ func removeNonASCII(line string) string {
 }
 
 func generateRepresentativeID(line string) string {
+	// TODO: To be added into test cases?
+	// Replace the [] so have standardized ID
+	line = strings.ReplaceAll(line, "[", "")
+	line = strings.ReplaceAll(line, "]", "")
+	// Replace the () so have standardized ID
+	line = strings.ReplaceAll(line, "(", "")
+	line = strings.ReplaceAll(line, ")", "")
+	// Remove common chars like @ or / ..
+	line = strings.ReplaceAll(line, "@", "")
+	line = strings.ReplaceAll(line, "/", "")
 	return strings.ToLower(strings.ReplaceAll(line, " ", "-"))
+}
+
+func fastLikeRep(line string) (bool, string) {
+	// Quick fast rule
+	if strings.Count(line, " ") < 6 {
+		// DEBUG
+		//fmt.Println("FAST: ", line)
+		// Step 0: Remove ALL non-ASCII
+		line = removeNonASCII(line)
+		// DEBUG
+		//fmt.Println("RAW: ", line)
+		// Take choice to remove the char '.'; rep name .
+		// For cases of Dr.; is still OK Dr
+		line = strings.ReplaceAll(line, ".", "")
+		// As per: https://stackoverflow.com/a/42251527
+		normalizedLine := strings.Join(strings.Fields(strings.ToLower(line)), " ")
+		// Short-circuit; bad HACK!
+		matchSC, scerr := regexp.MatchString(`kampung|persekutuan|unfortunately|kepada`, normalizedLine)
+		if scerr != nil {
+			panic(scerr)
+		}
+		if matchSC {
+			return false, ""
+		}
+		// If YB/YAB must match the start
+		// If speaker must end with speaker: tuan speaker, puan timbalan speaker; nothign else!
+		if strings.Contains(normalizedLine, "speaker") {
+			matchSpeaker, err := regexp.MatchString(`^tuan speaker$|^tuan timbalan speaker$|^puan speaker$|^puan timbalan speaker$`, normalizedLine)
+			if err != nil {
+				panic(err)
+			}
+			if matchSpeaker {
+				// Clean up unwanted ':' character
+				line = strings.ReplaceAll(line, ":", "")
+				// Look for the last number from the left
+				li := strings.LastIndexAny(line, "1234567890")
+				if li != -1 {
+					// Found a char index
+					// DEBUG
+					//fmt.Println("====> SPLIT: ", line, " pos: ", li)
+					// Look for the index after the number found
+					line = strings.Trim(line[li+1:], " ")
+					//fmt.Println("-- AFTER ***", line)
+				}
+				// Step -1: Trim both left + right ..
+				line = strings.Trim(line, " ")
+				// Remove all extra space which will fail the has mapping
+				// https://programming-idioms.org/idiom/219/replace-multiple-spaces-with-single-space
+				whitespaces := regexp.MustCompile(`\s+`)
+				line = whitespaces.ReplaceAllString(line, " ")
+				// If still got content after all processing; say it is OK
+				if line != "" {
+					// DEBUG
+					//fmt.Println("************** RETURNED: **********", line, "*****")
+					return true, line
+				}
+			}
+			// DEFAULT action; no MATCH!
+			return false, ""
+		}
+		matchYB, err := regexp.MatchString(`^yb|^yab`, normalizedLine)
+		if err != nil {
+			panic(err)
+		}
+		matchOthers, err := regexp.MatchString(`tuan|puan|dato|datuk|tun|tan sri`, normalizedLine)
+		if err != nil {
+			panic(err)
+		}
+		if matchYB || matchOthers {
+			// DEBUG
+			//fmt.Println("MATCHED FAST: ", line)
+			// Clean up unwanted ':' character
+			line = strings.ReplaceAll(line, ":", "")
+			// Look for the last number from the left
+			li := strings.LastIndexAny(line, "1234567890")
+			if li != -1 {
+				// Found a char index
+				// DEBUG
+				//fmt.Println("====> SPLIT: ", line, " pos: ", li)
+				// Look for the index after the number found
+				line = strings.Trim(line[li+1:], " ")
+				//fmt.Println("-- AFTER ***", line)
+			}
+			// Step -1: Trim both left + right ..
+			line = strings.Trim(line, " ")
+			// Remove all extra space which will fail the has mapping
+			// https://programming-idioms.org/idiom/219/replace-multiple-spaces-with-single-space
+			whitespaces := regexp.MustCompile(`\s+`)
+			line = whitespaces.ReplaceAllString(line, " ")
+			// If still got content after all processing; say it is OK
+			if line != "" {
+				// DEBUG
+				//fmt.Println("************** RETURNED: **********", line, "*****")
+				return true, line
+			}
+		}
+	}
+	// DEFAULT action; no MATCH!
+	return false, ""
 }
 
 func looksLikeRep(line string) (bool, string) {
@@ -93,7 +202,7 @@ func isRepTitle(line string) bool {
 	// Naive heuristics
 	line = strings.ToLower(line)
 	// Short-circuit; bad HACK!
-	matchSC, scerr := regexp.MatchString(`jawapan`, line)
+	matchSC, scerr := regexp.MatchString(`jawapan|mempengerusikan|unfortunately|kepada`, line)
 	if scerr != nil {
 		panic(scerr)
 	}
@@ -113,7 +222,7 @@ func isRepTitle(line string) bool {
 	// Tun
 	// Tan Sri
 	// Menteri
-	matchYB, err := regexp.MatchString(`yb|yab|tuan|puan|dato|datuk|tun|tan sri|menteri`, line)
+	matchYB, err := regexp.MatchString(`yb|yab|tuan|puan|dato|datuk|tun|tan sri`, line)
 	if err != nil {
 		panic(err)
 	}
@@ -132,6 +241,17 @@ func extractDebaters(allLines []string) []string {
 		// DEBUG
 		//fmt.Println("\"", line, "\",")
 		// If look like Reps; flag it ..
+		isFastRep, normalizedRep := fastLikeRep(strings.Trim(line, " "))
+		if isFastRep {
+			if allMapReps[normalizedRep] {
+				continue
+			}
+			// Unique new; set the map to seen
+			allMapReps[normalizedRep] = true
+			// New one, attach it for use; unsorted?
+			allReps = append(allReps, normalizedRep)
+			continue
+		}
 		// Need to merge and make it unique? OrderedMap? No order guarantee ..
 		isRep, normalizedRep := looksLikeRep(strings.Trim(line, " "))
 		if isRep {
