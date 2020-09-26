@@ -2,10 +2,10 @@
     <debate>
         <meta>
             <references>
-                <TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/tuan-speaker" id="tuan-speaker" showAs="TUAN SPEAKER"/>
-                <TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-dato-seri-mohamed-azmin-bin-ali" id="yb-dato-seri-mohamed-azmin-bin-ali" showAs="YB DATO SERI MOHAMED AZMIN BIN ALI"/>
-                <TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-tuan-haji-saari-bin-sungib" id="yb-tuan-haji-saari-bin-sungib" showAs="YB TUAN HAJI SAARI BIN SUNGIB"/>
-                <TLCPerson href="/ontology/person/staging-dundocs.sayit.mysociety.org/yb-puan-dr-siti-mariah-bt-mahmud" id="yb-puan-dr-siti-mariah-bt-mahmud" showAs="YB PUAN DR SITI MARIAH BT MAHMUD"/>
+                <TLCPerson href="#" id="tuan-speaker" showAs="TUAN SPEAKER"/>
+                <TLCPerson href="#" id="yb-dato-seri-mohamed-azmin-bin-ali" showAs="YB DATO SERI MOHAMED AZMIN BIN ALI"/>
+                <TLCPerson href="#" id="yb-tuan-haji-saari-bin-sungib" showAs="YB TUAN HAJI SAARI BIN SUNGIB"/>
+                <TLCPerson href="#" id="yb-puan-dr-siti-mariah-bt-mahmud" showAs="YB PUAN DR SITI MARIAH BT MAHMUD"/>
             </references>
         </meta>
         <debateBody>
