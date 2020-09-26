@@ -73,7 +73,7 @@ func loadRepresentativeMapping(label string) map[string]akomantoso.Representativ
 			"YB PUAN DR SITI MARIAH BT MAHMUD":          "yb-puan-dr-siti-mariah-bt-mahmud",
 			"YB DATO SERI MOHAMED AZMIN BIN ALI":        "yb-dato-seri-mohamed-azmin-bin-ali",
 			"YB TUAN ZAKARIA BIN HANAFI":                "yb-tuan-zakaria-bin-hanafi",
-			"YB TUAN GUNARAJAH A/L R GEORGE":            "yb-tuan-gunarajah-a/l-r-george",
+			"YB TUAN GUNARAJAH A/L R GEORGE":            "yb-tuan-gunarajah-al-r-george",
 			"YB PUAN DR SITI MARIAH BINTI MAHMUD":       "yb-puan-dr-siti-mariah-binti-mahmud",
 			"YB DATO DR AHMAD YUNUS BIN HAIRI":          "yb-dato-dr-ahmad-yunus-bin-hairi",
 			"YB TUAN LEONG TUCK CHEE":                   "yb-tuan-leong-tuck-chee",
@@ -86,12 +86,12 @@ func loadRepresentativeMapping(label string) map[string]akomantoso.Representativ
 			"YB DATUK ROSNI BT SOHAR":                   "yb-datuk-rosni-bt-sohar",
 			"YB TUAN HASNUL BIN BAHARUDDIN":             "yb-tuan-hasnul-bin-baharuddin",
 			"YB TUAN IR IZHAM BIN HASHIM":               "yb-tuan-ir-izham-bin-hashim",
-			"YB TUAN RAJIV A/L RISHYAKARAN":             "yb-tuan-rajiv-a/l-rishyakaran",
+			"YB TUAN RAJIV A/L RISHYAKARAN":             "yb-tuan-rajiv-al-rishyakaran",
 			"YB HARUMAINI BIN HAJI OMAR":                "yb-harumaini-bin-haji-omar",
 			"YB TUAN MOHD ZAWAWI BIN AHMAD MUGHNI":      "yb-tuan-mohd-zawawi-bin-ahmad-mughni",
 			"YB TUAN SHATIRI BIN MANSOR":                "yb-tuan-shatiri-bin-mansor",
 			"YB DATO TENG CHANG KHIM":                   "yb-dato-teng-chang-khim",
-			"YB DATO; DR AHMAD YUNUS BIN HAIRI":         "yb-dato;-dr-ahmad-yunus-bin-hairi",
+			"YB DATO; DR AHMAD YUNUS BIN HAIRI":         "yb-dato-dr-ahmad-yunus-bin-hairi",
 			"YB TUAN SYAMSUL FIRDAUS BIN MOHAMED SUPRI": "yb-tuan-syamsul-firdaus-bin-mohamed-supri",
 			"YB TUAN SAARI BIN SUNGIB":                  "yb-tuan-saari-bin-sungib",
 			"YB TUAN HALIMEY BIN ABU BAKAR":             "yb-tuan-halimey-bin-abu-bakar",
@@ -145,12 +145,12 @@ func loadRepresentativeMapping(label string) map[string]akomantoso.Representativ
 			"YB TUAN LEONG TUCK CHEE":                     "yb-tuan-leong-tuck-chee",
 			"YB DATO TENG CHANG KHIM":                     "yb-dato-teng-chang-khim",
 			"YB TUAN AZMIZAN BIN ZAMAN HURI":              "yb-tuan-azmizan-bin-zaman-huri",
-			"YB TUAN GANARAJAH A/L R GEORGE":              "yb-tuan-gunarajah-a/l-r-george",
+			"YB TUAN GANARAJAH A/L R GEORGE":              "yb-tuan-gunarajah-al-r-george",
 			"YB TUAN MOHD NAJWAN BIN HALIMI":              "yb-tuan-mohd-najwan-bin-halimi",
 			"YB TUAN ZAKARIA BIN HAJI HANAFI":             "yb-tuan-zakaria-bin-haji-hanafi",
-			"YB TUAN GUNARAJAH A/L GEORGE":                "yb-tuan-gunarajah-a/l-r-george",
+			"YB TUAN GUNARAJAH A/L GEORGE":                "yb-tuan-gunarajah-al-r-george",
 			"YB TUAN RIZAM BIN ISMAIL":                    "yb-tuan-rizam-bin-ismail",
-			"YB TUAN RAJIV A/L RISHYAKARAN":               "yb-tuan-rajiv-a/l-rishyakaran",
+			"YB TUAN RAJIV A/L RISHYAKARAN":               "yb-tuan-rajiv-al-rishyakaran",
 			"YB TUAN SAARI BIN SUNGIB":                    "yb-tuan-saari-bin-sungib",
 			"(TUAN SPEAKER MEMPENGERUSIKAN) TUAN SPEAKER": "(tuan-speaker-mempengerusikan)-tuan-speaker",
 			"YB TUAN HAJI SAARI BIN SUNGIB":               "yb-tuan-haji-saari-bin-sungib",
@@ -189,7 +189,8 @@ func outputAsSayItFormat(currentDPS state_assembly.DebateProcessorState, output 
 	for _, singleParagraph := range currentDPS.CurrentContents {
 		// DEBUG
 		//spew.Dump(singleParagraph)
-		bodyOutput := fmt.Sprintf("<p>\n%s</p>\n", removeNonASCII(strings.ReplaceAll(singleParagraph.RawContent, "\n", "<br/>")))
+		// Bad hack of possible bad chars screwing up SayIt
+		bodyOutput := fmt.Sprintf("<p>\n%s</p>\n", removeNonASCII(strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(singleParagraph.RawContent, "&", ""), ";", ""), "\n", "<br/>")))
 		fileOutput := fmt.Sprintf("<speech by=\"#%s\">\n%s</speech>\n", singleParagraph.RepresentativeID, bodyOutput)
 		allParagraphs += fileOutput
 	}
