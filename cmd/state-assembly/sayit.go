@@ -27,7 +27,7 @@ func (m *SayItCmd) Run() error {
 	repMap15 := loadRepresentativeMapping("15-julai-2020")
 	dps15 := state_assembly.DebateProcessorState{
 		SectionMarkers: state_assembly.SectionMarkers{
-			DatePageMarker:         "15 JULAI 2020 (RABU)",
+			DatePageMarker:         "SayIT Test: 15 JULAI 2020",
 			SessionStartMarkerLine: 7,
 		},
 		RepresentativesMap: repMap15,
@@ -40,8 +40,8 @@ func (m *SayItCmd) Run() error {
 	// Setup different PDFs and DPSs
 	// Extract out Section Metadata for attachment
 	extractOptions := akomantoso.ExtractPDFOptions{
-		StartPage:  dps15.SectionMarkers.SessionStartMarkerLine,
-		NumPages:   5,
+		StartPage: dps15.SectionMarkers.SessionStartMarkerLine,
+		//NumPages:   5,
 		MaxSampled: 10000,
 	}
 	pdfDocument15, perr := akomantoso.NewPDFDocument(m.DebateRawFile, &extractOptions)
@@ -55,11 +55,12 @@ func (m *SayItCmd) Run() error {
 		//spew.Dump(pdfDocument.Pages)
 		panic("Should NOT be here!!")
 	}
-	saDebateContent := state_assembly.DebateProcessPages(pdfDocument15, currentDPS)
+	currentDPS.CurrentContents = state_assembly.DebateProcessPages(pdfDocument15, currentDPS)
+	//saDebateContent := state_assembly.DebateProcessPages(pdfDocument15, currentDPS)
 	// DEBUG
 	//spew.Dump(saDebateContent)
 	// Output it to yaml; here; depending on options?
-	outputAsSayItFormat(saDebateContent, m.OutputFile)
+	outputAsSayItFormat(currentDPS, m.OutputFile)
 	return nil
 }
 
@@ -172,37 +173,45 @@ func loadRepresentativeMapping(label string) map[string]akomantoso.Representativ
 		return map[string]akomantoso.RepresentativeID{}
 	}
 }
-func outputAsSayItFormat(saDebateContent []state_assembly.DebateContent, output string) error {
+func outputAsSayItFormat(currentDPS state_assembly.DebateProcessorState, output string) error {
 	// Output templates look like ..
+	var allRepMetadata string
 	var allParagraphs string
-	// Loop through each paragraph
-	for _, singleParagraph := range saDebateContent {
+	// Loop through each Representative -- Example ..
+	//<TLCPerson id="tuan-speaker" showAs="TUAN SPEAKER"/>
+	//<TLCPerson id="yb-dato-seri-mohamed-azmin-bin-ali" showAs="YB DATO SERI MOHAMED AZMIN BIN ALI"/>
+	//<TLCPerson id="yb-tuan-haji-saari-bin-sungib" showAs="YB TUAN HAJI SAARI BIN SUNGIB"/>
+	//<TLCPerson id="yb-puan-dr-siti-mariah-bt-mahmud" showAs="YB PUAN DR SITI MARIAH BT MAHMUD"/>
+	for singleRepDisplay, singleRepID := range currentDPS.RepresentativesMap {
+		allRepMetadata += fmt.Sprintf("<TLCPerson href=\"/ontology/person/staging-dundocs.sayit.mysociety.org/%s\" id=\"%s\" showAs=\"%s\" />\n", singleRepID, singleRepID, singleRepDisplay)
+	}
+	// Loop through each paragraph Content
+	for _, singleParagraph := range currentDPS.CurrentContents {
 		// DEBUG
 		//spew.Dump(singleParagraph)
 		bodyOutput := fmt.Sprintf("<p>\n%s</p>\n", removeNonASCII(strings.ReplaceAll(singleParagraph.RawContent, "\n", "<br/>")))
 		fileOutput := fmt.Sprintf("<speech by=\"#%s\">\n%s</speech>\n", singleParagraph.RepresentativeID, bodyOutput)
 		allParagraphs += fileOutput
 	}
-	outputComplete(allParagraphs)
+	outputComplete(allRepMetadata, currentDPS.SectionMarkers.DatePageMarker, allParagraphs)
 	return nil
 }
 
-func outputComplete(allParagraphs string) {
-	outputHeader := `
+func outputComplete(allRepMetadata string, headingSession string, allParagraphs string) {
+	outputHeader := fmt.Sprintf("%s%s%s%s%s", `
 <akomaNtoso>
     <debate>
         <meta>
             <references>
-                <TLCPerson id="tuan-speaker" showAs="TUAN SPEAKER"/>
-                <TLCPerson id="yb-dato-seri-mohamed-azmin-bin-ali" showAs="YB DATO SERI MOHAMED AZMIN BIN ALI"/>
-                <TLCPerson id="yb-tuan-haji-saari-bin-sungib" showAs="YB TUAN HAJI SAARI BIN SUNGIB"/>
-                <TLCPerson id="yb-puan-dr-siti-mariah-bt-mahmud" showAs="YB PUAN DR SITI MARIAH BT MAHMUD"/>
+`, allRepMetadata,
+		`
             </references>
         </meta>
         <debateBody>
             <debateSection>
-                <heading>15 JULAI 2020 (RABU)</heading>
-`
+                <heading>
+`, headingSession, "</heading>")
+
 	outputFooter := `
             </debateSection>
         </debateBody>
