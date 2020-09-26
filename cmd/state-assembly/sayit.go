@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strings"
+	"text/template"
 	"unicode"
 
 	state_assembly "github.com/Sinar/go-akomantoso/internal/state-assembly"
@@ -190,7 +191,7 @@ func outputAsSayItFormat(currentDPS state_assembly.DebateProcessorState, output 
 		// DEBUG
 		//spew.Dump(singleParagraph)
 		// Bad hack of possible bad chars screwing up SayIt
-		bodyOutput := fmt.Sprintf("<p>\n%s</p>\n", removeNonASCII(strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(singleParagraph.RawContent, "&", ""), ";", ""), "\n", "<br/>")))
+		bodyOutput := fmt.Sprintf("<p>\n%s</p>\n", removeNonASCII(strings.ReplaceAll(template.HTMLEscapeString(singleParagraph.RawContent), "\n", "<br/>")))
 		fileOutput := fmt.Sprintf("<speech by=\"#%s\">\n%s</speech>\n", singleParagraph.RepresentativeID, bodyOutput)
 		allParagraphs += fileOutput
 	}
@@ -210,16 +211,15 @@ func outputComplete(allRepMetadata string, headingSession string, allParagraphs 
         </meta>
         <debateBody>
             <debateSection>
-                <heading>
-`, headingSession, "</heading>")
+                <heading>`, headingSession, "</heading>\n")
 
-	outputFooter := `
+	outputFooter := fmt.Sprintf("%s%s", allParagraphs, `
             </debateSection>
         </debateBody>
     </debate>
 </akomaNtoso>
-`
-	fmt.Println(fmt.Sprintf("%s\n%s\n%s", outputHeader, allParagraphs, outputFooter))
+`)
+	fmt.Println(fmt.Sprintf("%s%s", outputHeader, outputFooter))
 }
 
 func removeNonASCII(line string) string {
