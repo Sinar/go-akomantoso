@@ -1,0 +1,72 @@
+sectionmarkers:
+  datepagemarker: 14 JULAI 2020 (SELASA)
+  presentmarker: 0
+  absentmarker: 0
+  participatedmarker: 0
+  officerspresentmarker: 0
+  sessionstartmarkerline: 7
+currentpage: 0
+currentcontents: []
+lastpendingcontent:
+  representativeid: ""
+  rawcontent: ""
+  finalcontent: ""
+representativesmap:
+#  (Dato Menteri Besar Selangor): dato-menteri-besar-selangor
+  Puan Gayathri Prasena A/P Jaya Kumar: puan-gayathri-prasena-ap-jaya-kumar
+  Puan Siti Salina binti Muftar: puan-siti-salina-binti-muftar
+  TUAN SPEAKER: tuan-speaker
+  TUAN TIMBALAN SPEAKER: tuan-timbalan-speaker
+  Tuan Speaker: tuan-speaker
+  YAB DATO MENTERI BESAR: yab-dato-menteri-besar
+  YB DATO DR AHMAD YUNUS BIN HAIRI: yb-dato-dr-ahmad-yunus-bin-hairi
+  YB DATO MOHD IMRAN BIN TAMRIN: yb-dato-mohd-imran-bin-tamrin
+  YB DATO MOHD SHAMSUDIN BIN LIAS: yb-dato-mohd-shamsudin-bin-lias
+  YB DATO TENG CHANG KHIM: yb-dato-teng-chang-kim
+  YB DATO TENG CHANG KIM: yb-dato-teng-chang-kim
+  YB PUAN DR DAROYAH BINTI ALWI: yb-puan-dr-daroyah-binti-alwi
+  YB PUAN DR DAROYAH BT ALWI: yb-puan-dr-daroyah-binti-alwi
+  YB PUAN ELIZABETH WONG KEAT PING: yb-puan-elizabeth-wong-keat-ping
+  YB PUAN HANIZA BIN MOHAMED TALHA: yb-puan-haniza-binti-mohamed-talha
+  YB PUAN HANIZA BINTI MOHAMED TALHA: yb-puan-haniza-binti-mohamed-talha
+  YB PUAN JAMALIAH BINTI JAMALUDDIN: yb-puan-jamaliah-binti-jamaluddin
+  YB PUAN LIM YI WEI: yb-puan-lim-yi-wei
+  YB PUAN MICHELLE NG MEI SZE: yb-puan-michelle-ng-mei-sze
+  YB PUAN RODZIAH BINTI ISMAIL: yb-puan-rodziah-binti-ismail
+  YB PUAN ROZANA BINTI ZAINAL ABIDIN: yb-puan-rozana-binti-zainal-abidin
+  YB PUAN WONG SIEW KI: yb-puan-wong-siew-ki
+  YB TUAN ADHIF SYAN BIN ABDULLAH: yb-tuan-adhif-syan-bin-abdullah
+  YB TUAN CHUA WEI KIAT: yb-tuan-chua-wei-kiat
+  YB TUAN DR IDRIS BIN AHMAD: yb-tuan-dr-idris-bin-ahmad
+  YB TUAN EAN YONG HIAN WAH: yb-tuan-ean-yong-hian-wah
+  YB TUAN EDRY FAIZAL BIN EDDY YUSOF: yb-tuan-edry-faizal-bin-eddy-yusof
+  YB TUAN FAKHRULRAZI BIN MOHD MOKHTAR: yb-tuan-fakhrulrazi-bin-mohd-mokhtar
+  YB TUAN GUNARAJAH A/L R GEORGE: yb-tuan-gunarajah-al-r-george
+  YB TUAN HAJI BORHAN BIN AMAN SHAH: yb-tuan-haji-borhan-bin-aman-shah
+  YB TUAN HAJI SAARI BIN SUNGIB: yb-tuan-haji-saari-bin-sungib
+  YB TUAN HALIMEY BIN ABU BAKAR: yb-tuan-halimey-bin-abu-bakar
+  YB TUAN HARUMAINI BIN HAJI OMAR: yb-tuan-harumaini-bin-haji-omar
+  YB TUAN HARUMAINI BIN HJ OMAR: yb-tuan-harumaini-bin-haji-omar
+  YB TUAN HEE LOY SIAN: yb-tuan-hee-loy-sian
+  YB TUAN IR IZHAM BIN HASHIM: yb-tuan-ir-izham-bin-hashim
+  YB TUAN KHAIRUDDIN BIN OTHMAN: yb-tuan-khairuddin-bin-othman
+  YB TUAN LAI WAI CHONG: yb-tuan-lai-wai-chong
+  YB TUAN LAU WENG SAN: yb-tuan-lau-weng-san
+  YB TUAN LEONG TUCK CHEE: yb-tuan-leong-tuck-chee
+  YB TUAN MAZWAR BIN JOHAR: yb-tuan-mazwar-bin-johar
+  YB TUAN MICHELLE NG MEI SZE: yb-tuan-michelle-ng-mei-sze
+  YB TUAN MOHD FAKHRULRAZI BIN MOHD MOKHTAR: yb-tuan-mohd-fakhrulrazi-bin-mohd-mokhtar
+  YB TUAN MOHD NAJWAN BIN HALIMI: yb-tuan-mohd-najwan-bin-halimi
+  YB TUAN MOHD NAJWAN BIN HALMI: yb-tuan-mohd-najwan-bin-halimi
+  YB TUAN MOHD SANY BIN HAMZAN: yb-tuan-mohd-sany-bin-hamzan
+  YB TUAN MOHD SHAID BIN ROSLI: yb-tuan-mohd-shaid-bin-rosli
+  YB TUAN MOHD ZAWAWI BIN AHMAD MUGHNI: yb-tuan-mohd-zawawi-bin-ahmad-mughni
+  YB TUAN NG SZE HAN: yb-tuan-ng-sze-han
+  YB TUAN RAJIV A/L RISHYAKARAN: yb-tuan-rajiv-al-rishyakaran
+  YB TUAN RIZAM BIN ISMAIL: yb-tuan-rizam-bin-ismail
+  YB TUAN SALLEHUDIN BIN AMIRUDDIN: yb-tuan-sallehudin-bin-amiruddin
+  YB TUAN SYAMSUL FIRDAUS BIN MOHAMED SUPRI: yb-tuan-syamsul-firdaus-bin-mohamed-supri
+  YB Tuan Ng Suee Lim (Sekinchan): yb-tuan-ng-suee-lim-sekinchan
+  YB Tuan Ng Sze Han (Kinrara): yb-tuan-ng-sze-han
+#  ini kalau tuan-tuan boleh: ini-kalau-tuan-tuan-boleh
+rolesmap: {}

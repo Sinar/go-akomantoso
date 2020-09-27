@@ -34,7 +34,7 @@ type DebateProcessorState struct {
 	SectionMarkers     SectionMarkers
 	CurrentPage        int
 	CurrentContents    []DebateContent
-	LastPedingContent  DebateContent
+	LastPendingContent DebateContent
 	RepresentativesMap map[string]akomantoso.RepresentativeID
 	RolesMap           map[string]akomantoso.RepresentativeID
 }
@@ -93,8 +93,8 @@ func DebateProcessSinglePage(allLines []string, dps *DebateProcessorState) error
 	//spew.Dump(allLines)
 	// Skip page headers and page number (first 2 lines)
 	var pendingDebateContent DebateContent
-	// If came from previous round; LastPedingContent not empty
-	pendingDebateContent = dps.LastPedingContent
+	// If came from previous round; LastPendingContent not empty
+	pendingDebateContent = dps.LastPendingContent
 	for i, singleRow := range allLines {
 		// Test case generation
 		// DEBUG
@@ -140,10 +140,10 @@ func DebateProcessSinglePage(allLines []string, dps *DebateProcessorState) error
 		}
 	}
 	// Last left over .. should become LeftoverContent
-	dps.LastPedingContent = pendingDebateContent
+	dps.LastPendingContent = pendingDebateContent
 	// DEBUG
 	//spew.Dump(dps.CurrentContents)
-	//fmt.Println("LEFT OVER: ", dps.LastPedingContent)
+	//fmt.Println("LEFT OVER: ", dps.LastPendingContent)
 
 	return nil
 }

@@ -27,9 +27,10 @@ func generateRepresentativeID(line string) string {
 	// Replace the () so have standardized ID
 	line = strings.ReplaceAll(line, "(", "")
 	line = strings.ReplaceAll(line, ")", "")
-	// Remove common chars like @ or / ..
+	// Remove common chars like @ or / or ; ..
 	line = strings.ReplaceAll(line, "@", "")
 	line = strings.ReplaceAll(line, "/", "")
+	line = strings.ReplaceAll(line, ";", "")
 	return strings.ToLower(strings.ReplaceAll(line, " ", "-"))
 }
 

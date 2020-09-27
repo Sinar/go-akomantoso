@@ -141,7 +141,7 @@ func DebateProcessSinglePage(allLines []string, dps *DebateProcessorState) error
 	//spew.Dump(allLines)
 	// Skip page headers and page number (first 2 lines)
 	var pendingDebateContent DebateContent
-	// If came from previous round; LastPedingContent not empty
+	// If came from previous round; LastPendingContent not empty
 	pendingDebateContent = dps.LastPedingContent
 	for i, singleRow := range allLines {
 		// Test case generation
@@ -190,7 +190,7 @@ func DebateProcessSinglePage(allLines []string, dps *DebateProcessorState) error
 	dps.LastPedingContent = pendingDebateContent
 	// DEBUG
 	//spew.Dump(dps.CurrentContents)
-	//fmt.Println("LEFT OVER: ", dps.LastPedingContent)
+	//fmt.Println("LEFT OVER: ", dps.LastPendingContent)
 
 	return nil
 }

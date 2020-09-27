@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
 
-	"github.com/davecgh/go-spew/spew"
+	"gopkg.in/yaml.v2"
 
 	state_assembly "github.com/Sinar/go-akomantoso/internal/state-assembly"
 )
@@ -50,15 +51,28 @@ func (m *ParticipantCmd) Run() error {
 		panic(err)
 	}
 	currentDPS.RepresentativesMap = mapAllReps
-	spew.Dump(currentDPS)
+	// DEBUG
+	//spew.Dump(currentDPS)
 	// Output into YAML ..
 	fmt.Println("Writing DPS into ..", dataLabel)
+	saveSessionInfoPlan(m.Conf.dataFolder+dataLabel+"/session.yaml", currentDPS)
 	return nil
 }
 
 func extractLabelFromFileName(pdfPath string) string {
 	_, fileName := filepath.Split(pdfPath)
 	return strings.Split(fileName, filepath.Ext(fileName))[0]
+}
+
+func saveSessionInfoPlan(outputFile string, currentDPS state_assembly.DebateProcessorState) {
+	b, werr := yaml.Marshal(currentDPS)
+	if werr != nil {
+		panic(werr)
+	}
+	err := ioutil.WriteFile(outputFile, b, 0755)
+	if err != nil {
+		panic(err)
+	}
 }
 
 // GenerateDebateProcessorState creates the Replist, the header, start of session
