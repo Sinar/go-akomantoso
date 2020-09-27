@@ -2,9 +2,12 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"strings"
 	"text/template"
 	"unicode"
+
+	"gopkg.in/yaml.v2"
 
 	state_assembly "github.com/Sinar/go-akomantoso/internal/state-assembly"
 
@@ -13,18 +16,133 @@ import (
 
 type SayItCmd struct {
 	ID            int    `flag:"-"`
+	Conf          Config `flag:"-"`
 	DebateRawFile string `help:"Where is raw?" flag:"source"`
 	DebateType    string `help:"Debate Type? dun,par?"`
 	OutputFile    string `help:"Where store output? Default prefix source." flag:"output"`
 }
 
-func NewSayItCmd(conf Config) *SayItCmd { return &SayItCmd{DebateType: "dun"} }
+func NewSayItCmd(conf Config) *SayItCmd { return &SayItCmd{Conf: conf, DebateType: "dun"} }
 
 func (m *SayItCmd) Run() error {
 	if m.DebateRawFile == "" {
 		return fmt.Errorf("Select filename plz!!")
 	}
 	fmt.Println("SAYIT! ..")
+	// DEBUG
+	//m.demo()
+	// *** START ***
+	// extract out label; to read the session plan
+	pdfPath := m.Conf.rawFolder + m.DebateRawFile
+	// Create data folder as per needed; based on the extracted label
+	dataLabel := extractLabelFromFileName(pdfPath)
+	dataDir := m.Conf.dataFolder + dataLabel
+	// Unmarshal YAML back into struct ..
+	var currentDPS state_assembly.DebateProcessorState
+	b, err := ioutil.ReadFile(dataDir + "/session.yaml")
+	if err != nil {
+		panic(err)
+	}
+	umerr := yaml.Unmarshal(b, &currentDPS)
+	if umerr != nil {
+		panic(umerr)
+	}
+	// Actual porcessing
+	// Extract out Section Metadata for attachment
+	extractOptions := akomantoso.ExtractPDFOptions{
+		StartPage: currentDPS.SectionMarkers.SessionStartMarkerLine,
+		//NumPages:   5,
+		MaxSampled: 10000,
+	}
+	pdfDocument, perr := akomantoso.NewPDFDocument(pdfPath, &extractOptions)
+	if perr != nil {
+		panic(perr)
+	}
+	// Sanity  checks ..
+	if len(pdfDocument.Pages) < 1 {
+		panic("Should NOT be here!!")
+	}
+	currentDPS.CurrentContents = state_assembly.DebateProcessPages(pdfDocument, currentDPS)
+	// Output it to yaml; here; depending on options?
+	oerr := outputAsSayItFormat(currentDPS, dataDir+"/transcript.xml")
+	if oerr != nil {
+		panic(oerr)
+	}
+
+	return nil
+}
+
+// Helper funcs
+func outputAsSayItFormat(currentDPS state_assembly.DebateProcessorState, output string) error {
+	// Output templates look like ..
+	var allRepMetadata string
+	var allParagraphs string
+	// Loop through each Representative -- Example ..
+	//<TLCPerson id="tuan-speaker" showAs="TUAN SPEAKER"/>
+	//<TLCPerson id="yb-dato-seri-mohamed-azmin-bin-ali" showAs="YB DATO SERI MOHAMED AZMIN BIN ALI"/>
+	//<TLCPerson id="yb-tuan-haji-saari-bin-sungib" showAs="YB TUAN HAJI SAARI BIN SUNGIB"/>
+	//<TLCPerson id="yb-puan-dr-siti-mariah-bt-mahmud" showAs="YB PUAN DR SITI MARIAH BT MAHMUD"/>
+	for singleRepDisplay, singleRepID := range currentDPS.RepresentativesMap {
+		allRepMetadata += fmt.Sprintf("<TLCPerson href=\"/ontology/person/staging-dundocs.sayit.mysociety.org/%s\" id=\"%s\" showAs=\"%s\" />\n", singleRepID, singleRepID, singleRepDisplay)
+	}
+	// Loop through each paragraph Content
+	for _, singleParagraph := range currentDPS.CurrentContents {
+		// DEBUG
+		//spew.Dump(singleParagraph)
+		// Bad hack of possible bad chars screwing up SayIt
+		bodyOutput := fmt.Sprintf("<p>\n%s</p>\n", removeNonASCII(strings.ReplaceAll(template.HTMLEscapeString(singleParagraph.RawContent), "\n", "<br/>")))
+		fileOutput := fmt.Sprintf("<speech by=\"#%s\">\n%s</speech>\n", singleParagraph.RepresentativeID, bodyOutput)
+		allParagraphs += fileOutput
+	}
+	finalContent := outputComplete(allRepMetadata, currentDPS.SectionMarkers.DatePageMarker, allParagraphs)
+	if output != "" {
+		err := ioutil.WriteFile(output, []byte(finalContent), 0755)
+		if err != nil {
+			return (err)
+		}
+		return nil
+	}
+	// If output not emptyl write it; else output to StdOUT
+	// DEBUzg into stdoit
+	fmt.Println(finalContent)
+
+	return nil
+}
+
+func outputComplete(allRepMetadata string, headingSession string, allParagraphs string) string {
+	outputHeader := fmt.Sprintf("%s%s%s%s%s", `<akomaNtoso>
+    <debate>
+        <meta>
+            <references>
+`, allRepMetadata,
+		`
+            </references>
+        </meta>
+        <debateBody>
+            <debateSection>
+                <heading>`, headingSession, "</heading>\n")
+
+	outputFooter := fmt.Sprintf("%s%s", allParagraphs, `
+            </debateSection>
+        </debateBody>
+    </debate>
+</akomaNtoso>
+`)
+	return fmt.Sprintf("%s%s", outputHeader, outputFooter)
+}
+
+func removeNonASCII(line string) string {
+	// https://programming-idioms.org/idiom/147/remove-all-non-ascii-characters/1848/go
+	return strings.Map(func(r rune) rune {
+		if r > unicode.MaxASCII {
+			return -1
+		}
+		return r
+	}, line)
+}
+
+// Demo belwo .. for debugging
+func (m *SayItCmd) demo() {
 	repMap15 := loadRepresentativeMapping("16-julai-2020")
 	dps15 := state_assembly.DebateProcessorState{
 		SectionMarkers: state_assembly.SectionMarkers{
@@ -62,7 +180,7 @@ func (m *SayItCmd) Run() error {
 	//spew.Dump(saDebateContent)
 	// Output it to yaml; here; depending on options?
 	outputAsSayItFormat(currentDPS, m.OutputFile)
-	return nil
+
 }
 
 func loadRepresentativeMapping(label string) map[string]akomantoso.RepresentativeID {
@@ -174,61 +292,4 @@ func loadRepresentativeMapping(label string) map[string]akomantoso.Representativ
 	default:
 		return map[string]akomantoso.RepresentativeID{}
 	}
-}
-func outputAsSayItFormat(currentDPS state_assembly.DebateProcessorState, output string) error {
-	// Output templates look like ..
-	var allRepMetadata string
-	var allParagraphs string
-	// Loop through each Representative -- Example ..
-	//<TLCPerson id="tuan-speaker" showAs="TUAN SPEAKER"/>
-	//<TLCPerson id="yb-dato-seri-mohamed-azmin-bin-ali" showAs="YB DATO SERI MOHAMED AZMIN BIN ALI"/>
-	//<TLCPerson id="yb-tuan-haji-saari-bin-sungib" showAs="YB TUAN HAJI SAARI BIN SUNGIB"/>
-	//<TLCPerson id="yb-puan-dr-siti-mariah-bt-mahmud" showAs="YB PUAN DR SITI MARIAH BT MAHMUD"/>
-	for singleRepDisplay, singleRepID := range currentDPS.RepresentativesMap {
-		allRepMetadata += fmt.Sprintf("<TLCPerson href=\"/ontology/person/staging-dundocs.sayit.mysociety.org/%s\" id=\"%s\" showAs=\"%s\" />\n", singleRepID, singleRepID, singleRepDisplay)
-	}
-	// Loop through each paragraph Content
-	for _, singleParagraph := range currentDPS.CurrentContents {
-		// DEBUG
-		//spew.Dump(singleParagraph)
-		// Bad hack of possible bad chars screwing up SayIt
-		bodyOutput := fmt.Sprintf("<p>\n%s</p>\n", removeNonASCII(strings.ReplaceAll(template.HTMLEscapeString(singleParagraph.RawContent), "\n", "<br/>")))
-		fileOutput := fmt.Sprintf("<speech by=\"#%s\">\n%s</speech>\n", singleParagraph.RepresentativeID, bodyOutput)
-		allParagraphs += fileOutput
-	}
-	outputComplete(allRepMetadata, currentDPS.SectionMarkers.DatePageMarker, allParagraphs)
-	return nil
-}
-
-func outputComplete(allRepMetadata string, headingSession string, allParagraphs string) {
-	outputHeader := fmt.Sprintf("%s%s%s%s%s", `
-<akomaNtoso>
-    <debate>
-        <meta>
-            <references>
-`, allRepMetadata,
-		`
-            </references>
-        </meta>
-        <debateBody>
-            <debateSection>
-                <heading>`, headingSession, "</heading>\n")
-
-	outputFooter := fmt.Sprintf("%s%s", allParagraphs, `
-            </debateSection>
-        </debateBody>
-    </debate>
-</akomaNtoso>
-`)
-	fmt.Println(fmt.Sprintf("%s%s", outputHeader, outputFooter))
-}
-
-func removeNonASCII(line string) string {
-	// https://programming-idioms.org/idiom/147/remove-all-non-ascii-characters/1848/go
-	return strings.Map(func(r rune) rune {
-		if r > unicode.MaxASCII {
-			return -1
-		}
-		return r
-	}, line)
 }
