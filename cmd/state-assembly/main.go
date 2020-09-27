@@ -30,7 +30,6 @@ func Participant() {
 	defaultConfig := Config{
 		rawFolder:  "raw/StateAssembly/Hansard/",
 		dataFolder: "data/StateAssembly/Hansard/",
-		fileName:   "HANSARD-15-JULAI-2020.pdf",
 	}
 	// DEBUG
 	//spew.Dump(conf)
@@ -44,7 +43,7 @@ func Participant() {
 
 	switch os.Args[1] {
 
-	case "participants":
+	case "planit":
 		//err := commandeer.Run(NewParticipantCmd(defaultConfig))
 		err := cobrafy.Execute(NewParticipantCmd(defaultConfig))
 		if err != nil {

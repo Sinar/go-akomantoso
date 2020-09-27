@@ -1,8 +1,12 @@
 package state_assembly
 
 import (
+	"fmt"
 	"regexp"
 	"strings"
+
+	akomantoso "github.com/Sinar/go-akomantoso/internal/akomantoso"
+	"github.com/davecgh/go-spew/spew"
 )
 
 // Detect the Section Markers in the Cover Pages
@@ -69,6 +73,44 @@ func hasSessionStartMarkerLine(line string) bool {
 		panic(err)
 	}
 	return matched
+}
+func ExtractSessionInfo(pdfPath string) (string, int) {
+	// Sample first 10 pages to get the needed info
+	extractOptions := akomantoso.ExtractPDFOptions{
+		StartPage:  1,
+		NumPages:   10,
+		MaxSampled: 1000,
+	}
+	pdfDocument, perr := akomantoso.NewPDFDocument(pdfPath, &extractOptions)
+	if perr != nil {
+		panic(perr)
+	}
+	//spew.Dump(pdfDocument.Pages)
+	// Sanity  checks ..
+	if len(pdfDocument.Pages) < 1 {
+		spew.Dump(pdfDocument.Pages)
+		panic("Should NOT be here!!")
+	}
+	// Questions are usaully 2 pages or so  ..
+	allLines := make([]string, 5*len(pdfDocument.Pages[0].PDFTxtSameLines))
+	for _, singlePageRows := range pdfDocument.Pages {
+		allLines = append(allLines, singlePageRows.PDFTxtSameLines...)
+	}
+	//  DEBUG
+	//fmt.Println("========= Cover Pages ====================")
+	fmt.Println("NO LINES: ", len(allLines))
+	//for _, line := range allLines {
+	//	fmt.Println("\"", line, "\",")
+	//}
+	//fmt.Println("========= END ====================")
+
+	// Extract CoverPage Info by doing the below concurrently
+	//  Detect section markers:
+	sectionMarkers := extractSectionMarkers(allLines)
+	// DEBUG
+	spew.Dump(sectionMarkers)
+	return sectionMarkers.DatePageMarker, sectionMarkers.SessionStartMarkerLine
+
 }
 
 func extractSectionMarkers(allLines []string) SectionMarkers {
