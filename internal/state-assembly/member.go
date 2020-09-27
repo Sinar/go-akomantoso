@@ -35,8 +35,8 @@ func generateRepresentativeID(line string) string {
 }
 
 func fastLikeRep(line string) (bool, string) {
-	// Quick fast rule
-	if strings.Count(line, " ") < 6 {
+	// Quick fast rule; counterexample why 6 NOT enough --> YB PUAN DR SITI MARIAH BINTI MAHMUD
+	if strings.Count(line, " ") < 8 {
 		// DEBUG
 		//fmt.Println("FAST: ", line)
 		// Step 0: Remove ALL non-ASCII

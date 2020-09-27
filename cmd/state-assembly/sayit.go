@@ -33,6 +33,8 @@ func (m *SayItCmd) Run() error {
 	//m.demo()
 	// *** START ***
 	// extract out label; to read the session plan
+	// TODO: Next time there will be an option to regenerate from YAML data; maybe default?
+	// Data is transcript.yaml
 	pdfPath := m.Conf.rawFolder + m.DebateRawFile
 	// Create data folder as per needed; based on the extracted label
 	dataLabel := extractLabelFromFileName(pdfPath)
@@ -63,6 +65,11 @@ func (m *SayItCmd) Run() error {
 		panic("Should NOT be here!!")
 	}
 	currentDPS.CurrentContents = state_assembly.DebateProcessPages(pdfDocument, currentDPS)
+	// Persist data into YAML; can be used for correction later ..
+	yerr := persistTranscript(currentDPS.CurrentContents, dataDir+"/transcript.yaml")
+	if yerr != nil {
+		panic(yerr)
+	}
 	// Output it to yaml; here; depending on options?
 	oerr := outputAsSayItFormat(currentDPS, dataDir+"/transcript.xml")
 	if oerr != nil {
@@ -73,6 +80,18 @@ func (m *SayItCmd) Run() error {
 }
 
 // Helper funcs
+func persistTranscript(contents []state_assembly.DebateContent, outputFile string) error {
+	b, werr := yaml.Marshal(contents)
+	if werr != nil {
+		return (werr)
+	}
+	err := ioutil.WriteFile(outputFile, b, 0755)
+	if err != nil {
+		return (err)
+	}
+	return nil
+}
+
 func outputAsSayItFormat(currentDPS state_assembly.DebateProcessorState, output string) error {
 	// Output templates look like ..
 	var allRepMetadata string
