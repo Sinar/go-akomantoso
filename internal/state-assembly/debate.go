@@ -51,7 +51,7 @@ func NewDebateAnalyzer(pdfPath string) DebateAnalyzer {
 	}
 }
 
-func (da DebateAnalyzer) Process() (error, []akomantoso.Representative) {
+func (da DebateAnalyzer) Process() (error, map[string]akomantoso.RepresentativeID) {
 	// From the Analyzer; we get the start of session; start from there
 	// Extract out Section Metadata for attachment
 	extractOptions := akomantoso.ExtractPDFOptions{
@@ -75,9 +75,16 @@ func (da DebateAnalyzer) Process() (error, []akomantoso.Representative) {
 	for _, singlePageRows := range pdfDocument.Pages {
 		allLines = append(allLines, singlePageRows.PDFTxtSameStyles...)
 	}
-	extractDebaters(allLines)
+	allReps := extractDebaters(allLines)
+	mapAllReps := make(map[string]akomantoso.RepresentativeID, len(allReps))
+	for _, uniqueRep := range allReps {
+		// DEBUG
+		//fmt.Println(fmt.Sprintf("\"%s\":\"%s\",", uniqueRep, generateRepresentativeID(uniqueRep)))
+		// Cast to the right type ..
+		mapAllReps[uniqueRep] = akomantoso.RepresentativeID(generateRepresentativeID(uniqueRep))
+	}
 
-	return nil, []akomantoso.Representative{}
+	return nil, mapAllReps
 }
 
 func DebateProcessSinglePage(allLines []string, dps *DebateProcessorState) error {

@@ -274,9 +274,9 @@ func extractDebaters(allLines []string) []string {
 	}
 	fmt.Println("========= END ====================")
 	// For creating test cases
-	for _, uniqueRep := range allReps {
-		fmt.Println(fmt.Sprintf("\"%s\":\"%s\",", uniqueRep, generateRepresentativeID(uniqueRep)))
-	}
+	//for _, uniqueRep := range allReps {
+	//	fmt.Println(fmt.Sprintf("\"%s\":\"%s\",", uniqueRep, generateRepresentativeID(uniqueRep)))
+	//}
 	// DEBUG
 	//spew.Dump(allReps)
 	// TODO: Persist it into rep file for next phase of processing
