@@ -4,6 +4,9 @@ run: build
 build:
 	@go build -o go-akn .
 
+present:
+	@present -content ./talks/2020/ -notes
+
 test:
 	@cd  internal/parliament && gotest -v -run ^TestDebateProcessSinglePage
 

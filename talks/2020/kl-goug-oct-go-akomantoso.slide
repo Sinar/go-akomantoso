@@ -1,0 +1,517 @@
+Deep dive testing in go-dundocs
+27 October 2019
+Tags: go, golang
+
+Michael Leow
+FOI Initiatives, Sinar Project
+
+leow@sinarproject.org
+@leowmjw
+
+https://talks.godoc.org/github.com/sinar/go-pardocs/talks/2019/kl-goug-oct-go-akomantoso.slide
+
+https://github.com/Sinar/go-akomantoso
+
+https://www.sinarproject.org/
+
+* Agenda
+
+- May 9, 2018 .. A New Harapan
+- Mar 1, 2020 .. Abah Strikes Back
+- What is Akoma Ntoso?
+- What is Selangor State Assembly?
+- What is State Assembly Hansard?
+- Strategy for Splitting
+- Problems + Solutions
+- How You Can Help
+- Q&A
+- Resources
+
+* May 9, 2018 .. A New Harapan
+
+.image assets/gopher-starwars-ashleymcnamara-small.png
+
+.caption _StarWars-Gopher_ by [[https://github.com/ashleymcnamara/gophers/blob/master/GOPHER_STAR_WARS.png][Ashley McNamara]]
+
+*  Mar 1, 2020 .. Abah Strikes Back
+
+.image assets/abah-rotanback.jpg
+
+.caption _Abah-Rotan_ by [[https://www.patreon.com/kuasasiswa][Fahmi  Reza]]
+
+: Pls support Fahmi Reza's Patreon!
+
+* What is Akoma Ntoso?
+
+- DUN - Dewan Undangan Negeri (State Assembly)
+- Empower the tax payers to have Open Data what rep debate on your behalf
+- [Akoma Ntoso](http://www.akomantoso.org/) - Akoma Ntoso (“linked hearts” in the Akan language of West Africa) defines a set of simple technology-neutral electronic representations in XML format of parliamentary, legislative and judiciary documents.
+- *Objective:* Split by Representatives, Questions and make it searchable via [SayIt] (https://staging-test.sayit.mysociety.org/13-julai-2020-isnin)
+
+.image assets/pardocs.png
+
+* What is Selangor State Assembly? [[ https://dewan.selangor.gov.my ]]
+
+- Laws under the state purview are discussed and passed
+- Example: Forestry, Local Authorities, Religion, Licenses, Sand/Mineral.
+- Lots of docs; not as powerful as Federal,
+
+.image assets/selangor-state-dewan.png
+
+* What is State Assembly Hansard?
+
+Have Spoken + Written + Debate
+
+Question is embedded into  document
+
+Can auto detect of type
+
+.image assets/dun-hansard.png 350 600
+
+
+: Hansard is the official record; inherited from the British
+: Selangor has the  best structured among all SA in MY
+: Under leadership of Hannah Yeoh; Dewan reform
+
+* Strategy for Splitting
+
+- PDF Phase
+- Representative Phase (session.yaml)
+- Debate Phase (transscript.yaml)
+
+.image assets/go-dundocs-strategy-big.png
+
+* Problems + Solutions
+
+-  Akoma Ntoso - complicated, see README + RESOURCES; go simple
+- Reps PDF - PDFs have noo contexr
+
+* Akoma Ntoso - Complicated XML
+
+- XML ..yuck!!!
+- Schemas, flexible .. tricky wuth strongly typed
+- *Solution* Craft a working basic for SayIt
+- Generate ; edge cases
+
+* Over Engineered
+
+- Tried to auto recognize cover and split sections (see  sections.go)
+- *Soltuon* Simplfied and just do full doc analysis
+
+* OG Testing
+
+- Started by writing outside in; CLI; now reverse
+- Delve sanyone?
+- Println Debugging (still do)
+- CLI one way to interface (e.g. REST, gRPC, message pidgeon)
+
+: CLI can be left last; as it is just one way to interface
+: Can use
+: REST server might be abnother way to interact; should not matter
+: Testing in old days
+
+* Testing Patterns Tried
+
+- Table-testing
+- Use go-cmp!
+- Structure in code
+- Utilize built-in test capabilities
+
+* Technique: Table-testing
+Able to invent weird scenarios otherwise not easily done:
+
+		{"case #3", args{
+			"HDOC-BukanLisan-1-20", "raw/BukanLisan/1 - 20.pdf", &[]hansard.HansardQuestion{
+				{"1", 1, 1},
+				{"2", 2, 2},
+				{"3", 3, 5},
+		    },
+		}, false},
+		{"sad #1", args{
+			"Bad-HDOC-Lisan-1-20", "raw/Lisan/SOALAN MULUT (1-20).pdfa", &[]hansard.HansardQuestion{
+				{"8", 11, 12},
+				{"9", 29, 30},
+				{"5", 32, 33},
+				{"6", 11, 12},
+				{"10", 29, 30},
+				{"10", 32, 33},
+				{"15", 11, 12},
+				{"19", 37, 37},
+				{"0", 38, 39},
+			},
+		}, true},
+
+* Technique: Table-testing (Part 2)
+
+Output:
+
+    $ gotest -v -run NewHansardQuestions/sad ./...
+    --- FAIL: TestNewHansardQuestions (0.00s)
+            hansard_integration_test.go:82: hansardQuestions mismatch (-want +got):
+                  &[]hansard.HansardQuestion{
+                    {
+                            QuestionNum:  "8",
+                -           PageNumStart: 11,
+                +           PageNumStart: 18,
+                -           PageNumEnd:   12,
+                +           PageNumEnd:   18,
+                    },
+                    {
+                            QuestionNum:  "9",
+                -           PageNumStart: 29,
+                +           PageNumStart: 19,
+                -           PageNumEnd:   30,
+                +           PageNumEnd:   11,
+                    },
+        --- FAIL: TestNewHansardQuestions/sad_#2 (0.00s)
+
+* go-cmp Is Awesome!
+
+Any structure will do!
+
+			if diff := cmp.Diff(tt.args.hansardQuestions, &hansardQuestions); diff != "" {
+				t.Errorf("hansardQuestions mismatch (-want +got):\n%s", diff)
+			}
+
+
+Human-readable output:
+
+            === RUN   TestNewHansardQuestions/sad_#2
+                --- FAIL: TestNewHansardQuestions/sad_#2 (0.00s)
+            {
+                            QuestionNum:  "15",
+                -           PageNumStart: 11,
+                +           PageNumStart: 30,
+                -           PageNumEnd:   12,
+                +           PageNumEnd:   36,
+            },
+                    {QuestionNum: "19", PageNumStart: 37, PageNumEnd: 37},
+                    {QuestionNum: "0", PageNumStart: 38, PageNumEnd: 39},
+            }
+            hansard_integration_test.go:77: NewHansardQuestions() error = <nil>, wantErr true
+            FAIL    github.com/Sinar/go-dundocs/internal/hansard    0.012s
+
+
+* Structure in Code
+
+Safely hide internal APIs while discovery phase
+
+.image assets/go-dundocs-code-structure.png
+
+: Can safely hide while still designing public APIs
+: Only top-level outside internal is exposed
+: Talk about the use if internal
+: Use of test data
+
+
+* Built-in Test Capabilities
+
+- Use <package>_test for pure unit test
+- Use <package>_integration_test expose Behavior (e.g. hansard_integration_test)
+- Use the testdata folder (not examined)
+- Use Helper functions
+
+: Unit test in _test
+: Start by writing the behavior via the _integration_test pattern
+: Structure the test knowing relative to the test is testdata folder
+: helper functions ensure no extra noise
+
+* Built-in: Package namespace to separate unit + integration test
+
+package hansard <-- Unit tests
+
+package hansard_test <-- Integration test
+
+Forces to test via exported interface
+
+Once stabilized, elevate from internal to external
+
+* Built-in: testdata Folder
+
+.image assets/go-dundocs-testdata.png
+
+* Built-in: Helper function
+Use t.Helper for more accuracy
+
+Without:
+
+    // Helper function to sample 5 pages from fixture
+    func samplePDFFromFixture(t *testing.T, fixtureLabel string, sourcePath string) *hansard.PDFDocument {
+        // Mark as helper
+        //t.Helper()
+        <-- fail here Line 99
+
+    === RUN   TestNewHansardQuestions/case_#1
+        --- FAIL: TestNewHansardQuestions/case_#1 (0.00s)
+            hansard_integration_test.go:99: die!
+
+With (at the  calling function, NOT in helper):
+
+    === RUN   TestNewHansardQuestions/case_#1
+        --- FAIL: TestNewHansardQuestions/case_#1 (0.00s)
+            hansard_integration_test.go:40: die!
+
+* Built-in: Run subsets if tests
+Run test by matching patterns. Example: Run only "sad cases"
+
+    $ gotest -v -run Question/sad ./...
+    === RUN   Test_isStartOfQuestionSection
+    === RUN   Test_isStartOfQuestionSection/sad_#1
+    === RUN   Test_isStartOfQuestionSection/sad_#2
+    === RUN   Test_extractQuestionNum
+    === RUN   Test_extractQuestionNum/sad_#1
+    === RUN   Test_extractQuestionNum/sad_#2
+    === RUN   TestNewHansardQuestions
+    === RUN   TestNewHansardQuestions/sad_#1
+    === RUN   TestNewHansardQuestions/sad_#2
+
+: Case above crosses unit + integration
+
+* Learnings: How Test Help in PDF Phase
+Helped catch changes in PDF library version
+
+Will help later in refactoring, at the moment:
+    - Only use row (same line) data
+    - Future need to extract per column or per style
+
+Needed to come up with a way to not weigh down the repo with MBs of PDFs
+    --> PDF Fixture stored as YAML
+
+: Tried a different method + libraries
+: Does not come out correctly
+: Match against golden image
+
+* Fixture as YAML (there is a use!)
+
+YAML:
+
+    numpages: 3
+    pages:
+    - pageno: 1
+      pdftxtsamelines:
+      - 'Naskhah belum disemak '
+      - 'PARLIMEN KEEMPAT BELAS '
+      - 'PENGGAL KEDUA '
+      ...
+      pdftxtsamestyles:
+      ...
+      - '[Tepuk]'
+      - ' Dewan Rakyat ini mempunyai kedudukan yang tertinggi dalam menentukan undang-undang
+        negara dengan bertujuan memberikan manfaat terbesar kepada seluruh rakyat Malaysia.
+        Ia mempunyai wibawanya sendiri dan melengkapkan cabang-cabang pemerintahan yang
+        lain. Justeru, peranan Parlimen sebagai medan perbahasan dan perdebatan yang bebas
+        mesti dihayati sebaiknya. Saya yakin, Ahli Yang Berhormat akan melaksanakan tugas
+        sebagai wakil rakyat ini dengan terhormat seperti yang dituntut oleh keluhuran
+        institusi ini. '
+    sourcepath: testdata/DR-01072019.pdf
+
+: YAML is a pain in Kubernetes, but it has some uses
+
+* Technique: Fixture
+
+Fixture test; boil down PDFs into YAML
+
+		// We expect QuestionNum of "0" for pages with some marker but could NOT recognize question number!
+		{"sad #2", args{
+			"Bad-HDOC-BukanLisan-1-20", "raw/BukanLisan/1 - 20b.pdf",
+			&[]hansard.HansardQuestion{
+				{"0", 11, 12},
+				{"0", 29, 30},
+				{"0", 32, 33},
+			},
+		}, true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			pdfDoc := samplePDFFromFixture(t, tt.args.fixtureLabel, tt.args.pdfPath)
+			hansardQuestions := make([]hansard.HansardQuestion, 0, 20)
+			// Run function  ..
+			err := hansard.NewHansardQuestions(pdfDoc, &hansardQuestions)
+
+: naming is hard!
+
+* Learnings: How Test Help in Plan Phase
+
+Load fixture of PDF representation in YAML
+
+		t.Run(tt.name, func(t *testing.T) {
+			// Load Fixture for test
+			pdfDoc := loadPDFFromFixture(t, tt.args.fixtureLabel, tt.args.pdfPath)
+			// DEBUG
+			//spew.Dump(pdfDoc)
+			got := hansard.HansardDocument{StateAssemblySession: "testSessionName"}
+			err := hansard.NewHansardDocumentContent(pdfDoc, &got)
+
+Sample PDF Fixture to test edge cases
+
+		{"sad #1", args{
+			"Bad-HDOC-Lisan-1-20", "raw/Lisan/SOALAN MULUT (1-20).pdfa",
+			&[]hansard.HansardQuestion{
+				{"8", 18, 18}, // This simulates scanned pages messed up ordering
+				{"9", 19, 11}, // This is to simulate messing the ordering in PDFs
+				{"5", 12, 13},
+
+* Unit Tests for RegExp Coverage
+
+    func Test_isStartOfQuestionSection(t *testing.T)
+		{"happy #4", args{[]string{"� Perayaan Pesta Ponggal Peringkat Negeri Selangor  ",
+		    "PERTANYAAN-PERTANYAAN BERTULIS DARIPADA ", "Y.B. PUAN JUWAIRIYA BINTI ZULKIFLI  ",
+		    "(N10 BUKIT MELAWATI) ", "TAJUK : MUZIUM PERMAINAN TRADISIONAL RAKYAT DI BUKIT MALAWATI ",
+		    "8.   Bertanya kepada Y.A.B. Dato'' Menteri Besar:- ",
+		    "a)         Apakah status muzium permainan tradisional\n rakyat di Bukit Malawati \nkerana ", "menyediakan gunatenaga dan pendapatan Negeri Selangor. Berdasarkan ", "ii. Pembangunan semula Kesultanan Awal Negeri Selangor dan ", "Selangor yang dibuka seawal tahun 1700an. Ianya berpusat di Bukit ", "Jugra yang telah dibuka kepada pelawat mulai tahun 2004 yang lalu. ", "Almathum Sultan Ala’edin Sulaiman Shah. Walau� bagaimanapun 3,000 orang"}}, true}
+		{"sad #2", args{[]string{"BIL DAERAH MUKIM ", "LUAS ", "(HEKTAR) ", "7 Ulu Tinggi 9.4157 Ternakan ayam PKPS ",
+		    "8 ", "Ulu Yam 80.39 Ladang Kelapa Sawit PKPS   ", "9 Kerling 374.9 ", "Kerling PKPS "}}, false}
+
+
+    func Test_extractQuestionNum(t *testing.T)
+		{"happy #2", args{" � 50 bertanya kepada yab menteri besar Azmin ALI "}, "50", false},
+		{"happy odd #3", args{"  01)   Bertanya kepada Y.A.B. "}, "01", false},
+		{"sad #1", args{"TAJUK : PERUNTUKAN CERIA 2019 "}, "", false},
+
+    func Test_detectHansardType(t *testing.T)
+		{"happy #2", args{PDFPage{PDFTxtSameLines: []string{"PERTANYAAN-PERTANYAAN BERTULIS DARIPADA ", "(N43 SEMENTA) ",
+		    "TAJUK : BANTUAN SKIM CERIA", "'2.   Bertanya kepada Y.A.B. Dato'' Menteri Besar:- "}}}, HANSARD_WRITTEN},
+		{"not quite #1", args{PDFPage{PDFTxtSameLines: []string{"YAB Yeo", "PerTANYAAN mengenai Sampah yang dibuang"}}},
+		    HANSARD_INVALID},
+
+: talk about how to cover all the edge cases around
+: Easy dream up new conbination and odd ones to cover the edge
+
+* Learnings: How Test Help in Split Phase
+Can structure weird plans and see how it gets handled
+Can simulate reported error handling PDFs has filenames with '.'
+Combined multiple helper functions: PDF, Plan
+
+* Technique: Golden Snapshot
+
+    gotest -updateSplitterGolden -run ^TestNewSplitHansardDocumentPlan$
+
+Code:
+
+			// Save the Plan for use by LoadPLan
+			goldenLabel := "plan-sample-" + tt.args.fixtureLabel
+			want := hansard.SplitHansardDocumentPlan{
+				HansardDocument: hansard.HansardDocument{
+					StateAssemblySession: confDUNSession,
+					HansardQuestions:     []hansard.HansardQuestion{},
+				},
+			}
+			if *updateSplitterGolden {
+				loadPlanFromGolden(t, goldenLabel, &got.HansardDocument)
+				want.HansardDocument = got.HansardDocument
+			} else {
+				// load from cache ..
+				var wantHansardDocument hansard.HansardDocument
+				loadPlanFromGolden(t, goldenLabel, &wantHansardDocument)
+				want.HansardDocument = wantHansardDocument
+			}
+
+: Use the flag to trigger
+
+* Technique: Golden Snapshot (Implementation)
+
+Use update flag to persist and "eyeball" it!
+
+    // Loader Plan for use in ExecuteSplit
+    func loadPlanFromGolden(t *testing.T, goldenLabel string, hansardDoc *hansard.HansardDocument) {    
+        // Read from cache; if not exist; complain that need to update
+        goldenPath := filepath.Join("testdata", goldenLabel+".golden")
+        if *updateSplitterGolden {
+            w, werr := yaml.Marshal(hansardDoc)
+            ioutil.WriteFile(goldenPath, w, 0644)
+        }
+        golden, rerr := ioutil.ReadFile(goldenPath)
+        if rerr != nil {
+            if os.IsNotExist(rerr) {
+                t.Fatalf("Ensure run with flag -updateSplitterGolden first time! ERR: %s", rerr.Error())
+            }
+            t.Fatalf("Unexpected error: %s", rerr.Error())
+        }
+        umerr := yaml.Unmarshal(golden, hansardDoc)
+        if umerr != nil {
+            t.Fatalf("Unmarshal FAIL: %s", umerr.Error())
+        }
+        ...
+    }
+
+* Learnings: All Together Now!
+
+Expose only the top level action; implementation hidden
+
+.image assets/go-dundocs-combined.png 520 500
+
+: Can run without CLI; via test fully
+: Show the go-pardocs example
+
+* Implementation (go-pardocs)
+
+    func TestParliamentDocs_Plan(t *testing.T) {
+    ...
+            {"test #1", &pardocs.ParliamentDocs{pardocs.Configuration{
+                "par14sesi1", hansard.HANSARD_SPOKEN,
+                ".", "./raw/Lisan/JDR12032019.pdf", 
+                pardocs.PLAN}}}, }
+        for _, tt := range tests {
+            t.Run(tt.name, func(t *testing.T) {
+                ...
+                tt.pd.Plan()    
+                // Let's check
+                plan := hansard.LoadSplitHansardDocPlanFromFile(tt.pd.Conf.HansardType, tt.pd.Conf.WorkingDir, tt.pd.Conf.SourcePDFPath)
+    ...
+
+    func TestParliamentDocs_Split(t *testing.T) {
+    ...
+            {"test #1", fields{"happy1", pardocs.Configuration{"par14sesi1", 
+            hansard.HANSARD_SPOKEN, ".", "./raw/Lisan/JDR12032019.pdf", pardocs.SPLIT}}}, }
+            ...
+                ferr := hansard.SetupSplitPlanFixture(dir, absFixtureDirPath, tt.fields.scenarioDir,
+                    absSourcePDFPath, tt.fields.Conf.HansardType)
+                // Execute split
+                pd.Split()
+
+*  Learnings: Failed: Custom Error (new 1.13)
+
+Better test is to catch more specific error and handle
+
+Code:
+
+	// If have badQuestionsCount; flag it; NOT fatal; but to be handled by caller
+	if badQuestionsCount > 0 {
+		return fmt.Errorf("NewHansardQuestions FAIL: %w", ErrorQuestionsHasInvalid{badQuestionsCount})
+	}
+
+
+Handler:
+
+			//  For errors; check out Error Type to see if it is  recoverable
+			if err != nil {
+				// Below does not work; apparently is not expression -> hansard.ErrorQuestionsHasInvalid. Why?
+				//if errors.Is(err, hansard.ErrorQuestionsHasInvalid) {
+				//	t.Errorf("ERR: %v", err)
+				//}
+				errQInvalid, ok := errors.Unwrap(err).(hansard.ErrorQuestionsHasInvalid)
+				if ok {
+					fmt.Println("RECOVERABLE: ", errQInvalid.Error())
+				} 
+			}
+
+: Can check against expected Error type;  if can do something about it ..
+
+* How You Can Help
+
+- Add more State Assemblies raw data; each with their own
+    
+    - .link https://duns.sarawak.gov.my/upload/file_folder/Hansard%20April%202019/UNEDITED%20HANSARD%2003052019.pdf
+    - .link http://dun.penang.gov.my/images/hansard%202020/MINIT%20PERSIDANGAN%20(17%20APRIL%202020).pdf
+    - Find more ..
+    
+- Help with more complex Parliament Hansard
+- Link data to PopIt standard via [Politikus](https://github.com/Sinar/politikus) project
+
+* Moar Test Tools + Tips
+
+.link https://github.com/Sinar/go-pardocs
+.link https://github.com/Sinar/go-pardocs
+.link https://github.com/Sinar/politikus
+
