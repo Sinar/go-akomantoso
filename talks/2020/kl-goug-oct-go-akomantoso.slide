@@ -1,4 +1,4 @@
-Auto Digitizing Selangor DUN Hansard (w/ Akoma Ntoso)
+Extracting Selangor DUN Hansard (w/ Akoma Ntoso)
 
 27 October 2020
 Tags: go, golang
@@ -17,8 +17,7 @@ https://www.sinarproject.org/
 
 * Agenda
 
-- May 9, 2018 .. A New Harapan
-- Mar 1, 2020 .. Abah Strikes Back
+- Malaysia's Historical Political Events
 - What is Akoma Ntoso?
 - What is Selangor State Assembly?
 - What is State Assembly Hansard?
@@ -36,34 +35,39 @@ https://www.sinarproject.org/
 
 *  Mar 1, 2020 .. Abah Strikes Back
 
+Change in Government mid-way
+
 .image assets/abah-rotanback.jpg 400 600
 
 .caption _Moo-Rotan_ by [[https://www.patreon.com/kuasasiswa][Fahmi  Reza]]
 
 : Pls support Fahmi Reza's Patreon!
+: How to model this changes; PopIt
 
 * What is Akoma Ntoso?
 
 - DUN - Dewan Undangan Negeri (State Assembly)
-- Empower the tax payers to have Open Data what rep debate on your behalf
-- [Akoma Ntoso](http://www.akomantoso.org/) - Akoma Ntoso (“linked hearts” in the Akan language of West Africa) defines a set of simple technology-neutral electronic representations in XML format of parliamentary, legislative and judiciary documents.
-- *Objective:* Split by Representatives, Questions and make it searchable via [SayIt] (https://staging-test.sayit.mysociety.org/13-julai-2020-isnin)
-
-.image assets/pardocs.png
+- Empower citizens to have Open Data about representative debates on your behalf
+- [[http://www.akomantoso.org/][Akoma Ntoso]] - Akoma Ntoso (“linked hearts” in the Akan language of West Africa) defines a set of simple technology-neutral electronic representations in XML format of parliamentary, legislative and judiciary documents.
+- *Objective:* Split by Representatives, Questions and make it searchable via [[https://staging-test.sayit.mysociety.org/13-julai-2020-isnin][SayIt]]
+- Implemented by the [[https://github.com/Sinar/go-akomantoso][go-akomantoso]]
 
 * What is Selangor State Assembly? [[ https://dewan.selangor.gov.my ]]
 
 - Laws under the state purview are discussed and passed
+- Scope not as wide as Federal
 - Example: Forestry, Local Authorities, Religion, Licenses, Sand/Mineral.
-- Lots of docs; not as powerful as Federal,
+- Lots of docs in Selangor Dewan
 
 .image assets/selangor-state-dewan.png  300 1200
 
 * What is State Assembly Hansard?
 
-Have Spoken + Written + Debate
+Have Spoken + Written Questions
 
-All Debate Recorded: Who, What
+Lots of Embedded Data (Tables, Images)
+
+All Debates Recorded: Who, What Said
 
 .image assets/go-akomantoso-cover.png 300 600
 
@@ -84,37 +88,34 @@ All Debate Recorded: Who, What
 
 - PDF Phase
 - Representative Phase (session.yaml)
-- Debate Phase (transscript.yaml)
+- Debate Phase (transcript.yaml)
 
-.image assets/go-akomantoso-testdata.png
+.image assets/go-akomantoso-strategy-split.png
 
 *  Representative Phase
 
-Use Style Analysis to extract
+Use Style (bolded) Analysis to extract Representatives
 
-Lots of Tests
+Lots of Tests + RegExp
 
-Map of Speaker - session.yaml
+De-duplicate, map unique ID
+
+.image assets/go-akomantoso-style-analysis.png 400 600
+
+*  Representative Phase (2)
+
+Map of Speaker: Needs manual inspection + correction - session.yaml
+
 
     sectionmarkers:
       datepagemarker: 13 JULAI 2020 (ISNIN)
       ...
       sessionstartmarkerline: 7
     currentpage: 0
-    currentcontents: []
-    lastpendingcontent:
-      representativeid: ""
-      rawcontent: ""
-      finalcontent: ""
     representativesmap:
-    #  (Dato Menteri Besar Selangor): dato-menteri-besar-selangor
-    #  PENCADANG (YAB DATO MENTERI BESAR): pencadang-yab-dato-menteri-besar
-    #  PENYOKONG (YB DATO TENG CHANG KHIM): penyokong-yb-dato-teng-chang-khim
       Puan Gayathri Prasena A/P Jaya Kumar: puan-gayathri-prasena-ap-jaya-kumar
       Puan Siti Salina binti Muftar: puan-siti-salina-binti-muftar
       TUAN SEPAKER: tuan-sepaker
-      TUAN SPEAKER: tuan-speaker
-      TUAN TIMBALAN SPEAKER: tuan-timbalan-speaker
       Tuan Speaker: tuan-speaker
       Tuan Timbalan Speaker: tuan-timbalan-speaker
       YAB DATO MENTERI BESAR: yab-dato-menteri-besar
@@ -125,16 +126,15 @@ Map of Speaker - session.yaml
       YB DATO TENG CHANG KIM: yb-dato-teng-chang-kim
       YB DATUK ABDUL RASHID BIN ASARI: yb-datuk-abdul-rashid-bin-asari
       YB DATUK ROSNI BINTI SOHAR: yb-datuk-rosni-binti-sohar
-      YB PUAN DR DAROYAH BINTI ALWI: yb-puan-dr-daroyah-binti-alwi
       YB PUAN DR SITI MARIAH BINTI MAHMUD: yb-puan-dr-siti-mariah-binti-mahmud
       YB PUAN ELIZABETH WONG KEAT PING: yb-puan-elizabeth-wong-keat-ping
 
 : Needs manual correction
-: Bad data
+: Bad data, we'll see later in Problems
 
 *  Debate Phase
 
-Standard  Structure
+Structured Speech Attached to Representative - transcript.yml
 
     - representativeid: yb-dato-mohd-imran-bin-tamrin
       rawcontent: " Soalan tambahan. \n"
@@ -149,9 +149,7 @@ Standard  Structure
       rawcontent: " Terima kasih Sungai Panjang.  Pertama, \nakses bagaimanakah pihak-pihak luar bandar atau masyarakat luar bandar ini pertama \nmelalui ketua kampung masing-masing.  Ketua Kampung akan mengutarakan dan \nmengetengahkan apakah program-program yang boleh diketengahkan melalui sistem \nprofile kampung yang telah kita mulakan seawal 2019 kita telah pun mengenal pasti \nsebenarnya berapa ramai yang telah membuat perniagaan di dalam kawasan kampung. \nDaripada situ kita memilih dan ketua-ketua kampung mengangkat perkara ini dalam \nperbincangan dalam mesyuarat dan akhirnya kita pilih bagaimana mereka perlu, siapa \nyang layak untuk kita ketengahkan, itu pertama.  Yang keduanya bukan sahaja kita hanya \nmelihat, kalau kita melihat tentang pasaran antarabangsa pastinya persijilan amat penting \nsebab itu produk made in Selangor ini dia bersekali dalam memastikan bukan sekadar \nmembuat pembungkusan dengan baik, design yang cantik dan sebagainya tapi kita \npastikan ianya boleh mendapatkan pasaran.  Saya rasa di bawah Bandar Baru Klang \ntelah pun membuat banyak program.  Program-program untuk memastikan usahawan-\nusahawan yang ada ini dapat dilatih supaya pensijilan ini dapat dibuat dengan baik jadi \nusaha sama kami ini sebenarnya dapat memberikan hasil yang baik kalau tak silap saya \n100 orang setiap tahun dipilih untuk memastikan mereka mendapatkan pensijilan-\npensijilan yang sewajarnya yang ditentukan oleh kerajaan.  Terima kasih. \n"
       finalcontent: ""
 
-
-
-Akoma Ntoso is just one outout form
+Akoma Ntoso is just one output from this data
 
 *  SayIt XML Output (Akoma Ntoso)
 
@@ -159,46 +157,69 @@ Akoma Ntoso is just one outout form
 
 * Problems + Solutions
 
--  Akoma Ntoso - complicated, see README + RESOURCES; go simple
-- Reps PDF - PDFs have noo contexr
+- Bad Source Content
+- Akoma Ntoso - Complicated XML
+- Over-Engineered
 
-* PDF Bad Content
+* Bad Source Content
 
 - Extract out to session.yml for human cleaning
-- Future proper UI toolling
+- Future proper UI tooling (scalable)
+- A lot of typos
+- A Female Assembly Person with male pronouns (tuan, bin, a/l)
+
+      TUAN SEPAKER: tuan-sepaker
+      Tuan Speaker: tuan-speaker
+      Tuan Timbalan Speaker: tuan-timbalan-speaker
+      YAB DATO MENTERI BESAR: yab-dato-menteri-besar
+      YB DATO DR AHMAD YUNUS BIN HAIRI: yb-dato-dr-ahmad-yunus-bin-hairi
+      YB DATO MOHD IMRAN BIN TAMRIN: yb-dato-mohd-imran-bin-tamrin
+      YB DATO TENG CHANG KHIM: yb-dato-teng-chang-kim
+      YB DATO TENG CHANG KIM: yb-dato-teng-chang-kim
 
 * Akoma Ntoso - Complicated XML 
 
-- Schemas, flexible .. tricky wuth strongly typed
+- Complicated Schemas, flexible; tricky with strongly typed Go
 - *Solution* Craft a working basic for SayIt
-- Generate ; edge cases
+- Generate a basic working XML; add more edge cases tests
 
 .image assets/go-akomantoso-basic-dun.png 400 600
 
 : XML ..yuck!!!
+: complicated, see README + RESOURCES; go simple
 
-* Over Engineered
+* Over-Engineered
 
-- Tried to auto recognize cover and split sections (see  sections.go)
-- *Soltuon* Simplfied and just do full doc analysis
+- Tried to auto recognize cover, attendance  and split sections (see  sections.go)
+- *Solution* Simplified and just do full doc analysis
 - Split again into phases, Rep + Debate
+
+.image assets/go-akomantoso-attendance.png 500 600
+
+: Representative Mapping from the first pass
+: Use that to extract iut the unique
 
 * How You Can Help
 
-- Nice UI to make human correction more scalable
+- Nice UI to make manual corrections more scalable
 - Help implement the trickier Parliament Hansard (partly done)
-- Add more State Assemblies raw data; each with their own
-    
-    - .link https://duns.sarawak.gov.my/upload/file_folder/Hansard%20April%202019/UNEDITED%20HANSARD%2003052019.pdf
-    - .link http://dun.penang.gov.my/images/hansard%202020/MINIT%20PERSIDANGAN%20(17%20APRIL%202020).pdf
-    - Find more ..
+- Add more State Assemblies raw data; each with their own idiosyncrasies
+
+- [[https://duns.sarawak.gov.my/upload/file_folder/Hansard%20April%202019/UNEDITED%20HANSARD%2003052019.pdf][Sarawak DUN Hansard]]
+- [[http://dun.penang.gov.my/images/hansard%202020/MINIT%20PERSIDANGAN%20(17%20APRIL%202020).pdf][Penang DUN Hansard]]
+- Other DUNs ..
     
 - Help with more complex Parliament Hansard
-- Link data to PopIt standard via [Politikus](https://github.com/Sinar/politikus) project
+- Link data to PopIt standard via [[https://github.com/Sinar/politikus][Politikus]] project
 
-* Moar Test Tools + Tips
+* Q&A
+
+Questions?
+
+
+* Moar Tools to Monitor Representatives
 
 .link https://github.com/Sinar/go-pardocs
-.link https://github.com/Sinar/go-pardocs
+.link https://github.com/Sinar/go-dundocs
 .link https://github.com/Sinar/politikus
 
