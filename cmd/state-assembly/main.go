@@ -37,7 +37,7 @@ func Participant() {
 	//	os.Exit(1)
 	//}
 	if len(os.Args) < 2 {
-		fmt.Println("expected 'participants' or 'bar' subcommands")
+		fmt.Println("expected 'planit' or 'sayit' subcommands")
 		os.Exit(1)
 	}
 
@@ -58,7 +58,7 @@ func Participant() {
 			os.Exit(1)
 		}
 	default:
-		fmt.Println("expected 'participants' or 'sayit' subcommands")
+		fmt.Println("expected 'planit' or 'sayit' subcommands")
 		os.Exit(1)
 	}
 }
@@ -89,7 +89,7 @@ func Run(conf Config) error {
 		"BIB")
 
 	if len(os.Args) < 2 {
-		fmt.Println("expected 'participants' or 'bar' subcommands")
+		fmt.Println("expected 'planit' or 'sayit' subcommands")
 		os.Exit(1)
 	}
 
@@ -99,7 +99,7 @@ func Run(conf Config) error {
 		participantsCmd.Parse(os.Args[2:])
 	case "bar":
 	default:
-		fmt.Println("expected 'participants' or 'bar' subcommands")
+		fmt.Println("expected 'planit' or 'sayit' subcommands")
 		os.Exit(1)
 	}
 
